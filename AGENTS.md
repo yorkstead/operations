@@ -14,7 +14,7 @@ Before work, read this file, the requested prompt, `docs/VISUAL_SYSTEM.md`, `doc
 - **Public Company Website**: `https://yorkstead.com` (`yorkstead-website`, Netlify: `yorkstead`)
 - **Operations Application**: `https://ops.yorkstead.com` (`yorkstead-operations`, Vercel: `yorkstead-operations`)
 - **Package Namespace**: `@yorkstead`
-- **Retired Brand Names**: `4TWENTY`, `4twentydev`, `4twentyops`, `Groundline`, `RivetWorks`, and `rivetworks.software` are retired from customer-facing branding and should only appear in historical records or migration decision notes.
+- **Former Names**: Former company, product, repository-owner, and domain names must not appear in current code, documentation, configuration, or customer-facing content. Historical Git commits remain preserved.
 
 ## Working method
 
