@@ -8,8 +8,8 @@ This document details the live deployment architecture, platform configuration, 
 
 | Application | Domain | Hosting Platform | Project Name | Git Remote / Branch | Framework Preset |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Public Website** | `https://yorkstead.com` | **Netlify** | `yorkstead` | `yorkstead/yorkstead` (`main`, `apps/website`) | Next.js (Netlify Plugin) |
-| **Operations Platform** | `https://ops.yorkstead.com` | **Vercel** | `yorkstead-operations` | `yorkstead/yorkstead` (`main`, `apps/operations`) | Next.js 16 (Turbopack) |
+| **Public Website** | `https://yorkstead.com` | **Netlify** | `yorkstead` | `Yorkstead-Systems/yorkstead` (`main`, `apps/website`) | Next.js (Netlify Plugin) |
+| **Operations Platform** | `https://ops.yorkstead.com` | **Vercel** | `yorkstead-operations` | `Yorkstead-Systems/yorkstead` (`main`, `apps/operations`) | Next.js 16 (Turbopack) |
 
 Database initialization must run `bun run auth:migrate` before `bun run db:migrate`. Application migrations reference Better Auth identity tables and intentionally fail if the authentication schema has not been installed first.
 
