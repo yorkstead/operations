@@ -1,0 +1,60 @@
+import { AuditQuestion } from "./types";
+
+export const STANDARD_AUDIT_QUESTIONS: AuditQuestion[] = [
+  {
+    id: "q_intake_1",
+    category: "intake_quoting",
+    categoryTitle: "Intake & Quoting",
+    questionText: "How are customer requests and RFQs ingested and estimated?",
+    description: "Evaluates manual re-keying, CAD/file review delays, and quote turnaround latency.",
+    weight: 2,
+  },
+  {
+    id: "q_intake_2",
+    category: "intake_quoting",
+    categoryTitle: "Intake & Quoting",
+    questionText: "How accurately are material costs and labor margins calculated before sending quotes?",
+    description: "Evaluates margin leakage, stale vendor pricing, and lack of historical job costing.",
+    weight: 2,
+  },
+  {
+    id: "q_shopfloor_1",
+    category: "shopfloor_tracking",
+    categoryTitle: "Shopfloor & Work-in-Progress",
+    questionText: "How are job packets and travelers routed and tracked across work centers?",
+    description: "Evaluates paper traveler loss, physical status clipboards, and lack of real-time operator progress.",
+    weight: 3,
+  },
+  {
+    id: "q_shopfloor_2",
+    category: "shopfloor_tracking",
+    categoryTitle: "Shopfloor & Work-in-Progress",
+    questionText: "How do operators report work interruptions, material shortages, or station downtime?",
+    description: "Evaluates unrecorded shopfloor friction, bottlenecks, and idle machine time.",
+    weight: 2,
+  },
+  {
+    id: "q_inventory_1",
+    category: "inventory_control",
+    categoryTitle: "Inventory & Material Control",
+    questionText: "How are raw materials, lot numbers, and location allocations maintained?",
+    description: "Evaluates stockouts, manual physical counts, inventory shrinkage, and missing lot traceability.",
+    weight: 3,
+  },
+  {
+    id: "q_quality_1",
+    category: "quality_maintenance",
+    categoryTitle: "Quality & Preventive Maintenance",
+    questionText: "How are scrap rates, rework incidents, and equipment maintenance schedules recorded?",
+    description: "Evaluates paper inspection logs, uncalibrated tooling, and reactive downtime.",
+    weight: 2,
+  },
+  {
+    id: "q_shipping_1",
+    category: "shipping_billing",
+    categoryTitle: "Packaging, Shipping & Invoicing",
+    questionText: "How are finished goods packaged, labeled, manifested, and handed off for invoicing?",
+    description: "Evaluates packaging errors, bill-of-lading discrepancies, and billing lag after completion.",
+    weight: 2,
+  },
+];
