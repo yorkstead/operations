@@ -1,6 +1,6 @@
 import { randomUUID } from "node:crypto";
 import { NextResponse } from "next/server";
-import { TelemetryService } from "@/modules/core/application/telemetry-service";
+import { logger } from "@/lib/infrastructure/observability/logger";
 
 export interface ApiErrorContext {
   action: string;
@@ -32,21 +32,24 @@ function classifyError(error: unknown): { status: number; code: string; message:
   return { status: 500, code: "INTERNAL_ERROR", message: "The request could not be completed." };
 }
 
-function sanitizeInternalMessage(message: string): string {
-  return message.replace(/\b(password|token|secret|authorization|api[_-]?key)\s*[=:]\s*[^\s;,]+/gi, "$1=[REDACTED]");
-}
-
 export function apiErrorResponse(error: unknown, context: ApiErrorContext) {
   const correlationId = randomUUID();
   const classified = classifyError(error);
-  const internalMessage = error instanceof Error ? error.message : "Unknown error";
-  const entry = TelemetryService.createEntry(
-    classified.status >= 500 ? "error" : classified.status === 403 ? "security" : "warn",
-    "API request failed",
-    { traceId: correlationId, action: context.action, organizationId: context.organizationId, userId: context.userId },
-    { errorName: error instanceof Error ? error.name : "UnknownError", internalMessage: sanitizeInternalMessage(internalMessage) }
-  );
-  console.error(JSON.stringify(entry));
+  const logContext = {
+    correlationId,
+    action: context.action,
+    organizationId: context.organizationId,
+    userId: context.userId,
+    statusCode: classified.status,
+    errorCode: classified.code,
+  };
+  if (classified.status === 401 || classified.status === 403) {
+    logger.security("authentication.failure", "Authentication or authorization failed", logContext);
+  } else if (classified.status >= 500) {
+    logger.error("api.failure", "API request failed", error, logContext);
+  } else {
+    logger.warn("api.rejected", "API request was rejected", logContext);
+  }
   return NextResponse.json(
     { error: classified.message, code: classified.code, correlationId },
     { status: classified.status, headers: { "x-correlation-id": correlationId } }

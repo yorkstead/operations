@@ -19,7 +19,8 @@ describe("safe API error responses", () => {
     expect(body.error).toBe("The request could not be completed.");
     expect(body.error).not.toContain("memberships");
     expect(body.correlationId).toBe(response.headers.get("x-correlation-id"));
-    expect(String(log.mock.calls[0]?.[0])).toContain("password=[REDACTED]");
+    expect(String(log.mock.calls[0]?.[0])).not.toContain("password");
+    expect(String(log.mock.calls[0]?.[0])).not.toContain("memberships");
     expect(String(log.mock.calls[0]?.[0])).not.toContain("password=secret");
     log.mockRestore();
   });
