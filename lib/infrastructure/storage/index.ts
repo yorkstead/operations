@@ -3,6 +3,7 @@ import type { ObjectStorage } from "./object-storage";
 import { S3ObjectStorage } from "./s3-object-storage";
 
 export * from "./object-storage";
+export * from "./object-key";
 export * from "./s3-object-storage";
 
 let storage: ObjectStorage | undefined;
@@ -28,4 +29,3 @@ export function getObjectStorage(): ObjectStorage {
 export function setObjectStorageForTests(value: ObjectStorage | undefined) {
   storage = value;
 }
-

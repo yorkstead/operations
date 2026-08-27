@@ -6,7 +6,7 @@ import { fileService } from "@/modules/core/application/file-service";
 import { z } from "zod";
 import { randomUUID } from "node:crypto";
 import { ALLOWED_MIME_TYPES, MAX_FILE_SIZE_BYTES } from "@/modules/core/domain/ports/file-storage-port";
-import { getObjectStorage, isObjectStorageConfigured } from "@/lib/infrastructure/storage";
+import { buildYorksteadObjectKey, getObjectStorage, isObjectStorageConfigured } from "@/lib/infrastructure/storage";
 
 export const dynamic = "force-dynamic";
 
@@ -68,18 +68,23 @@ export async function POST(req: NextRequest) {
     if (!ALLOWED_MIME_TYPES.includes(parsed.data.mimeType) || parsed.data.sizeBytes > MAX_FILE_SIZE_BYTES) {
       return NextResponse.json({ error: "File type or size is not permitted." }, { status: 400 });
     }
-    const safeFilename = parsed.data.filename.replace(/[^a-zA-Z0-9._-]/g, "_");
-    const storageKey = `tenants/${sessionContext.activeOrganization.id}/vault/${randomUUID()}/${safeFilename}`;
-    const fileRecord = await fileRepository.saveFileRecord(sessionContext, {
-      ...parsed.data,
-      storageKey,
+    const storageKey = buildYorksteadObjectKey({
+      kind: "uploads",
+      organizationId: sessionContext.activeOrganization.id,
+      resourceType: parsed.data.entityType,
+      resourceId: parsed.data.entityId,
+      objectId: randomUUID(),
+      filename: parsed.data.filename,
     });
-
     const upload = await getObjectStorage().getObjectUrl(storageKey, {
       operation: "write",
       expiresInSeconds: 15 * 60,
       contentType: parsed.data.mimeType,
       contentLength: parsed.data.sizeBytes,
+    });
+    const fileRecord = await fileRepository.saveFileRecord(sessionContext, {
+      ...parsed.data,
+      storageKey,
     });
 
     return NextResponse.json({ fileRecord, uploadUrl: upload.url, expiresAt: upload.expiresAt }, { status: 201 });

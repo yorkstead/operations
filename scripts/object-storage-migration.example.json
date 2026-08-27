@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "objects": [
+    {
+      "sourceUrl": "https://example.invalid/private-object",
+      "organizationId": "org_example",
+      "resourceType": "job",
+      "resourceId": "job_example",
+      "objectId": "file_example",
+      "filename": "drawing.pdf",
+      "mimeType": "application/pdf",
+      "expectedSizeBytes": 1024,
+      "expectedChecksumSha256": "0000000000000000000000000000000000000000000000000000000000000000"
+    }
+  ]
+}

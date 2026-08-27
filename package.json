@@ -23,7 +23,8 @@
     "db:migrate": "bun scripts/migrate.ts",
     "db:migrate:check": "bun scripts/migrate.ts --check-files",
     "db:migrate:check-files": "bun scripts/migrate.ts --check-files",
-    "db:migrate:check-live": "bun scripts/migrate.ts --check-live"
+    "db:migrate:check-live": "bun scripts/migrate.ts --check-live",
+    "storage:migrate": "bun scripts/migrate-object-storage.ts"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1119.0",

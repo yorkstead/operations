@@ -14,13 +14,15 @@ Provider SDKs and runtime details terminate in this directory. Business modules 
 
 Production uploads use a direct-to-object-storage sequence:
 
-1. The authenticated application validates tenant, MIME type, size, and checksum and persists `pending_scan` metadata.
-2. The storage adapter creates a short-lived presigned write URL for the tenant-prefixed key.
+1. The authenticated application validates tenant, MIME type, size, and the client-supplied checksum format.
+2. The storage adapter creates a short-lived presigned write URL for the organization/resource-prefixed key, then the application persists `pending_scan` metadata.
 3. The browser uploads directly with HTTP `PUT`.
 4. The authenticated completion endpoint checks object metadata against the database record.
 5. The object remains unavailable until an independent scanner marks it `clean`.
 
 Downloads stream through the authenticated application so tenant and lifecycle checks cannot be bypassed. Deletion removes the object before soft-deleting its database metadata.
+
+The key layout and migration procedure are documented in `docs/infrastructure/R2_STORAGE.md`.
 
 ## Runtime findings
 
@@ -28,4 +30,3 @@ Downloads stream through the authenticated application so tenant and lifecycle c
 - Build/migration scripts use the repository filesystem, but request-time business logic does not.
 - The application targets the Node.js runtime. Cloud Run request timeout, concurrency, and memory limits remain deployment configuration and must be measured in the container phase.
 - Database and storage readiness calls use explicit portable timeouts.
-
