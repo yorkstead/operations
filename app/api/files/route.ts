@@ -6,7 +6,7 @@ import { fileService } from "@/modules/core/application/file-service";
 import { z } from "zod";
 import { randomUUID } from "node:crypto";
 import { ALLOWED_MIME_TYPES, MAX_FILE_SIZE_BYTES } from "@/modules/core/domain/ports/file-storage-port";
-import { env } from "@/lib/env";
+import { getObjectStorage, isObjectStorageConfigured } from "@/lib/infrastructure/storage";
 
 export const dynamic = "force-dynamic";
 
@@ -62,7 +62,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json(result, { status: 201 });
     }
 
-    if (!env.BLOB_READ_WRITE_TOKEN) {
+    if (!isObjectStorageConfigured()) {
       return NextResponse.json({ error: "Private file storage is not configured." }, { status: 503 });
     }
     if (!ALLOWED_MIME_TYPES.includes(parsed.data.mimeType) || parsed.data.sizeBytes > MAX_FILE_SIZE_BYTES) {
@@ -70,14 +70,19 @@ export async function POST(req: NextRequest) {
     }
     const safeFilename = parsed.data.filename.replace(/[^a-zA-Z0-9._-]/g, "_");
     const storageKey = `tenants/${sessionContext.activeOrganization.id}/vault/${randomUUID()}/${safeFilename}`;
-    const expiresAt = new Date(Date.now() + 15 * 60 * 1000).toISOString();
-
     const fileRecord = await fileRepository.saveFileRecord(sessionContext, {
       ...parsed.data,
       storageKey,
     });
 
-    return NextResponse.json({ fileRecord, uploadUrl: "/api/files/upload", expiresAt }, { status: 201 });
+    const upload = await getObjectStorage().getObjectUrl(storageKey, {
+      operation: "write",
+      expiresInSeconds: 15 * 60,
+      contentType: parsed.data.mimeType,
+      contentLength: parsed.data.sizeBytes,
+    });
+
+    return NextResponse.json({ fileRecord, uploadUrl: upload.url, expiresAt: upload.expiresAt }, { status: 201 });
   } catch (err: unknown) {
     return apiErrorResponse(err, { action: "api.files" });
   }

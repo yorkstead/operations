@@ -3,8 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { resolveServerSession } from "@/modules/core/application/server-session";
 import { fileRepository } from "@/modules/core/infrastructure/file-repository";
 import { fileService } from "@/modules/core/application/file-service";
-import { get } from "@vercel/blob";
-import { env } from "@/lib/env";
+import { getObjectStorage, isObjectStorageConfigured } from "@/lib/infrastructure/storage";
 
 export const dynamic = "force-dynamic";
 
@@ -28,10 +27,10 @@ export async function GET(_req: NextRequest, { params }: { params: Promise<{ id:
         { status: 423 }
       );
     }
-    if (!env.BLOB_READ_WRITE_TOKEN) return NextResponse.json({ error: "Private file storage is not configured." }, { status: 503 });
-    const blob = await get(file.storageKey, { access: "private", token: env.BLOB_READ_WRITE_TOKEN });
-    if (!blob || blob.statusCode !== 200) return NextResponse.json({ error: "File object not found." }, { status: 404 });
-    return new NextResponse(blob.stream, {
+    if (!isObjectStorageConfigured()) return NextResponse.json({ error: "Private file storage is not configured." }, { status: 503 });
+    const object = await getObjectStorage().getObject(file.storageKey);
+    if (!object) return NextResponse.json({ error: "File object not found." }, { status: 404 });
+    return new NextResponse(object.body, {
       headers: {
         "Content-Type": file.mimeType,
         "Content-Disposition": `attachment; filename="${file.filename.replace(/["\r\n]/g, "_")}"`,

@@ -35,4 +35,5 @@ Write an ADR when:
 | [0020](0020-persistent-identity-and-tenant-membership.md) | Persistent Identity and Tenant Membership | ACCEPTED | 2026-08-26 |
 | [0021](0021-atomic-database-migrations-and-readiness.md) | Atomic Database Migrations and Readiness | ACCEPTED | 2026-08-26 |
 | [0022](0022-decouple-synthetic-seeding-from-read-paths.md) | Decouple Synthetic Seeding from Read Query Paths | ACCEPTED | 2026-08-26 |
-| [0023](0023-private-object-storage-provider.md) | Private Object Storage Provider | ACCEPTED | 2026-08-26 |
+| [0023](0023-private-object-storage-provider.md) | Private Object Storage Provider | SUPERSEDED | 2026-08-26 |
+| [0024](0024-s3-compatible-private-object-storage.md) | S3-Compatible Private Object Storage | ACCEPTED | 2026-08-27 |

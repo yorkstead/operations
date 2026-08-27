@@ -147,7 +147,7 @@ export class FileRepository {
           sizeBytes: params.sizeBytes,
           storageKey: params.storageKey,
           checksumSha256: params.checksumSha256 || null,
-          status: "clean",
+          status: "pending_scan",
           entityType: params.entityType || null,
           entityId: params.entityId || null,
         })

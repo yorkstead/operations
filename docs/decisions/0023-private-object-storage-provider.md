@@ -1,12 +1,12 @@
 # ADR-0023: Private Object Storage Provider
 
-- **Status**: ACCEPTED
+- **Status**: SUPERSEDED
 - **Date**: 2026-08-26
 - **Author(s)**: Codex / Engineering
 - **Approver(s)**: Repository owner, approved 2026-08-26
 - **Related Prompts / Issues**: Path to Production Prompt 5 - Real Private Files Vault
 - **Supersedes**: None; refines ADR-0016
-- **Superseded By**: None
+- **Superseded By**: ADR-0024
 
 ## Context and Problem Statement
 

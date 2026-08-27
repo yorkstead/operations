@@ -6,7 +6,6 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { FileUp, FileText, Download, ShieldAlert, CheckCircle2, HardDrive, X } from "lucide-react";
 import { StoredFile } from "@/modules/core/domain/ports/file-storage-port";
-import { upload } from "@vercel/blob/client";
 
 export function FileManager() {
   const [files, setFiles] = React.useState<StoredFile[]>([]);
@@ -92,11 +91,18 @@ export function FileManager() {
       }
 
       const prepared = await res.json();
-      await upload(prepared.fileRecord.storageKey, file, {
-        access: "private",
-        handleUploadUrl: prepared.uploadUrl,
-        clientPayload: JSON.stringify({ fileId: prepared.fileRecord.id }),
+      const uploadResponse = await fetch(prepared.uploadUrl, {
+        method: "PUT",
+        headers: { "Content-Type": file.type || "application/octet-stream" },
+        body: file,
       });
+      if (!uploadResponse.ok) throw new Error("Object storage rejected the upload.");
+      const completionResponse = await fetch("/api/files/upload", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ fileId: prepared.fileRecord.id }),
+      });
+      if (!completionResponse.ok) throw new Error("Upload completion verification failed.");
 
       setFeedback({ type: "success", message: `File ${file.name} uploaded. Security scan is pending.` });
       fetchFiles();

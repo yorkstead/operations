@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { resolveServerSession } from "@/modules/core/application/server-session";
 import { fileRepository } from "@/modules/core/infrastructure/file-repository";
 import { fileService } from "@/modules/core/application/file-service";
+import { getObjectStorage, isObjectStorageConfigured } from "@/lib/infrastructure/storage";
 
 export const dynamic = "force-dynamic";
 
@@ -40,6 +41,9 @@ export async function DELETE(_req: NextRequest, { params }: { params: Promise<{ 
     if (sessionContext.activeOrganization.isDemo) {
       return NextResponse.json({ success: true });
     }
+    const file = await fileRepository.getFile(sessionContext, id);
+    if (!isObjectStorageConfigured()) return NextResponse.json({ error: "Private file storage is not configured." }, { status: 503 });
+    await getObjectStorage().deleteObject(file.storageKey);
     await fileRepository.deleteFile(sessionContext, id);
     return NextResponse.json({ success: true });
   } catch (err: unknown) {

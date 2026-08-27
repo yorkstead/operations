@@ -35,7 +35,7 @@ To ensure complete engineering transparency, all modules and capabilities are cl
 | **7** | **Shipping & Logistics** | Yes | Yes | Yes | No | No | No | **DB-Ready / Tested In-Memory** (Tests call `ShippingService` directly) |
 | **8** | **Packaging & Pallets** | Yes | Yes | Yes | No | No | No | **DB-Ready / Tested In-Memory** (Tests call `PackagingService` directly) |
 | **9** | **QuoteFlow Estimating** | Yes | Yes | Yes | No | No | No | **DB-Ready / Tested In-Memory** (Tests call `QuoteService` directly) |
-| **10**| **File Storage Vault** | Yes | Yes | Yes | No | No | No | **Provider Implemented / Infrastructure Blocked** (Private Vercel Blob client transfer and authenticated retrieval implemented; store and malware scanner unconfigured) |
+| **10**| **File Storage Vault** | Yes | Yes | Yes | No | No | No | **Provider Implemented / Infrastructure Blocked** (S3-compatible direct upload and authenticated retrieval implemented; R2 bucket and malware scanner unconfigured) |
 | **11**| **Knowledge Base (SOP)**| Yes | Yes | Yes | No | No | No | **DB-Ready / Tested In-Memory** (Tests call `KnowledgeService` directly) |
 | **12**| **Packet Intelligence** | Yes | Yes | Yes | No | No | No | **Blocked / Simulated** (OCR uses synthetic extraction adapter; tests call service) |
 | **13**| **Analytics & Reporting**| Yes | Yes | Yes | No | No | No | **DB-Ready / Tested In-Memory** (SQL aggregation written; tests call service) |
@@ -49,7 +49,7 @@ To ensure complete engineering transparency, all modules and capabilities are cl
 2. **Migrations Ledger Live Check Requires Remote Database**:
    - Offline CI validates migration file integrity and deterministic SHA-256 hashes (`bun run db:migrate:check-files`). Live migration status (`scripts/migrate.ts --check-live`) requires a connected database to query `application_migrations`.
 3. **Storage Infrastructure and Malware Scanning Are Not Configured**:
-   - Private Vercel Blob client upload, completion verification, and authenticated streaming download paths are implemented. Production still reports `storageVault: NOT_CONFIGURED` until a private store is connected. New uploads remain `pending_scan` and cannot be downloaded until a real scanner marks them clean.
+   - S3-compatible presigned upload, completion verification, and authenticated streaming download paths are implemented. Production still reports `storageVault: NOT_CONFIGURED` until the private R2 bucket is configured. New uploads remain `pending_scan` and cannot be downloaded until a real scanner marks them clean.
 4. **Workflow Tests Call Application Services Directly**:
    - The majority of test files in `tests/` instantiate and invoke domain services (`JobService`, `ShopfloorService`, `PurchasingService`, etc.) in-memory. They do not execute HTTP requests against Next.js route handlers with live database transactions.
 5. **Lifecycle Test Is an In-Memory Workflow Test**:
@@ -78,7 +78,7 @@ To ensure complete engineering transparency, all modules and capabilities are cl
 
 ### P1 — Critical Blockers (Required for production functional integrity)
 - [ ] **P1-1: Production Cloud Storage Vault Configuration**
-  - Connect a private Vercel Blob store to the production project.
+  - Configure a private R2 bucket, least-privilege S3-compatible credentials, and exact origin CORS policy.
   - Configure a malware-scanning adapter and an authorized clean/quarantine completion transition.
   - Verify `/api/health/readiness` reports `storageVault: "CONNECTED"` through a non-destructive capability check.
 - [ ] **P1-2: Database-Backed HTTP Integration Test Suite**
@@ -113,7 +113,11 @@ To ensure complete engineering transparency, all modules and capabilities are cl
 | `DATABASE_URL` | Server | Remote PostgreSQL connection string with SSL/TLS | Primary relational data store connection. |
 | `BETTER_AUTH_SECRET` | Server | Cryptographic random secret >= 32 characters | Session signing and token hashing. |
 | `BETTER_AUTH_URL` | Server | Must use `https://` (e.g. `https://ops.yorkstead.com`) | Auth callback and token verification root. |
-| `BLOB_READ_WRITE_TOKEN` | Server | Injected by a connected private Vercel Blob store; never exposed to the client | Private upload-token issuance, object verification, authenticated retrieval, and deletion. |
+| `S3_ENDPOINT` | Server | HTTPS S3-compatible endpoint | Object storage API endpoint. |
+| `S3_REGION` | Server | Defaults to `auto` | S3 signing region. |
+| `S3_BUCKET` | Server | Private bucket only | Stores tenant-prefixed file objects. |
+| `S3_ACCESS_KEY_ID` | Server | Least-privilege secret; never exposed to the client | Signs object operations. |
+| `S3_SECRET_ACCESS_KEY` | Server | Least-privilege secret; never exposed to the client | Signs object operations. |
 
 ---
 

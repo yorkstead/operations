@@ -1,8 +1,9 @@
 import { NextResponse } from "next/server";
 import { EXPECTED_MIGRATIONS } from "@/db/migrations-manifest";
-import { neon } from "@neondatabase/serverless";
 import { env } from "@/lib/env";
-import { list } from "@vercel/blob";
+import { getObjectStorage, isObjectStorageConfigured } from "@/lib/infrastructure/storage";
+import { withTimeout } from "@/lib/infrastructure/runtime/portable-runtime";
+import { readPostgresMigrationLedger } from "@/lib/infrastructure/database/readiness";
 
 export const dynamic = "force-dynamic";
 
@@ -15,18 +16,8 @@ export async function GET() {
   let failureReason: string | undefined;
 
   try {
-    const sql = neon(env.DATABASE_URL);
-
-    await Promise.race([
-      sql`SELECT 1 as health`,
-      new Promise<never>((_, reject) => setTimeout(() => reject(new Error("Database connection timeout (2s)")), 2000)),
-    ]);
+    const rows = await readPostgresMigrationLedger();
     dbStatus = "CONNECTED";
-
-    const rows = (await Promise.race([
-      sql`SELECT name, checksum FROM "application_migrations" ORDER BY id ASC`,
-      new Promise<never>((_, reject) => setTimeout(() => reject(new Error("Migration ledger query timeout (2s)")), 2000)),
-    ])) as { name: string; checksum: string }[];
 
     const appliedMap = new Map<string, string>();
     for (const r of rows) {
@@ -75,12 +66,9 @@ export async function GET() {
   }
 
   let storageStatus: "CONNECTED" | "UNAVAILABLE" | "NOT_CONFIGURED" = "NOT_CONFIGURED";
-  if (env.BLOB_READ_WRITE_TOKEN) {
+  if (isObjectStorageConfigured()) {
     try {
-      await Promise.race([
-        list({ limit: 1, token: env.BLOB_READ_WRITE_TOKEN }),
-        new Promise<never>((_, reject) => setTimeout(() => reject(new Error("Storage capability timeout (2s)")), 2000)),
-      ]);
+      await withTimeout(getObjectStorage().listObjects({ limit: 1 }), 2000, "Storage capability check");
       storageStatus = "CONNECTED";
     } catch {
       storageStatus = "UNAVAILABLE";
