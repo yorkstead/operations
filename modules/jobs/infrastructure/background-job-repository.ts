@@ -37,6 +37,12 @@ export function toPublicBackgroundJob(row: JobRow): PublicBackgroundJob {
 }
 
 export class BackgroundJobRepository {
+  async getDispatchReference(id: string): Promise<{ jobId: string; type: BackgroundJobType; resourceId: string } | null> {
+    const [row] = await getDb().select({ id: backgroundJobs.id, type: backgroundJobs.type, resourceId: backgroundJobs.resourceId, status: backgroundJobs.status }).from(backgroundJobs).where(eq(backgroundJobs.id, id)).limit(1);
+    if (!row || row.status !== "queued" || !row.resourceId) return null;
+    return { jobId: row.id, type: row.type as BackgroundJobType, resourceId: row.resourceId };
+  }
+
   async createPacketExtraction(
     session: SessionContext,
     payload: PacketExtractionPayload,
@@ -144,6 +150,21 @@ export class BackgroundJobRepository {
         startedAt: new Date(), updatedAt: new Date(), error: null,
       }).where(eq(backgroundJobs.id, candidate.id)).returning();
       return this.normalizeClaim(row);
+    });
+  }
+
+  async claimById(id: string, type: BackgroundJobType): Promise<ClaimedBackgroundJob | null> {
+    return getDb().transaction(async (tx) => {
+      const [candidate] = await tx.select().from(backgroundJobs).where(and(
+        eq(backgroundJobs.id, id), eq(backgroundJobs.type, type),
+        eq(backgroundJobs.status, "queued"), lte(backgroundJobs.availableAt, new Date()),
+      )).limit(1).for("update", { skipLocked: true });
+      if (!candidate) return null;
+      const [row] = await tx.update(backgroundJobs).set({
+        status: "running", progress: 5, attempts: candidate.attempts + 1,
+        startedAt: new Date(), updatedAt: new Date(), error: null,
+      }).where(and(eq(backgroundJobs.id, candidate.id), eq(backgroundJobs.status, "queued"))).returning();
+      return row ? this.normalizeClaim(row) : null;
     });
   }
 

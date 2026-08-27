@@ -4,6 +4,7 @@ import { resolveServerSession } from "@/modules/core/application/server-session"
 import { packetIntelligenceRepository } from "@/modules/packet-intelligence/infrastructure/packet-intelligence-repository";
 import { packetIntelligenceService } from "@/modules/packet-intelligence/application/packet-intelligence-service";
 import { backgroundJobRepository } from "@/modules/jobs/infrastructure/background-job-repository";
+import { dispatchBackgroundJob } from "@/modules/jobs/application/job-dispatcher";
 import { z } from "zod";
 
 export const dynamic = "force-dynamic";
@@ -37,6 +38,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
 
     await packetIntelligenceRepository.getDocument(sessionContext, id);
     const job = await backgroundJobRepository.createPacketExtraction(sessionContext, { documentId: id, ...options });
+    if (job.status === "queued") await dispatchBackgroundJob(job.id);
     return NextResponse.json({ job }, { status: job.status === "completed" ? 200 : 202 });
   } catch (err: unknown) {
     return apiErrorResponse(err, { action: "api.packets.documents.[id].extract" });

@@ -38,3 +38,4 @@ Write an ADR when:
 | [0023](0023-private-object-storage-provider.md) | Private Object Storage Provider | SUPERSEDED | 2026-08-26 |
 | [0024](0024-s3-compatible-private-object-storage.md) | S3-Compatible Private Object Storage | ACCEPTED | 2026-08-27 |
 | [0025](0025-durable-background-jobs.md) | Durable Background Jobs for Heavy Processing | ACCEPTED | 2026-08-27 |
+| [0026](0026-cloudflare-queues-as-dispatch-layer.md) | Cloudflare Queues as a Dispatch Layer | ACCEPTED | 2026-08-27 |

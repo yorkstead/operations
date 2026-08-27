@@ -13,11 +13,23 @@ const serverEnvSchema = z.object({
   S3_BUCKET: optionalNonempty,
   S3_ACCESS_KEY_ID: optionalNonempty,
   S3_SECRET_ACCESS_KEY: optionalNonempty,
+  QUEUE_PROVIDER: z.enum(["database", "cloudflare"]).default("database"),
+  QUEUE_ACCOUNT_ID: optionalNonempty,
+  QUEUE_ID: optionalNonempty,
+  QUEUE_API_TOKEN: optionalNonempty,
 }).superRefine((value, context) => {
   const storageValues = [value.S3_ENDPOINT, value.S3_BUCKET, value.S3_ACCESS_KEY_ID, value.S3_SECRET_ACCESS_KEY];
   const configuredCount = storageValues.filter(Boolean).length;
   if (configuredCount > 0 && configuredCount < storageValues.length) {
     context.addIssue({ code: "custom", message: "S3_ENDPOINT, S3_BUCKET, S3_ACCESS_KEY_ID, and S3_SECRET_ACCESS_KEY must be configured together." });
+  }
+  const queueValues = [value.QUEUE_ACCOUNT_ID, value.QUEUE_ID, value.QUEUE_API_TOKEN];
+  const queueConfiguredCount = queueValues.filter(Boolean).length;
+  if (queueConfiguredCount > 0 && queueConfiguredCount < queueValues.length) {
+    context.addIssue({ code: "custom", message: "QUEUE_ACCOUNT_ID, QUEUE_ID, and QUEUE_API_TOKEN must be configured together." });
+  }
+  if (value.QUEUE_PROVIDER === "cloudflare" && queueConfiguredCount !== queueValues.length) {
+    context.addIssue({ code: "custom", message: "QUEUE_PROVIDER=cloudflare requires complete queue configuration." });
   }
 });
 
@@ -43,4 +55,3 @@ export function parseServerEnv(source: Record<string, string | undefined> = proc
 }
 
 export const serverEnv = parseServerEnv();
-

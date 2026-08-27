@@ -37,6 +37,16 @@ describe("provider-neutral infrastructure", () => {
     expect(() => parseServerEnv({ ...safeServerEnv, S3_ENDPOINT: "https://objects.example.test" })).toThrow("must be configured together");
   });
 
+  it("requires complete queue credentials only when Cloudflare dispatch is selected", () => {
+    expect(parseServerEnv({ ...safeServerEnv }).QUEUE_PROVIDER).toBe("database");
+    expect(() => parseServerEnv({ ...safeServerEnv, QUEUE_PROVIDER: "cloudflare", QUEUE_ID: "queue-id" })).toThrow("complete queue configuration");
+    const configured = parseServerEnv({
+      ...safeServerEnv, QUEUE_PROVIDER: "cloudflare", QUEUE_ACCOUNT_ID: "account-id",
+      QUEUE_ID: "queue-id", QUEUE_API_TOKEN: "scoped-token",
+    });
+    expect(configured.QUEUE_PROVIDER).toBe("cloudflare");
+  });
+
   it("fails a production runtime with local dependencies or missing object storage", () => {
     const local = parseServerEnv(safeServerEnv);
     expect(() => validateProductionRuntime({ ...local, NODE_ENV: "production" }, "phase-runtime")).toThrow("Production runtime environment is invalid");
