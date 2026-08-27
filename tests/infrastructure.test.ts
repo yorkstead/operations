@@ -52,6 +52,20 @@ describe("provider-neutral infrastructure", () => {
     expect(() => validateProductionRuntime({ ...local, NODE_ENV: "production" }, "phase-runtime")).toThrow("Production runtime environment is invalid");
   });
 
+  it("does not require web authentication secrets in the private worker runtime", () => {
+    const worker = parseServerEnv({
+      ...safeServerEnv,
+      NODE_ENV: "production",
+      RUNTIME_ROLE: "worker",
+      DATABASE_URL: "postgresql://worker@example.test/yorkstead",
+      S3_ENDPOINT: "https://objects.example.test",
+      S3_BUCKET: "private-vault",
+      S3_ACCESS_KEY_ID: "access-key",
+      S3_SECRET_ACCESS_KEY: "secret-key",
+    });
+    expect(worker.RUNTIME_ROLE).toBe("worker");
+  });
+
   it("uses a portable timeout without leaving a timer active", async () => {
     await expect(withTimeout(Promise.resolve("ok"), 50, "fast operation")).resolves.toBe("ok");
     await expect(withTimeout(new Promise(() => undefined), 5, "slow operation")).rejects.toThrow("slow operation timed out");
