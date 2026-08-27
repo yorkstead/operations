@@ -37,3 +37,4 @@ Write an ADR when:
 | [0022](0022-decouple-synthetic-seeding-from-read-paths.md) | Decouple Synthetic Seeding from Read Query Paths | ACCEPTED | 2026-08-26 |
 | [0023](0023-private-object-storage-provider.md) | Private Object Storage Provider | SUPERSEDED | 2026-08-26 |
 | [0024](0024-s3-compatible-private-object-storage.md) | S3-Compatible Private Object Storage | ACCEPTED | 2026-08-27 |
+| [0025](0025-durable-background-jobs.md) | Durable Background Jobs for Heavy Processing | ACCEPTED | 2026-08-27 |

@@ -848,7 +848,35 @@ export const planningSuggestions = pgTable("planning_suggestions", {
   index("planning_sug_org_idx").on(table.organizationId),
 ]);
 
-// 16. Immutable Audit Log Table
+// 16. Durable Background Jobs (Migration 0014)
+export const backgroundJobs = pgTable("background_jobs", {
+  id: text("id").primaryKey(),
+  organizationId: text("organization_id").notNull().references(() => organizations.id, { onDelete: "cascade" }),
+  type: text("type").notNull(),
+  status: text("status").default("queued").notNull(),
+  progress: integer("progress").default(0).notNull(),
+  payload: jsonb("payload").notNull(),
+  result: jsonb("result"),
+  error: jsonb("error"),
+  resourceType: text("resource_type"),
+  resourceId: text("resource_id"),
+  idempotencyKey: text("idempotency_key").notNull(),
+  attempts: integer("attempts").default(0).notNull(),
+  maxAttempts: integer("max_attempts").default(3).notNull(),
+  availableAt: timestamp("available_at").defaultNow().notNull(),
+  createdByUserId: text("created_by_user_id").notNull().references(() => users.id, { onDelete: "restrict" }),
+  createdByName: text("created_by_name").notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  startedAt: timestamp("started_at"),
+  completedAt: timestamp("completed_at"),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+}, (table) => [
+  uniqueIndex("background_jobs_org_idempotency_idx").on(table.organizationId, table.type, table.idempotencyKey),
+  index("background_jobs_claim_idx").on(table.status, table.availableAt, table.createdAt),
+  index("background_jobs_resource_idx").on(table.organizationId, table.resourceType, table.resourceId),
+]);
+
+// 17. Immutable Audit Log Table
 export const auditEvents = pgTable("audit_events", {
   id: text("id").primaryKey(),
   organizationId: text("organization_id").notNull().references(() => organizations.id, { onDelete: "cascade" }),

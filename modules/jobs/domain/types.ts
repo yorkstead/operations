@@ -61,3 +61,26 @@ export const VALID_JOB_TRANSITIONS: Record<JobStatus, JobStatus[]> = {
   cancelled: ["draft"], // guarded re-open
   closed: [], // Terminal state
 };
+
+export const JOB_STATUSES = ["queued", "running", "completed", "failed", "cancelled"] as const;
+export type BackgroundJobStatus = (typeof JOB_STATUSES)[number];
+export type BackgroundJobType = "packet.extract";
+
+export interface PacketExtractionPayload {
+  documentId: string;
+  expectedRevision?: string;
+  expectedQuantity?: number;
+}
+
+export interface PublicBackgroundJob {
+  id: string;
+  type: BackgroundJobType;
+  status: BackgroundJobStatus;
+  progress: number;
+  result: unknown;
+  error: { code: string; message: string } | null;
+  attempts: number;
+  createdAt: string;
+  startedAt: string | null;
+  completedAt: string | null;
+}

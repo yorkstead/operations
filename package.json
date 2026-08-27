@@ -25,6 +25,7 @@
     "db:migrate:check-files": "bun scripts/migrate.ts --check-files",
     "db:migrate:check-live": "bun scripts/migrate.ts --check-live",
     "storage:migrate": "bun scripts/migrate-object-storage.ts",
+    "jobs:run": "bun scripts/run-background-jobs.ts",
     "cf:check": "bun x vinext@1.0.0-beta.8 check"
   },
   "dependencies": {

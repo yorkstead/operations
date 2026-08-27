@@ -99,7 +99,14 @@ export const MIGRATIONS_MANIFEST: MigrationMetadata[] = [
     checksum: "e91c267129e2a5dab9a1b5fed19f2dd2d9e3ad81149b1f980f9f0effdc3b5e59",
     appliedAtOrder: 13,
   },
+  {
+    id: "0014_durable_background_jobs",
+    name: "0014_durable_background_jobs.sql",
+    filename: "0014_durable_background_jobs.sql",
+    checksum: "f2f7bb8795730a4b123c68e387273cf40f00e281d8eaf021c513cb95150ba4a1",
+    appliedAtOrder: 14,
+  },
 ];
 
-export const TOTAL_MIGRATIONS_COUNT = 13;
+export const TOTAL_MIGRATIONS_COUNT = 14;
 export const EXPECTED_MIGRATIONS = MIGRATIONS_MANIFEST;

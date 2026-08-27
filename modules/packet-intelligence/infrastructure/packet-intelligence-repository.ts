@@ -12,6 +12,16 @@ import {
 import { SessionContext } from "@/modules/core/domain/types";
 
 export class PacketIntelligenceRepository {
+  async setExtractionStatus(organizationId: string, documentId: string, status: ExtractionStatus): Promise<void> {
+    const rows = await getDb().update(jobPacketDocuments).set({
+      extractionStatus: status,
+      updatedAt: new Date(),
+    }).where(and(
+      eq(jobPacketDocuments.organizationId, organizationId),
+      eq(jobPacketDocuments.id, documentId),
+    )).returning({ id: jobPacketDocuments.id });
+    if (rows.length === 0) throw new Error(`Job packet document '${documentId}' not found.`);
+  }
   async ensureSeededData(session: SessionContext): Promise<void> {
     const db = getDb();
     const orgId = session.activeOrganization.id;

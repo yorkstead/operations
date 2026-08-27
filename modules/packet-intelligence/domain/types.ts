@@ -8,10 +8,12 @@ export type DocumentType =
 
 export type ExtractionStatus =
   | "pending"
+  | "queued"
   | "extracting"
   | "extracted"
   | "approved"
   | "rejected"
+  | "failed"
   | "flagged_inconsistency";
 
 export interface ExtractedEntity {

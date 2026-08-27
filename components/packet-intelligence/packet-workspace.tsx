@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { FileText, AlertTriangle, CheckCircle2, ShieldCheck, Cpu, UploadCloud, X } from "lucide-react";
 import { JobPacketDocument, DepartmentPacket } from "@/modules/packet-intelligence/domain/types";
+import type { PublicBackgroundJob } from "@/modules/jobs/domain/types";
 
 export function PacketWorkspace() {
   const [activeTab, setActiveTab] = React.useState<"shopfloor" | "quality" | "purchasing" | "shipping">("shopfloor");
@@ -13,6 +14,7 @@ export function PacketWorkspace() {
   const [loading, setLoading] = React.useState(true);
   const [documents, setDocuments] = React.useState<JobPacketDocument[]>([]);
   const [departmentPacket, setDepartmentPacket] = React.useState<DepartmentPacket | null>(null);
+  const [extractionJob, setExtractionJob] = React.useState<PublicBackgroundJob | null>(null);
   const [metrics, setMetrics] = React.useState({
     totalIngestedDocuments: 1,
     inconsistencyFlaggedCount: 1,
@@ -51,6 +53,40 @@ export function PacketWorkspace() {
     const timer = window.setTimeout(() => void fetchPacketData(), 0);
     return () => window.clearTimeout(timer);
   }, [fetchPacketData]);
+
+  React.useEffect(() => {
+    if (!extractionJob || !["queued", "running"].includes(extractionJob.status)) return;
+    const timer = window.setInterval(async () => {
+      const response = await fetch(`/api/background-jobs/${extractionJob.id}`);
+      if (!response.ok) return;
+      const data = await response.json();
+      const next = data.job as PublicBackgroundJob;
+      setExtractionJob(next);
+      if (next.status === "completed") {
+        setFeedback({ type: "success", message: "Drawing extraction completed. Results are ready for engineer review." });
+        void fetchPacketData();
+      } else if (next.status === "failed") {
+        setFeedback({ type: "error", message: next.error?.message || "Drawing extraction failed. Use the job ID when contacting support." });
+        void fetchPacketData();
+      }
+    }, 1500);
+    return () => window.clearInterval(timer);
+  }, [extractionJob, fetchPacketData]);
+
+  const handleExtract = async (docId: string) => {
+    try {
+      const response = await fetch(`/api/packets/documents/${docId}/extract`, {
+        method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({}),
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || "Extraction could not be queued.");
+      setExtractionJob(data.job);
+      setFeedback({ type: "success", message: data.job.status === "completed" ? "Drawing extraction is complete." : "Drawing extraction queued. You can keep working while it runs." });
+      void fetchPacketData();
+    } catch (err: unknown) {
+      setFeedback({ type: "error", message: err instanceof Error ? err.message : "Extraction could not be queued." });
+    }
+  };
 
   const handleApprove = async (docId: string) => {
     try {
@@ -192,6 +228,17 @@ export function PacketWorkspace() {
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
+                {extractionJob && ["queued", "running"].includes(extractionJob.status) && (
+                  <div className="rounded-lg border border-primary/30 bg-primary/5 p-3" aria-live="polite">
+                    <div className="mb-2 flex items-center justify-between font-mono text-xs">
+                      <span className="uppercase text-foreground">{extractionJob.status === "queued" ? "Extraction queued" : "Extracting drawing"}</span>
+                      <span className="text-muted-foreground">{extractionJob.progress}%</span>
+                    </div>
+                    <div className="h-1.5 overflow-hidden rounded-full bg-muted">
+                      <div className="h-full bg-primary transition-all" style={{ width: `${extractionJob.progress}%` }} />
+                    </div>
+                  </div>
+                )}
                 {/* Discrepancy Warning */}
                 {primaryDoc.inconsistencies.length > 0 && (
                   <div className="rounded-lg border border-destructive/30 bg-destructive/10 p-4">
@@ -239,6 +286,18 @@ export function PacketWorkspace() {
                 {/* Approval Action */}
                 {primaryDoc.extractionStatus !== "approved" && (
                   <div className="flex justify-end gap-2 pt-2">
+                    {["pending", "failed", "queued"].includes(primaryDoc.extractionStatus) && (
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        disabled={Boolean(extractionJob && ["queued", "running"].includes(extractionJob.status))}
+                        onClick={() => handleExtract(primaryDoc.id)}
+                        className="font-mono text-xs"
+                      >
+                        <Cpu className="mr-1.5 size-3.5" />
+                        Run Extraction
+                      </Button>
+                    )}
                     <Button
                       variant="default"
                       size="sm"
