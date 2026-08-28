@@ -30,10 +30,10 @@ A definitive, immutable architecture decision is required to lock runtime bounda
   - The single visible customer-facing Yorkstead website.
   - Houses all sales material, service explanations, industrial automation cases, quoting models, demo introductions, engagement paths, and contact intake.
   - Hosts the private `/dashboard` route as the private owner Command Center.
-  - Deployed exclusively to Cloudflare (Pages/Workers edge platform).
+  - Approved for deployment exclusively to a Cloudflare Worker edge runtime.
 - **`ops.yorkstead.com`**:
   - The protected Yorkstead Operations application, customer ERP, and synthetic demo runtime.
-  - Deployed exclusively to **Google Cloud Run** as an intact Next.js modular monolith container (`docker/operations.Dockerfile`).
+  - Approved for deployment exclusively to **Google Cloud Run** as an intact Next.js modular monolith container (`docker/operations.Dockerfile`).
   - Strict prohibition: **Do not deploy Yorkstead Operations to Cloudflare Workers or Cloudflare Pages.**
 
 ### 2. Strict Boundary Isolation
@@ -58,7 +58,7 @@ A definitive, immutable architecture decision is required to lock runtime bounda
 
 - Historical statements referencing Netlify as the production website host or Vercel as the operations host represent legacy pre-migration baselines.
 - Vercel is decommissioned (`yorkstead-operations.vercel.app` returns `DEPLOYMENT_NOT_FOUND`).
-- The authoritative target and operational state is Cloudflare (`yorkstead.com`) and Google Cloud Run (`ops.yorkstead.com`).
+- The authoritative target is Cloudflare Workers (`yorkstead.com`) and Google Cloud Run behind Cloudflare (`ops.yorkstead.com`). Operational state must be recorded separately from this target decision and supported by dated deployment and live-route evidence.
 
 ---
 
@@ -94,6 +94,6 @@ All production promotions must satisfy the following gates:
 
 ## Verification Evidence
 
-- Live Cloud Run service `yorkstead-operations-staging` running on `https://yorkstead-operations-staging-zb3wrmhsja-uc.a.run.app` with commit `4cf41f3c69c603b73486087af85cdc22bee82131`.
-- Live process health probe verified: `curl /api/health/live` returns HTTP 200 `{"status":"LIVE","service":"yorkstead-operations"}`.
+- At the time of the decision, Cloud Run staging service `yorkstead-operations-staging` was available at `https://yorkstead-operations-staging-zb3wrmhsja-uc.a.run.app`; its deployed image and health must be re-checked for each release.
+- A staging process health probe returned HTTP 200. This did not prove production-domain routing, database readiness, authentication, or demo behavior.
 - Cloudflare authoritative DNS verified for `yorkstead.com` (`lara.ns.cloudflare.com`, `langston.ns.cloudflare.com`).

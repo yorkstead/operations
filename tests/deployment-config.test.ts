@@ -38,4 +38,23 @@ describe("locked architecture and deployment configuration invariants", () => {
     const openNextPath = join(rootDir, "apps/website/open-next.config.ts");
     expect(existsSync(openNextPath)).toBe(false);
   });
+
+  it("keeps website staging manual and isolated from the production Worker name", () => {
+    const workflowPath = join(rootDir, ".github/workflows/deploy-cloudflare.yml");
+    const packagePath = join(rootDir, "apps/website/package.json");
+    const stagingConfigScriptPath = join(rootDir, "apps/website/scripts/prepare-staging-wrangler.ts");
+    const workflow = readFileSync(workflowPath, "utf-8");
+    const websitePackage = readFileSync(packagePath, "utf-8");
+    const stagingConfigScript = readFileSync(stagingConfigScriptPath, "utf-8");
+
+    expect(workflow).toContain("workflow_dispatch:");
+    expect(workflow).not.toContain("workflow_run:");
+    expect(workflow).not.toContain("url: https://yorkstead.com");
+    expect(workflow).toContain("deploy:cf:staging");
+    expect(websitePackage).toContain("prepare:cf:staging");
+    expect(websitePackage).toContain("wrangler.staging.json");
+    expect(stagingConfigScript).toContain('generatedConfig.name = "yorkstead-website-staging"');
+    expect(stagingConfigScript).toContain("delete generatedConfig.triggers");
+    expect(stagingConfigScript).toContain("delete generatedConfig.routes");
+  });
 });
