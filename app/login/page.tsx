@@ -31,7 +31,7 @@ export default function LoginPage() {
       if (res.error) {
         setError(res.error.message || "Invalid credentials. Please verify your email and password.");
       } else {
-        router.push("/jobs");
+        router.push("/account/passkeys?next=/jobs");
         router.refresh();
       }
     } catch (err: unknown) {
