@@ -32,10 +32,43 @@ describe("locked architecture and deployment configuration invariants", () => {
     const content = readFileSync(wranglerPath, "utf-8");
     expect(content).toContain('"name": "yorkstead-website"');
     expect(content).toContain('"nodejs_compat"');
+    expect(content).toContain('"pattern": "yorkstead.com/*"');
+    expect(content).toContain('"pattern": "www.yorkstead.com/*"');
   });
 
   it("ensures no obsolete open-next.config.ts exists in apps/website", () => {
     const openNextPath = join(rootDir, "apps/website/open-next.config.ts");
     expect(existsSync(openNextPath)).toBe(false);
+  });
+
+  it("keeps website staging manual and isolated from the production Worker name", () => {
+    const workflowPath = join(rootDir, ".github/workflows/deploy-cloudflare.yml");
+    const packagePath = join(rootDir, "apps/website/package.json");
+    const stagingConfigScriptPath = join(rootDir, "apps/website/scripts/prepare-staging-wrangler.ts");
+    const workflow = readFileSync(workflowPath, "utf-8");
+    const websitePackage = readFileSync(packagePath, "utf-8");
+    const stagingConfigScript = readFileSync(stagingConfigScriptPath, "utf-8");
+
+    expect(workflow).toContain("workflow_dispatch:");
+    expect(workflow).not.toContain("workflow_run:");
+    expect(workflow).not.toContain("url: https://yorkstead.com");
+    expect(workflow).toContain("deploy:cf:staging");
+    expect(websitePackage).toContain("prepare:cf:staging");
+    expect(websitePackage).toContain("wrangler.staging.json");
+    expect(stagingConfigScript).toContain('generatedConfig.name = "yorkstead-website-staging"');
+    expect(stagingConfigScript).toContain("delete generatedConfig.triggers");
+    expect(stagingConfigScript).toContain("delete generatedConfig.routes");
+  });
+
+  it("keeps the Operations production proxy explicit and host-aware", () => {
+    const proxyPath = join(rootDir, "infrastructure/cloudflare/operations-proxy.ts");
+    const proxyConfigPath = join(rootDir, "infrastructure/cloudflare/wrangler.operations-proxy.jsonc");
+    const proxy = readFileSync(proxyPath, "utf-8");
+    const proxyConfig = readFileSync(proxyConfigPath, "utf-8");
+
+    expect(proxy).toContain("yorkstead-operations-576569185791.us-central1.run.app");
+    expect(proxy).toContain('headers.set("x-forwarded-host", incoming.host)');
+    expect(proxy).toContain('headers.set("x-forwarded-proto", "https")');
+    expect(proxyConfig).toContain('"name": "yorkstead-operations-proxy"');
   });
 });
