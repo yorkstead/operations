@@ -43,6 +43,12 @@ export function Header() {
 
         {/* Primary Desktop Navigation (Visible on lg+ screens) */}
         <nav className="hidden items-center gap-4 xl:gap-6 lg:flex" aria-label="Main Navigation">
+          <Link href="/" className="text-xs font-mono uppercase tracking-wider text-primary font-semibold transition hover:text-foreground">
+            Cockpit
+          </Link>
+          <Link href="/infrastructure" className="text-xs font-mono uppercase tracking-wider text-muted-foreground transition hover:text-foreground">
+            Cloud Ops
+          </Link>
           <Link href="/jobs" className="text-xs font-mono uppercase tracking-wider text-muted-foreground transition hover:text-foreground">
             Jobs
           </Link>

@@ -76,7 +76,7 @@ describe("Tenant 0: Yorkstead Systems & Operator Identity Suite", () => {
   });
 
   it("strictly denies demo seeding and demo mutation against production Yorkstead Systems", () => {
-    const { user: brandon, organization: yorkstead } = identityService.ensureTenantZero();
+    const { user: brandon } = identityService.ensureTenantZero();
     const sessionYorkstead = identityService.getSessionContext(brandon.id);
 
     // Guardrail: Refuses to seed Yorkstead Systems because isDemo is not true
