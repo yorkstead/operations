@@ -11,11 +11,11 @@ import { buildYorksteadObjectKey, getObjectStorage, isObjectStorageConfigured } 
 export const dynamic = "force-dynamic";
 
 const prepareUploadSchema = z.object({
-  filename: z.string().min(1),
+  filename: z.string().trim().min(1).max(255),
   mimeType: z.string().min(1),
   sizeBytes: z.number().int().positive(),
-  entityType: z.string().optional(),
-  entityId: z.string().optional(),
+  entityType: z.string().trim().min(1).max(100).optional(),
+  entityId: z.string().trim().min(1).max(200).optional(),
   checksumSha256: z.string().regex(/^[a-f0-9]{64}$/i),
 });
 

@@ -1,8 +1,25 @@
 import { headers, cookies } from "next/headers";
 import { auth } from "@/lib/auth";
-import { identityService } from "./identity-service";
 import { identityRepository } from "../infrastructure/identity-repository";
 import { SessionContext } from "../domain/types";
+
+const demoOrganizations = {
+  org_front_range_mfg: { id: "org_front_range_mfg", name: "Front Range Precision Manufacturing", slug: "front-range-manufacturing" },
+  demo_front_range_manufacturing: { id: "demo_front_range_manufacturing", name: "Front Range Precision Manufacturing", slug: "front-range-manufacturing" },
+  demo_summit_facility_services: { id: "demo_summit_facility_services", name: "Summit Facility Services", slug: "summit-facility-services" },
+  demo_mile_high_signworks: { id: "demo_mile_high_signworks", name: "Mile High Signworks", slug: "mile-high-signworks" },
+  demo_peak_mobile_detail: { id: "demo_peak_mobile_detail", name: "Peak Mobile Detail", slug: "peak-mobile-detail" },
+} as const;
+
+export function resolveDemoSession(demoOrganizationId: string | undefined): SessionContext | null {
+  if (!demoOrganizationId || !(demoOrganizationId in demoOrganizations)) return null;
+  const selected = demoOrganizations[demoOrganizationId as keyof typeof demoOrganizations];
+  const now = new Date().toISOString();
+  const organization = { ...selected, status: "active" as const, isDemo: true, createdAt: now, updatedAt: now };
+  const user = { id: "usr_demo_visitor", email: "demo@yorkstead.com", name: "Demo Visitor", status: "active" as const, isGlobalOwner: false, createdAt: now, updatedAt: now };
+  const membership = { id: `demo_membership_${selected.id}`, organizationId: selected.id, userId: user.id, role: "demo_visitor" as const, createdAt: now, updatedAt: now };
+  return { user, activeOrganization: organization, currentMembership: membership, allMemberships: [{ membership, organization }] };
+}
 
 export interface ResolvedSessionResult {
   sessionContext: SessionContext | null;
@@ -15,32 +32,8 @@ export async function resolveServerSession(): Promise<ResolvedSessionResult> {
 
   // 1. Check for Active Demo Session (Isolated Sandbox Mode)
   const demoOrgCookie = reqCookies.get("yorkstead_demo_org")?.value;
-  const isDemoHeader = reqHeaders.get("x-demo-mode") === "true";
-
-  if (demoOrgCookie || isDemoHeader) {
-    const demoOrgId = demoOrgCookie || "org_front_range_mfg";
-    try {
-      const demoContext = identityService.getSessionContext("usr_demo_operator");
-      if (demoContext.activeOrganization.id !== demoOrgId) {
-        try {
-          const switched = identityService.switchActiveOrganization("usr_demo_operator", demoOrgId);
-          return { sessionContext: switched };
-        } catch {
-          return { sessionContext: demoContext };
-        }
-      }
-      return { sessionContext: demoContext };
-    } catch {
-      const bootstrap = identityService.bootstrapOwner({
-        email: "demo@yorkstead.com",
-        name: "Demo Operator",
-        organizationName: "Front Range Precision Manufacturing",
-        organizationSlug: "front-range-mfg",
-      });
-      const context = identityService.getSessionContext(bootstrap.user.id);
-      return { sessionContext: context };
-    }
-  }
+  const demoContext = resolveDemoSession(demoOrgCookie);
+  if (demoContext) return { sessionContext: demoContext };
 
   // 2. Production Persistent Better Auth & Database Session Validation
   try {

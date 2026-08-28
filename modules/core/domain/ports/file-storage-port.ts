@@ -8,6 +8,7 @@ export interface StoredFile {
   mimeType: string;
   sizeBytes: number;
   storageKey: string;
+  checksumSha256?: string;
   status: FileStatus;
   quarantineReason?: string;
   createdAt: string;
