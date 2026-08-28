@@ -4,7 +4,13 @@ import { fileURLToPath } from "node:url";
 import { applicationSecurityHeaders } from "./lib/security-headers";
 
 const repositoryRoot = join(dirname(fileURLToPath(import.meta.url)), "../..");
-const isManagedServerless = Boolean(process.env.VERCEL || process.env.NETLIFY);
+const isManagedServerless = Boolean(
+  process.env.VERCEL ||
+  process.env.NETLIFY ||
+  process.env.CF_PAGES ||
+  process.env.CLOUDFLARE ||
+  process.env.NEXT_SERVERLESS
+);
 
 const nextConfig: NextConfig = {
   ...(isManagedServerless ? {} : {
