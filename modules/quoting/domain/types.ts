@@ -47,6 +47,31 @@ export interface QuoteRevision {
   createdByName: string;
 }
 
+export type CostModelType =
+  | "discovery_audit"
+  | "custom_software_milestone"
+  | "monthly_sla_retainer"
+  | "manufacturing_custom";
+
+export interface PaymentMilestoneSchedule {
+  id: string;
+  milestoneName: string;
+  percentage: number;
+  amountCents: number;
+  triggerCondition: string;
+}
+
+export interface ConsultingScopeDetails {
+  costModelType: CostModelType;
+  estimatedEngineeringHours: number;
+  hourlyRateCents: number;
+  cloudComputePassThroughCents: number;
+  includedIntegrations: string[];
+  deliverableSummary: string[];
+  paymentMilestones: PaymentMilestoneSchedule[];
+  proposalPdfR2Key?: string;
+}
+
 export interface Quote {
   id: string;
   quoteNumber: string; // e.g. "QTE-2026-104"
@@ -66,6 +91,7 @@ export interface Quote {
   expiresAt: string;
   convertedJobId?: string;
   convertedAt?: string;
+  consultingScope?: ConsultingScopeDetails;
   createdAt: string;
   updatedAt: string;
 }
