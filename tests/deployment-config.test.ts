@@ -57,4 +57,16 @@ describe("locked architecture and deployment configuration invariants", () => {
     expect(stagingConfigScript).toContain("delete generatedConfig.triggers");
     expect(stagingConfigScript).toContain("delete generatedConfig.routes");
   });
+
+  it("keeps the Operations production proxy explicit and host-aware", () => {
+    const proxyPath = join(rootDir, "infrastructure/cloudflare/operations-proxy.ts");
+    const proxyConfigPath = join(rootDir, "infrastructure/cloudflare/wrangler.operations-proxy.jsonc");
+    const proxy = readFileSync(proxyPath, "utf-8");
+    const proxyConfig = readFileSync(proxyConfigPath, "utf-8");
+
+    expect(proxy).toContain("yorkstead-operations-576569185791.us-central1.run.app");
+    expect(proxy).toContain('headers.set("x-forwarded-host", incoming.host)');
+    expect(proxy).toContain('headers.set("x-forwarded-proto", "https")');
+    expect(proxyConfig).toContain('"name": "yorkstead-operations-proxy"');
+  });
 });
