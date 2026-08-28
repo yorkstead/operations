@@ -92,13 +92,13 @@ export const CLOUD_SERVICES: InfrastructureLink[] = [
     status: "Active",
   },
   {
-    title: "Netlify Edge Previews",
+    title: "Cloudflare Pages & Edge",
     category: "Edge & Networking",
-    description: "Public front door staging environments and static web previews.",
-    href: "https://app.netlify.com",
+    description: "Serverless edge hosting for yorkstead.com and ops.yorkstead.com with zero egress fees.",
+    href: "https://dash.cloudflare.com/?to=/:account/pages",
     icon: Cloud,
-    badge: "Web Staging",
-    status: "Operational",
+    badge: "Edge Deploy",
+    status: "Active",
   },
 ];
 
