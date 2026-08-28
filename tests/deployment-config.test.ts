@@ -71,4 +71,15 @@ describe("locked architecture and deployment configuration invariants", () => {
     expect(proxy).toContain('headers.set("x-forwarded-proto", "https")');
     expect(proxyConfig).toContain('"name": "yorkstead-operations-proxy"');
   });
+
+  it("uses the canonical Yorkstead mark for installed-app and splash surfaces", () => {
+    const icon = readFileSync(join(rootDir, "apps/operations/app/icon.tsx"), "utf-8");
+    const manifest = readFileSync(join(rootDir, "apps/operations/app/manifest.ts"), "utf-8");
+
+    expect(icon).toContain("export function YorksteadIcon");
+    expect(icon).toContain('stroke="#38bdf8"');
+    expect(manifest).toContain("yorkstead-y-20260828");
+    expect(manifest).toContain('purpose: "maskable"');
+    expect(manifest).toContain('background_color: "#0d1117"');
+  });
 });
