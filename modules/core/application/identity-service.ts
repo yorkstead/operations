@@ -74,6 +74,31 @@ export class IdentityService {
     return { user, organization, membership };
   }
 
+  ensureTenantZero(): { user: User; organization: Organization; membership: Membership } {
+    const org = Array.from(this.organizations.values()).find(
+      (o) => o.slug === "yorkstead" || o.id === "org_yorkstead_systems"
+    );
+    const user = Array.from(this.users.values()).find(
+      (u) => u.email === "brandon@yorkstead.com" || u.id === "usr_brandon_operator"
+    );
+
+    if (org && user) {
+      const membership = Array.from(this.memberships.values()).find(
+        (m) => m.organizationId === org.id && m.userId === user.id
+      );
+      if (membership) {
+        return { user, organization: org, membership };
+      }
+    }
+
+    return this.bootstrapOwner({
+      email: "brandon@yorkstead.com",
+      name: "Brandon",
+      organizationName: "Yorkstead Systems",
+      organizationSlug: "yorkstead",
+    });
+  }
+
   // 2. Organization Management
   createOrganization(actorUserId: string, name: string, slug: string): Organization {
     const actor = this.users.get(actorUserId);

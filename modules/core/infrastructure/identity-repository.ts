@@ -400,6 +400,88 @@ export class IdentityRepository {
       throw err instanceof Error ? err : new Error("Persistent membership removal failed.");
     }
   }
+
+  // 7. Get Tenant 0 (Yorkstead Systems)
+  async getTenantZero(): Promise<{ organization: Organization; owner: User; membership: Membership } | null> {
+    if (this.isMemoryMode) {
+      const org = Array.from(this.memoryOrganizations.values()).find(
+        (o) => o.slug === "yorkstead" || o.id === "org_yorkstead_systems"
+      );
+      if (!org) return null;
+      const user = Array.from(this.memoryUsers.values()).find(
+        (u) => u.email === "brandon@yorkstead.com" || u.id === "usr_brandon_operator"
+      );
+      if (!user) return null;
+      const mem = Array.from(this.memoryMemberships.values()).find(
+        (m) => m.organizationId === org.id && m.userId === user.id
+      );
+      if (!mem) return null;
+      return { organization: org, owner: user, membership: mem };
+    }
+
+    try {
+      const db = getDb();
+      const orgRows = await db
+        .select()
+        .from(organizations)
+        .where(eq(organizations.slug, "yorkstead"))
+        .limit(1);
+
+      if (orgRows.length === 0) return null;
+      const orgRow = orgRows[0];
+
+      const memRows = await db
+        .select({
+          membershipId: memberships.id,
+          role: memberships.role,
+          memCreatedAt: memberships.createdAt,
+          memUpdatedAt: memberships.updatedAt,
+          userId: users.id,
+          userName: users.name,
+          userEmail: users.email,
+          userCreatedAt: users.createdAt,
+          userUpdatedAt: users.updatedAt,
+        })
+        .from(memberships)
+        .innerJoin(users, eq(memberships.userId, users.id))
+        .where(and(eq(memberships.organizationId, orgRow.id), eq(memberships.role, "owner")))
+        .limit(1);
+
+      if (memRows.length === 0) return null;
+      const memRow = memRows[0];
+
+      return {
+        organization: {
+          id: orgRow.id,
+          name: orgRow.name,
+          slug: orgRow.slug,
+          status: orgRow.status as "active" | "suspended" | "archived",
+          isDemo: orgRow.isDemo,
+          createdAt: orgRow.createdAt.toISOString(),
+          updatedAt: orgRow.updatedAt.toISOString(),
+        },
+        owner: {
+          id: memRow.userId,
+          name: memRow.userName,
+          email: memRow.userEmail,
+          status: "active",
+          isGlobalOwner: true,
+          createdAt: memRow.userCreatedAt.toISOString(),
+          updatedAt: memRow.userUpdatedAt.toISOString(),
+        },
+        membership: {
+          id: memRow.membershipId,
+          organizationId: orgRow.id,
+          userId: memRow.userId,
+          role: memRow.role as MembershipRole,
+          createdAt: memRow.memCreatedAt.toISOString(),
+          updatedAt: memRow.memUpdatedAt.toISOString(),
+        },
+      };
+    } catch (err: unknown) {
+      throw err instanceof Error ? err : new Error("Persistent Tenant 0 lookup failed.");
+    }
+  }
 }
 
 export const identityRepository = new IdentityRepository();
