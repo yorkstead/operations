@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Fingerprint, KeyRound, LoaderCircle, LogOut, ShieldCheck } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
 import { Button } from "@/components/ui/button";
@@ -10,6 +11,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 type Passkey = { id: string; name?: string | null };
 
 export function PasskeySetup({ nextPath }: { nextPath: string }) {
+  const router = useRouter();
   const [passkeys, setPasskeys] = React.useState<Passkey[]>([]);
   const [loading, setLoading] = React.useState(true);
   const [creating, setCreating] = React.useState(false);
@@ -25,7 +27,16 @@ export function PasskeySetup({ nextPath }: { nextPath: string }) {
     setLoading(false);
   }, []);
 
-  React.useEffect(() => { void loadPasskeys(); }, [loadPasskeys]);
+  React.useEffect(() => {
+    let active = true;
+    void authClient.passkey.listUserPasskeys().then((result) => {
+      if (!active) return;
+      if (result.error) setMessage(result.error.message || "Unable to load passkeys.");
+      else setPasskeys((result.data ?? []) as Passkey[]);
+      setLoading(false);
+    });
+    return () => { active = false; };
+  }, []);
 
   async function createPasskey() {
     setCreating(true);
@@ -85,7 +96,7 @@ export function PasskeySetup({ nextPath }: { nextPath: string }) {
             <Button variant="outline" asChild>
               <Link href={nextPath}>{passkeys.length ? "Continue to Operations" : "Skip for now"}</Link>
             </Button>
-            <Button variant="ghost" className="sm:ml-auto" onClick={() => void authClient.signOut({ fetchOptions: { onSuccess: () => { window.location.href = "/login"; } } })}>
+            <Button variant="ghost" className="sm:ml-auto" onClick={() => void authClient.signOut({ fetchOptions: { onSuccess: () => router.push("/login") } })}>
               <LogOut className="size-4" /> Sign out
             </Button>
           </div>
