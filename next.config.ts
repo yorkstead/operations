@@ -4,10 +4,13 @@ import { fileURLToPath } from "node:url";
 import { applicationSecurityHeaders } from "./lib/security-headers";
 
 const repositoryRoot = join(dirname(fileURLToPath(import.meta.url)), "../..");
+const isManagedServerless = Boolean(process.env.VERCEL || process.env.NETLIFY);
 
 const nextConfig: NextConfig = {
-  output: "standalone",
-  outputFileTracingRoot: repositoryRoot,
+  ...(isManagedServerless ? {} : {
+    output: "standalone",
+    outputFileTracingRoot: repositoryRoot,
+  }),
   reactStrictMode: true,
   async headers() {
     return [
@@ -20,4 +23,3 @@ const nextConfig: NextConfig = {
 };
 
 export default nextConfig;
-
