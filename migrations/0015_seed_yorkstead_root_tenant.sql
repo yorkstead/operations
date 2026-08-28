@@ -20,7 +20,7 @@ ON CONFLICT ("id") DO UPDATE SET
   "updated_at" = now();
 
 -- 2. Seed Operator Brandon User
-INSERT INTO "user" ("id", "name", "email", "email_verified", "created_at", "updated_at")
+INSERT INTO "user" ("id", "name", "email", "emailVerified", "createdAt", "updatedAt")
 VALUES (
   'usr_brandon_operator',
   'Brandon',
@@ -29,23 +29,22 @@ VALUES (
   now(),
   now()
 )
-ON CONFLICT ("id") DO UPDATE SET
+ON CONFLICT ("email") DO UPDATE SET
   "name" = 'Brandon',
-  "email" = 'brandon@yorkstead.com',
-  "email_verified" = true,
-  "updated_at" = now();
+  "emailVerified" = true,
+  "updatedAt" = now();
 
 -- 3. Seed Owner Membership in Yorkstead Systems
 INSERT INTO "memberships" ("id", "organization_id", "user_id", "role", "created_at", "updated_at")
 VALUES (
   'mem_yorkstead_owner',
   'org_yorkstead_systems',
-  'usr_brandon_operator',
+  (SELECT "id" FROM "user" WHERE "email" = 'brandon@yorkstead.com'),
   'owner',
   now(),
   now()
 )
-ON CONFLICT ("id") DO UPDATE SET
+ON CONFLICT ("user_id", "organization_id") DO UPDATE SET
   "role" = 'owner',
   "updated_at" = now();
 
@@ -54,7 +53,7 @@ INSERT INTO "audit_events" ("id", "organization_id", "actor_id", "actor_name", "
 VALUES (
   'aud_tenant_zero_seed',
   'org_yorkstead_systems',
-  'usr_brandon_operator',
+  (SELECT "id" FROM "user" WHERE "email" = 'brandon@yorkstead.com'),
   'Brandon',
   'organization',
   'org_yorkstead_systems',

@@ -110,7 +110,7 @@ export const MIGRATIONS_MANIFEST: MigrationMetadata[] = [
     id: "0015_seed_yorkstead_root_tenant",
     name: "0015_seed_yorkstead_root_tenant.sql",
     filename: "0015_seed_yorkstead_root_tenant.sql",
-    checksum: "c194915a0d83d5f784a3cae16426cec83db4cef2cc9ea464f9a19cecd5cb2844",
+    checksum: "b34b01c933361ba7aad4f62607140b6e2c2152cee4278f7b1a5d40f6fc2d9f27",
     appliedAtOrder: 15,
   },
 ];

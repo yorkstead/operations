@@ -340,6 +340,7 @@ export class FileRepository {
       mimeType: f.mimeType,
       sizeBytes: f.sizeBytes,
       storageKey: f.storageKey,
+      checksumSha256: f.checksumSha256 || undefined,
       status: f.status as FileStatus,
       quarantineReason: f.quarantineReason || undefined,
       createdAt: f.createdAt.toISOString(),
