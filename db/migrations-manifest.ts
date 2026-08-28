@@ -106,7 +106,14 @@ export const MIGRATIONS_MANIFEST: MigrationMetadata[] = [
     checksum: "f2f7bb8795730a4b123c68e387273cf40f00e281d8eaf021c513cb95150ba4a1",
     appliedAtOrder: 14,
   },
+  {
+    id: "0015_seed_yorkstead_root_tenant",
+    name: "0015_seed_yorkstead_root_tenant.sql",
+    filename: "0015_seed_yorkstead_root_tenant.sql",
+    checksum: "b34b01c933361ba7aad4f62607140b6e2c2152cee4278f7b1a5d40f6fc2d9f27",
+    appliedAtOrder: 15,
+  },
 ];
 
-export const TOTAL_MIGRATIONS_COUNT = 14;
+export const TOTAL_MIGRATIONS_COUNT = 15;
 export const EXPECTED_MIGRATIONS = MIGRATIONS_MANIFEST;

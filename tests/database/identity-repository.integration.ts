@@ -4,14 +4,12 @@ import { IdentityRepository } from "../../modules/core/infrastructure/identity-r
 const describeDatabase = process.env.RUN_DATABASE_INTEGRATION === "1" ? describe : describe.skip;
 
 describeDatabase("persistent identity repository against PostgreSQL", () => {
-  it("persists owner memberships across repository instances and denies an unowned organization", async () => {
+  it("loads the migrated owner membership across repository instances and prevents a second bootstrap", async () => {
     const firstRepository = new IdentityRepository();
-    const { user, organization } = await firstRepository.bootstrapOwner({
-      email: "ci-owner@yorkstead.invalid",
-      name: "CI Owner",
-      organizationName: "CI Manufacturing",
-      organizationSlug: "ci-manufacturing",
-    });
+    const tenantZero = await firstRepository.getTenantZero();
+    expect(tenantZero).not.toBeNull();
+
+    const { owner: user, organization } = tenantZero!;
 
     const secondRepository = new IdentityRepository();
     const session = await secondRepository.resolveSessionContext(user.id, organization.id);
@@ -21,5 +19,12 @@ describeDatabase("persistent identity repository against PostgreSQL", () => {
     await expect(secondRepository.resolveSessionContext(user.id, "org_not_owned")).rejects.toThrow(
       "User is not an active member"
     );
+
+    await expect(firstRepository.bootstrapOwner({
+      email: "ci-owner@yorkstead.invalid",
+      name: "CI Owner",
+      organizationName: "CI Manufacturing",
+      organizationSlug: "ci-manufacturing",
+    })).rejects.toThrow("System already bootstrapped");
   });
 });

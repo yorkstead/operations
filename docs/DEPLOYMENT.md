@@ -6,27 +6,27 @@ This document details the live deployment architecture, platform configuration, 
 
 ## 1. Authoritative Domain & Hosting Ownership
 
-| Application | Domain | Hosting Platform | Project Name | Git Remote / Branch | Framework Preset |
+| Application | Domain | Hosting Platform | Project / Service | Git Remote / Branch | Container Runtime |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Public Website** | `https://yorkstead.com` | **Netlify** | `yorkstead` | `Yorkstead-Systems/yorkstead` (`main`, `apps/website`) | Next.js (Netlify Plugin) |
-| **Operations Platform** | `https://ops.yorkstead.com` | **Vercel** | `yorkstead-operations` | `Yorkstead-Systems/yorkstead` (`main`, `apps/operations`) | Next.js 16 (Turbopack) |
+| **Public Website** | `https://yorkstead.com` | **Cloudflare / Cloud Run** | `yorkstead-website` | `Yorkstead-Systems/yorkstead` (`main`, `apps/website`) | Next.js Standalone (Bun) |
+| **Operations Platform** | `https://ops.yorkstead.com` | **Cloudflare / Cloud Run** | `yorkstead-operations` | `Yorkstead-Systems/yorkstead` (`main`, `apps/operations`) | Next.js Standalone (Bun) |
 
 Database initialization must run `bun run auth:migrate` before `bun run db:migrate`. Application migrations reference Better Auth identity tables and intentionally fail if the authentication schema has not been installed first.
 
 ---
 
-## 2. Vercel Project Configuration (`yorkstead-operations`)
+## 2. Cloud Run & Cloudflare Target Configuration (`yorkstead-operations`)
 
-- **Project ID**: `prj_mGx4vKeTu6GSyMgosXtR8QQZa4Oj`
-- **Owner**: `4twentydev`
-- **Root Directory**: `.`
-- **Framework Preset**: `Next.js` (`framework: "nextjs"` in `vercel.json`)
-- **Build Command**: `bun run build`
-- **Install Command**: `bun install`
-- **Node.js Runtime**: `24.x` / `bun`
+- **Platform**: Google Cloud Run (Fully Managed Gen2)
+- **Container Image**: `us-central1-docker.pkg.dev/$PROJECT_ID/yorkstead/operations:$RELEASE_SHA`
+- **Root Directory**: `.` (Monorepo context)
+- **Service Port**: `8080`
+- **Scaling Limits**: Min Instances `0` (Scale to Zero), Max Instances `3`, Concurrency `40`
+- **CPU / Memory**: `1 vCPU`, `512MiB` Memory, `--cpu-throttling`, `--startup-cpu-boost`
+- **Edge Layer**: Cloudflare (DNS, TLS Full Strict, WAF, R2 Storage, Queues)
 - **Production Aliases**:
   - `https://ops.yorkstead.com` (Primary production custom domain)
-  - `https://ops.4twenty.dev` (Migration fallback alias)
+
 
 ---
 

@@ -115,8 +115,50 @@ export class DemoFrameworkService {
       },
     };
 
+    const mileHigh: DemoScenarioManifest = {
+      scenarioSlug: "mile-high-signworks",
+      name: "Mile High Signworks",
+      industry: "Architectural Signage & Field Crane Installation",
+      description: "Custom illuminated pylons, channel letters, vector artwork approvals, and field crane installation.",
+      version: "1.0.0",
+      storyNarrative: "Vector proof review, engineering drawings, field crane mobile dispatch, and GPS-tagged install sign-off.",
+      guidedSteps: [
+        {
+          stepNumber: 1,
+          title: "Vector Artwork Proofing",
+          module: "Proofing",
+          targetPath: "/quotes",
+          description: "Review multi-layer PDF signage proofs with client vector markup.",
+          keyAction: "Approve Vector Proof",
+          expectedOutcome: "Signage drawing marked Approved for CNC router output.",
+        },
+        {
+          stepNumber: 2,
+          title: "Field Crane Dispatch & Proof of Install",
+          module: "Field Ops",
+          targetPath: "/shipping",
+          description: "Dispatch boom crane crew with GPS verification and client sign-off.",
+          keyAction: "Complete Field Installation",
+          expectedOutcome: "Photo proof-of-installation saved to client vault.",
+        },
+      ],
+      highlights: [
+        "Architectural Vector Annotations",
+        "Field Crane Dispatch Tracker",
+        "Offline GPS Proof-of-Install Photos",
+        "SOW Milestone Sign-Offs",
+      ],
+      initialMetrics: {
+        activeJobs: 6,
+        wipValueFormatted: "$94,800",
+        onTimeRate: "99.1%",
+        firstPassYield: "98.5%",
+      },
+    };
+
     this.scenarios.set(frontRange.scenarioSlug, frontRange);
     this.scenarios.set(summitFacility.scenarioSlug, summitFacility);
+    this.scenarios.set(mileHigh.scenarioSlug, mileHigh);
   }
 
   // 1. List Available Demo Scenarios
@@ -166,6 +208,11 @@ export class DemoFrameworkService {
   resetDemoOrganization(session: SessionContext, organizationId: string): DemoResetResult {
     // Verify tenant authorization
     authorizationService.requireCapability(session, "org:manage_profile");
+
+    // Guardrail: Refuses to reset production organizations
+    if (!session.activeOrganization.isDemo || session.activeOrganization.id === "org_yorkstead_systems" || session.activeOrganization.slug === "yorkstead") {
+      throw new Error(`Cannot reset production customer organization '${session.activeOrganization.name}'`);
+    }
 
     // Rate-limiting check: 1 reset every 10 seconds per org
     const now = Date.now();

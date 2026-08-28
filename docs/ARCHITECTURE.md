@@ -1,36 +1,45 @@
-# Architecture
+# Architecture & System Design: Yorkstead Operations
 
 ## Direction
 
-Use a production-ready modular monolith: one application and deployment unit with strongly separated business modules. This reduces operational overhead while keeping future service extraction possible.
+Yorkstead Operations (`ops.yorkstead.com`) is a production-ready modular monolith: one unified deployment unit on Vercel with strongly separated domain and infrastructure modules. It functions as the internal ERP and software delivery control plane for Yorkstead Systems (Tenant 0) while providing isolated synthetic demo sandboxes for sales presentations.
+
+---
+
+## Tenant 0 & Multi-Tenant Model
+
+- **Tenant 0 (Root Internal Production Tenant)**: `org_yorkstead_systems` (`slug: yorkstead`, `is_demo: false`).
+  - Owner / Super-Admin: Brandon (`brandon@yorkstead.com`, `usr_brandon_operator`).
+  - Live client contracts, software deliverables, financial quoting, and DevOps consoles.
+- **Sales Demo Sandboxes (`is_demo: true`)**:
+  - `demo_mile_high_signworks`: Architectural signage & crane dispatch.
+  - `demo_summit_facility`: Multi-site facility maintenance & equipment telemetry.
+  - `demo_front_range_mfg`: CNC machining & shopfloor travelers.
+- **Zero-Contamination Policy**: Production tenant data cannot be wiped, seeded, or reset by demo routines.
+
+---
 
 ## Layers
 
 - `app/`: routing, request boundaries, page composition
+- `components/`: cockpit, engagements, quoting, and shell presentation components
 - `modules/<name>/domain`: entities, value objects, policies, domain events
 - `modules/<name>/application`: commands, queries, workflows, ports
 - `modules/<name>/infrastructure`: persistence and external adapters
-- `modules/<name>/ui`: module-specific presentation
-- `components/`: stable cross-module visual primitives
 - `lib/`: technical utilities with no business ownership
 - `db/`: shared database mechanics and migrations
 
-Create subfolders only when implementation needs them.
+---
 
-## Core ownership
+## Core Domain Modules
 
-Core owns organizations, users/memberships, roles/capabilities, customers, vendors, locations, feature entitlements, files metadata, notifications, integrations, and shared identifiers. Business modules own their records and rules.
+1. **`core`**: Organizations, users/memberships, passkey identity, authorization capabilities, and session resolution.
+2. **`engagements`**: Client software delivery lifecycle (6 stages), milestone tasks, SOW checklist, Cloudflare R2 file vault, and secrets store.
+3. **`quoting`**: Consulting cost models (`discovery_audit`, `custom_software_milestone`, `monthly_sla_retainer`), margin policy governance, payment milestones, and R2 PDF proposal generator.
+4. **`demo`**: Guided scenario manifests, ephemeral in-memory sandbox provisioning, and deterministic resets.
 
-Modules may read another module through a public query contract. Cross-module mutations go through explicit services or events; never reach into another module’s private tables from route code.
+---
 
-## Required boundaries
+## Deployment & Public Site Relationship
 
-Organization context must be explicit in every tenant operation. Use transactions for workflows that must succeed atomically. Prefer an outbox for reliable asynchronous side effects. Use stable IDs, UTC storage, clear money/quantity units, and immutable operational event records where appropriate.
-
-## Deployment relationship
-
-`yorkstead.com` (`yorkstead-website`) and `ops.yorkstead.com` (`yorkstead-operations`) deploy independently. Public pages link to safe demo entry points or approved screenshots. No shared database or implicit session.
-
-## Decision records
- 
-Create `docs/decisions/NNNN-title.md` before resolving architectural conflicts. Include context, decision, alternatives, consequences, migration/rollback, and status. See [`docs/decisions/README.md`](decisions/README.md) for the active index and [`docs/decisions/template.md`](decisions/template.md) for the standard format.
+`https://yorkstead.com` (`apps/website` on Netlify) and `https://ops.yorkstead.com` (`apps/operations` on Vercel) deploy independently with clear architectural boundaries. Lead inquiries captured on the public site write to Neon PostgreSQL and populate the operator intake pipeline in Yorkstead Operations.
