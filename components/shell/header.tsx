@@ -46,6 +46,9 @@ export function Header() {
           <Link href="/" className="text-xs font-mono uppercase tracking-wider text-primary font-semibold transition hover:text-foreground">
             Cockpit
           </Link>
+          <Link href="/engagements" className="text-xs font-mono uppercase tracking-wider text-muted-foreground transition hover:text-foreground">
+            Engagements
+          </Link>
           <Link href="/infrastructure" className="text-xs font-mono uppercase tracking-wider text-muted-foreground transition hover:text-foreground">
             Cloud Ops
           </Link>
