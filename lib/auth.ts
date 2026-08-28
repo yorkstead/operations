@@ -3,6 +3,14 @@ import { passkey } from "@better-auth/passkey";
 import { env } from "./env";
 import { createPostgresPool } from "./infrastructure/database/postgres";
 
+function resolveRpId(urlStr: string) {
+  try {
+    return new URL(urlStr).hostname;
+  } catch {
+    return "ops.yorkstead.com";
+  }
+}
+
 export const auth = betterAuth({
   secret: env.BETTER_AUTH_SECRET,
   baseURL: env.BETTER_AUTH_URL,
@@ -16,6 +24,10 @@ export const auth = betterAuth({
     enabled: true,
   },
   plugins: [
-    passkey(),
+    passkey({
+      rpID: resolveRpId(env.BETTER_AUTH_URL),
+      rpName: "Yorkstead Operations",
+      origin: env.BETTER_AUTH_URL,
+    }),
   ],
 });

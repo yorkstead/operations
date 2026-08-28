@@ -47,13 +47,23 @@ export default function LoginPage() {
     try {
       const res = await authClient.signIn.passkey();
       if (res?.error) {
-        setError(res.error.message || "Passkey authentication failed.");
+        setError(res.error.message || "No passkey registered on this device for this account.");
       } else {
         router.push("/jobs");
         router.refresh();
       }
-    } catch {
-      setError("Passkey prompt cancelled or unsupported on this device.");
+    } catch (err: unknown) {
+      const errorMsg = err instanceof Error ? err.message : "";
+      if (
+        errorMsg.includes("excludeCredentials") ||
+        errorMsg.includes("NotAllowedError") ||
+        errorMsg.includes("cancel") ||
+        errorMsg.includes("abort")
+      ) {
+        setError("Passkey sign-in was cancelled or no passkey is registered on this device yet. Please sign in with email and password.");
+      } else {
+        setError(errorMsg || "Passkey authentication was not completed. Please sign in with your email and password.");
+      }
     } finally {
       setLoading(false);
     }
