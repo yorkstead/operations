@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { RotateCcw, ShieldCheck, ArrowRight, CheckCircle2, Sparkles, Factory, Wrench, Zap, Car } from "lucide-react";
+import { RotateCcw, ShieldCheck, ArrowRight, ArrowLeft, ExternalLink, CheckCircle2, Sparkles, Factory, Wrench, Zap, Car } from "lucide-react";
 import { FrontRangeWalkthrough } from "@/components/demo/front-range-walkthrough";
 import { SummitFacilityWalkthrough } from "@/components/demo/summit-facility-walkthrough";
 import { SignworksWalkthrough } from "@/components/demo/signworks-walkthrough";
@@ -97,6 +97,33 @@ export function DemoHub() {
 
   return (
     <div className="space-y-8">
+      {/* Return to Yorkstead Public Site & Walkthrough Navigation Bar */}
+      <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-primary/30 bg-primary/5 px-4 py-2.5 font-mono text-xs text-muted-foreground">
+        <a
+          href="https://yorkstead.com"
+          className="inline-flex items-center gap-1.5 font-semibold text-primary hover:underline"
+        >
+          <ArrowLeft className="size-3.5" />
+          <span>Return to yorkstead.com</span>
+        </a>
+
+        <div className="flex items-center gap-4">
+          <a
+            href={`https://yorkstead.com/demos/${current.slug}`}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-1 hover:text-foreground transition"
+          >
+            <span>Read {current.name} Walkthrough</span>
+            <ExternalLink className="size-3 opacity-80" />
+          </a>
+          <span className="text-border">|</span>
+          <span className="text-[10px] text-amber-500 font-bold uppercase">
+            Synthetic Sandbox
+          </span>
+        </div>
+      </div>
+
       {/* Demo Header */}
       <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
         <div>

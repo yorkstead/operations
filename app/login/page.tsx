@@ -66,7 +66,13 @@ export default function LoginPage() {
           <div className="mx-auto flex size-12 items-center justify-center rounded-xl border border-primary/30 bg-primary/10 text-primary">
             <ShieldCheck className="size-6" />
           </div>
-          <div className="flex items-center justify-center gap-2">
+          <div className="flex items-center justify-between">
+            <a
+              href="https://yorkstead.com"
+              className="inline-flex items-center gap-1 font-mono text-[10px] text-muted-foreground hover:text-foreground transition"
+            >
+              <span>← yorkstead.com</span>
+            </a>
             <Badge variant="secondary" className="font-mono text-[9px] uppercase bg-primary/20 text-primary border-primary/30">
               OPERATIONS GATEWAY
             </Badge>
@@ -147,11 +153,18 @@ export default function LoginPage() {
             </Button>
           </form>
 
-          <div className="rounded-lg border border-border/80 bg-muted/20 p-3 text-[11px] text-muted-foreground text-center">
-            <span>Evaluating as a prospect? </span>
-            <a href="/demo" className="font-semibold text-primary hover:underline">
-              Launch interactive demo sandbox
-            </a>
+          <div className="rounded-lg border border-border/80 bg-muted/20 p-3 text-[11px] text-muted-foreground text-center space-y-1">
+            <div>
+              <span>Evaluating as a prospect? </span>
+              <a href="/demo" className="font-semibold text-primary hover:underline">
+                Launch interactive demo sandbox
+              </a>
+            </div>
+            <div>
+              <a href="https://yorkstead.com" className="text-[10px] text-muted-foreground hover:underline">
+                Explore platform capabilities on yorkstead.com
+              </a>
+            </div>
           </div>
         </CardContent>
       </Card>
