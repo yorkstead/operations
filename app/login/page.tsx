@@ -29,13 +29,14 @@ export default function LoginPage() {
       });
 
       if (res.error) {
-        setError(res.error.message || "Invalid credentials.");
+        setError(res.error.message || "Invalid credentials. Please verify your email and password.");
       } else {
         router.push("/jobs");
         router.refresh();
       }
-    } catch {
-      setError("Authentication request failed. Check connection.");
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : "";
+      setError(msg || "Authentication request failed. Check connection.");
     } finally {
       setLoading(false);
     }

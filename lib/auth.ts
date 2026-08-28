@@ -14,7 +14,17 @@ function resolveRpId(urlStr: string) {
 export const auth = betterAuth({
   secret: env.BETTER_AUTH_SECRET,
   baseURL: env.BETTER_AUTH_URL,
-  trustedOrigins: Array.from(new Set([env.BETTER_AUTH_URL, env.NEXT_PUBLIC_APP_URL])),
+  trustedOrigins: Array.from(
+    new Set([
+      "https://ops.yorkstead.com",
+      "https://ops-staging.yorkstead.com",
+      "https://yorkstead.com",
+      "http://localhost:3000",
+      "http://localhost:3001",
+      env.BETTER_AUTH_URL,
+      env.NEXT_PUBLIC_APP_URL,
+    ].filter(Boolean))
+  ),
   database: createPostgresPool(),
   emailAndPassword: {
     enabled: true,
