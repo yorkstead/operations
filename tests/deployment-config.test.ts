@@ -32,6 +32,8 @@ describe("locked architecture and deployment configuration invariants", () => {
     const content = readFileSync(wranglerPath, "utf-8");
     expect(content).toContain('"name": "yorkstead-website"');
     expect(content).toContain('"nodejs_compat"');
+    expect(content).toContain('"pattern": "yorkstead.com/*"');
+    expect(content).toContain('"pattern": "www.yorkstead.com/*"');
   });
 
   it("ensures no obsolete open-next.config.ts exists in apps/website", () => {
