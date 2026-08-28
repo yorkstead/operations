@@ -39,3 +39,4 @@ Write an ADR when:
 | [0024](0024-s3-compatible-private-object-storage.md) | S3-Compatible Private Object Storage | ACCEPTED | 2026-08-27 |
 | [0025](0025-durable-background-jobs.md) | Durable Background Jobs for Heavy Processing | ACCEPTED | 2026-08-27 |
 | [0026](0026-cloudflare-queues-as-dispatch-layer.md) | Cloudflare Queues as a Dispatch Layer | ACCEPTED | 2026-08-27 |
+| [0027](0027-locked-yorkstead-architecture-and-runtime-boundaries.md) | Locked Yorkstead Platform Architecture and Runtime Boundaries | ACCEPTED | 2026-08-28 |
