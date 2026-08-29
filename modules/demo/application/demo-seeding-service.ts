@@ -2,8 +2,10 @@ import { SessionContext } from "@/modules/core/domain/types";
 import { activityService } from "@/modules/core/application/activity-service";
 import { frontRangeSeeder, FrontRangeSeedingResult } from "./front-range-seeder";
 import { summitFacilitySeeder, SummitFacilitySeedingResult } from "./summit-facility-seeder";
+import { signworksSeeder, SignworksSeedingResult } from "./signworks-seeder";
 import { FRONT_RANGE_FIXTURE_DATA } from "../domain/front-range-scenario";
 import { SUMMIT_FACILITY_FIXTURE_DATA } from "../domain/summit-facility-scenario";
+import { SIGNWORKS_FIXTURE_DATA } from "../domain/signworks-scenario";
 
 export interface DemoContaminationReport {
   organizationId: string;
@@ -55,6 +57,9 @@ export class DemoSeedingService {
     if (org.slug === "summit-facility-services") {
       const result: SummitFacilitySeedingResult = summitFacilitySeeder.seed(session);
       totalCount = result.totalRecordsSeeded;
+    } else if (org.slug === "mile-high-signworks") {
+      const result: SignworksSeedingResult = signworksSeeder.seed(session);
+      totalCount = result.totalRecordsSeeded;
     } else {
       // Default to Front Range connected scenario
       const result: FrontRangeSeedingResult = frontRangeSeeder.seed(session);
@@ -82,9 +87,12 @@ export class DemoSeedingService {
     const org = session.activeOrganization;
     const isDemo = org.isDemo === true && org.id !== "org_yorkstead_systems" && org.slug !== "yorkstead";
     const isSeeded = this.seededOrgs.has(org.id);
-    const count = org.slug === "summit-facility-services"
-      ? SUMMIT_FACILITY_FIXTURE_DATA.counts.totalConnectedRecords
-      : FRONT_RANGE_FIXTURE_DATA.counts.totalConnectedRecords;
+    let count = FRONT_RANGE_FIXTURE_DATA.counts.totalConnectedRecords;
+    if (org.slug === "summit-facility-services") {
+      count = SUMMIT_FACILITY_FIXTURE_DATA.counts.totalConnectedRecords;
+    } else if (org.slug === "mile-high-signworks") {
+      count = SIGNWORKS_FIXTURE_DATA.counts.totalConnectedRecords;
+    }
 
     return {
       organizationId: org.id,
@@ -109,11 +117,16 @@ export class DemoSeedingService {
   previewDemoCleanup(session: SessionContext): { eligibleRecordCount: number; targetOrganizationId: string } {
     const org = this.requireExplicitDemo(session, "preview cleanup for");
 
-    const count = this.seededOrgs.has(org.id)
-      ? (org.slug === "summit-facility-services"
-          ? SUMMIT_FACILITY_FIXTURE_DATA.counts.totalConnectedRecords
-          : FRONT_RANGE_FIXTURE_DATA.counts.totalConnectedRecords)
-      : 0;
+    let count = 0;
+    if (this.seededOrgs.has(org.id)) {
+      if (org.slug === "summit-facility-services") {
+        count = SUMMIT_FACILITY_FIXTURE_DATA.counts.totalConnectedRecords;
+      } else if (org.slug === "mile-high-signworks") {
+        count = SIGNWORKS_FIXTURE_DATA.counts.totalConnectedRecords;
+      } else {
+        count = FRONT_RANGE_FIXTURE_DATA.counts.totalConnectedRecords;
+      }
+    }
     return { eligibleRecordCount: count, targetOrganizationId: org.id };
   }
 
@@ -124,16 +137,18 @@ export class DemoSeedingService {
   cleanDemoOrganization(session: SessionContext): { success: boolean; recordsRemovedCount: number } {
     const org = this.requireExplicitDemo(session, "clean");
 
-    const removed = this.seededOrgs.has(org.id)
-      ? (org.slug === "summit-facility-services"
-          ? SUMMIT_FACILITY_FIXTURE_DATA.counts.totalConnectedRecords
-          : FRONT_RANGE_FIXTURE_DATA.counts.totalConnectedRecords)
-      : 0;
-
-    if (org.slug === "summit-facility-services") {
-      summitFacilitySeeder.clean(session);
-    } else {
-      frontRangeSeeder.clean(session);
+    let removed = 0;
+    if (this.seededOrgs.has(org.id)) {
+      if (org.slug === "summit-facility-services") {
+        removed = SUMMIT_FACILITY_FIXTURE_DATA.counts.totalConnectedRecords;
+        summitFacilitySeeder.clean(session);
+      } else if (org.slug === "mile-high-signworks") {
+        removed = SIGNWORKS_FIXTURE_DATA.counts.totalConnectedRecords;
+        signworksSeeder.clean(session);
+      } else {
+        removed = FRONT_RANGE_FIXTURE_DATA.counts.totalConnectedRecords;
+        frontRangeSeeder.clean(session);
+      }
     }
     this.seededOrgs.delete(org.id);
 
