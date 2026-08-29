@@ -1,3 +1,4 @@
+import * as React from "react";
 import { DemoHub } from "@/components/demo/demo-hub";
 
 export const metadata = {
@@ -8,7 +9,9 @@ export const metadata = {
 export default function DemoPage() {
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-      <DemoHub />
+      <React.Suspense fallback={<div className="font-mono text-xs text-muted-foreground p-8">Loading demo environment...</div>}>
+        <DemoHub />
+      </React.Suspense>
     </div>
   );
 }
