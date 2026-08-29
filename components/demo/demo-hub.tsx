@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -12,8 +13,20 @@ import { SignworksWalkthrough } from "@/components/demo/signworks-walkthrough";
 import { MobileDetailWalkthrough } from "@/components/demo/mobile-detail-walkthrough";
 import { SalesPresenterCockpit } from "@/components/demo/sales-presenter-cockpit";
 
+const validScenarios = [
+  "front-range-manufacturing",
+  "summit-facility-services",
+  "mile-high-signworks",
+  "peak-mobile-detail",
+];
+
 export function DemoHub() {
-  const [activeScenario, setActiveScenario] = React.useState("front-range-manufacturing");
+  const searchParams = useSearchParams();
+  const scenarioParam = searchParams.get("scenario");
+  const fromParam = searchParams.get("from");
+
+  const [selectedScenario, setSelectedScenario] = React.useState<string | null>(null);
+  const activeScenario = selectedScenario ?? (scenarioParam && validScenarios.includes(scenarioParam) ? scenarioParam : "front-range-manufacturing");
   const [resetState, setResetState] = React.useState<string | null>(null);
   const [isResetting, setIsResetting] = React.useState(false);
 
@@ -95,17 +108,38 @@ export function DemoHub() {
     }, 600);
   };
 
+  const returnUrl = fromParam
+    ? `https://yorkstead.com${fromParam.startsWith("/") ? fromParam : `/${fromParam}`}`
+    : "https://yorkstead.com";
+
+  const returnLabel = fromParam
+    ? `Return to ${fromParam}`
+    : "Return to yorkstead.com";
+
   return (
     <div className="space-y-8">
       {/* Return to Yorkstead Public Site & Walkthrough Navigation Bar */}
       <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-primary/30 bg-primary/5 px-4 py-2.5 font-mono text-xs text-muted-foreground">
-        <a
-          href="https://yorkstead.com"
-          className="inline-flex items-center gap-1.5 font-semibold text-primary hover:underline"
-        >
-          <ArrowLeft className="size-3.5" />
-          <span>Return to yorkstead.com</span>
-        </a>
+        <div className="flex items-center gap-3">
+          <a
+            href={returnUrl}
+            className="inline-flex items-center gap-1.5 font-semibold text-primary hover:underline"
+          >
+            <ArrowLeft className="size-3.5" />
+            <span>{returnLabel}</span>
+          </a>
+          {fromParam && (
+            <>
+              <span className="text-border">|</span>
+              <a
+                href="https://yorkstead.com"
+                className="hover:text-foreground transition hidden sm:inline"
+              >
+                <span>yorkstead.com home</span>
+              </a>
+            </>
+          )}
+        </div>
 
         <div className="flex items-center gap-4">
           <a
@@ -167,7 +201,7 @@ export function DemoHub() {
       {/* Guided Sales Presenter Cockpit */}
       <SalesPresenterCockpit
         currentScenarioSlug={activeScenario}
-        onScenarioChange={(slug) => setActiveScenario(slug)}
+        onScenarioChange={(slug) => setSelectedScenario(slug)}
       />
 
       {/* Scenario Selector */}
@@ -178,7 +212,7 @@ export function DemoHub() {
           return (
             <Card
               key={sc.slug}
-              onClick={() => setActiveScenario(sc.slug)}
+              onClick={() => setSelectedScenario(sc.slug)}
               className={`cursor-pointer transition-all ${
                 isSelected
                   ? "border-primary bg-primary/[0.04] ring-1 ring-primary/30 shadow-lg"

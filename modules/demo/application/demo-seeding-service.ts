@@ -1,7 +1,13 @@
 import { SessionContext } from "@/modules/core/domain/types";
 import { activityService } from "@/modules/core/application/activity-service";
 import { frontRangeSeeder, FrontRangeSeedingResult } from "./front-range-seeder";
+import { summitFacilitySeeder, SummitFacilitySeedingResult } from "./summit-facility-seeder";
+import { signworksSeeder, SignworksSeedingResult } from "./signworks-seeder";
+import { mobileDetailSeeder, MobileDetailSeedingResult } from "./mobile-detail-seeder";
 import { FRONT_RANGE_FIXTURE_DATA } from "../domain/front-range-scenario";
+import { SUMMIT_FACILITY_FIXTURE_DATA } from "../domain/summit-facility-scenario";
+import { SIGNWORKS_FIXTURE_DATA } from "../domain/signworks-scenario";
+import { MOBILE_DETAIL_FIXTURE_DATA } from "../domain/mobile-detail-scenario";
 
 export interface DemoContaminationReport {
   organizationId: string;
@@ -49,8 +55,21 @@ export class DemoSeedingService {
       return { success: true, seededEntitiesCount: 0 };
     }
 
-    // Seed Front Range connected scenario
-    const result: FrontRangeSeedingResult = frontRangeSeeder.seed(session);
+    let totalCount = 0;
+    if (org.slug === "summit-facility-services") {
+      const result: SummitFacilitySeedingResult = summitFacilitySeeder.seed(session);
+      totalCount = result.totalRecordsSeeded;
+    } else if (org.slug === "mile-high-signworks") {
+      const result: SignworksSeedingResult = signworksSeeder.seed(session);
+      totalCount = result.totalRecordsSeeded;
+    } else if (org.slug === "peak-mobile-detail") {
+      const result: MobileDetailSeedingResult = mobileDetailSeeder.seed(session);
+      totalCount = result.totalRecordsSeeded;
+    } else {
+      // Default to Front Range connected scenario
+      const result: FrontRangeSeedingResult = frontRangeSeeder.seed(session);
+      totalCount = result.totalRecordsSeeded;
+    }
     this.seededOrgs.add(org.id);
 
     activityService.logActivity({
@@ -60,10 +79,10 @@ export class DemoSeedingService {
       entityType: "organization",
       entityId: org.id,
       action: "demo.organization_seeded",
-      summary: `Explicitly seeded Front Range Precision Manufacturing demo data (${result.totalRecordsSeeded} records) for demo organization '${org.name}'.`,
+      summary: `Explicitly seeded demo data (${totalCount} records) for demo organization '${org.name}'.`,
     });
 
-    return { success: true, seededEntitiesCount: result.totalRecordsSeeded };
+    return { success: true, seededEntitiesCount: totalCount };
   }
 
   /**
@@ -73,20 +92,28 @@ export class DemoSeedingService {
     const org = session.activeOrganization;
     const isDemo = org.isDemo === true && org.id !== "org_yorkstead_systems" && org.slug !== "yorkstead";
     const isSeeded = this.seededOrgs.has(org.id);
+    let count = FRONT_RANGE_FIXTURE_DATA.counts.totalConnectedRecords;
+    if (org.slug === "summit-facility-services") {
+      count = SUMMIT_FACILITY_FIXTURE_DATA.counts.totalConnectedRecords;
+    } else if (org.slug === "mile-high-signworks") {
+      count = SIGNWORKS_FIXTURE_DATA.counts.totalConnectedRecords;
+    } else if (org.slug === "peak-mobile-detail") {
+      count = MOBILE_DETAIL_FIXTURE_DATA.counts.totalConnectedRecords;
+    }
 
     return {
       organizationId: org.id,
       isDemo,
-      totalSyntheticRecordsFound: isSeeded ? FRONT_RANGE_FIXTURE_DATA.counts.totalConnectedRecords : 0,
+      totalSyntheticRecordsFound: isSeeded ? count : 0,
       breakdown: {
-        files: isSeeded ? FRONT_RANGE_FIXTURE_DATA.counts.fileVaultRecords : 0,
-        quotes: isSeeded ? FRONT_RANGE_FIXTURE_DATA.counts.quotes : 0,
-        purchaseOrders: isSeeded ? FRONT_RANGE_FIXTURE_DATA.counts.purchasingPo : 0,
-        equipment: isSeeded ? FRONT_RANGE_FIXTURE_DATA.counts.equipmentAssets : 0,
-        packages: isSeeded ? FRONT_RANGE_FIXTURE_DATA.counts.packagingUnits : 0,
-        manifests: isSeeded ? FRONT_RANGE_FIXTURE_DATA.counts.shippingManifests : 0,
+        files: isSeeded ? 2 : 0,
+        quotes: isSeeded ? 1 : 0,
+        purchaseOrders: isSeeded ? 1 : 0,
+        equipment: isSeeded ? 3 : 0,
+        packages: isSeeded ? 1 : 0,
+        manifests: isSeeded ? 1 : 0,
         articles: isSeeded ? 3 : 0,
-        packetDocs: isSeeded ? FRONT_RANGE_FIXTURE_DATA.counts.packetDocs : 0,
+        packetDocs: isSeeded ? 1 : 0,
       },
     };
   }
@@ -97,7 +124,18 @@ export class DemoSeedingService {
   previewDemoCleanup(session: SessionContext): { eligibleRecordCount: number; targetOrganizationId: string } {
     const org = this.requireExplicitDemo(session, "preview cleanup for");
 
-    const count = this.seededOrgs.has(org.id) ? FRONT_RANGE_FIXTURE_DATA.counts.totalConnectedRecords : 0;
+    let count = 0;
+    if (this.seededOrgs.has(org.id)) {
+      if (org.slug === "summit-facility-services") {
+        count = SUMMIT_FACILITY_FIXTURE_DATA.counts.totalConnectedRecords;
+      } else if (org.slug === "mile-high-signworks") {
+        count = SIGNWORKS_FIXTURE_DATA.counts.totalConnectedRecords;
+      } else if (org.slug === "peak-mobile-detail") {
+        count = MOBILE_DETAIL_FIXTURE_DATA.counts.totalConnectedRecords;
+      } else {
+        count = FRONT_RANGE_FIXTURE_DATA.counts.totalConnectedRecords;
+      }
+    }
     return { eligibleRecordCount: count, targetOrganizationId: org.id };
   }
 
@@ -108,8 +146,22 @@ export class DemoSeedingService {
   cleanDemoOrganization(session: SessionContext): { success: boolean; recordsRemovedCount: number } {
     const org = this.requireExplicitDemo(session, "clean");
 
-    const removed = this.seededOrgs.has(org.id) ? FRONT_RANGE_FIXTURE_DATA.counts.totalConnectedRecords : 0;
-    frontRangeSeeder.clean(session);
+    let removed = 0;
+    if (this.seededOrgs.has(org.id)) {
+      if (org.slug === "summit-facility-services") {
+        removed = SUMMIT_FACILITY_FIXTURE_DATA.counts.totalConnectedRecords;
+        summitFacilitySeeder.clean(session);
+      } else if (org.slug === "mile-high-signworks") {
+        removed = SIGNWORKS_FIXTURE_DATA.counts.totalConnectedRecords;
+        signworksSeeder.clean(session);
+      } else if (org.slug === "peak-mobile-detail") {
+        removed = MOBILE_DETAIL_FIXTURE_DATA.counts.totalConnectedRecords;
+        mobileDetailSeeder.clean(session);
+      } else {
+        removed = FRONT_RANGE_FIXTURE_DATA.counts.totalConnectedRecords;
+        frontRangeSeeder.clean(session);
+      }
+    }
     this.seededOrgs.delete(org.id);
 
     activityService.logActivity({

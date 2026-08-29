@@ -21,7 +21,9 @@ export interface ActivityEvent {
     | "inspection"
     | "ncr"
     | "package"
-    | "manifest";
+    | "manifest"
+    | "equipment"
+    | "inventory_item";
   entityId: string;
   action: string;
   summary: string;
@@ -77,9 +79,10 @@ export class ActivityService {
       .slice(0, limit);
   }
 
-  getRecentActivities(organizationId: string, limit = 50): ActivityEvent[] {
+  getRecentActivities(sessionOrOrgId: SessionContext | string, limit = 50): ActivityEvent[] {
+    const orgId = typeof sessionOrOrgId === "string" ? sessionOrOrgId : sessionOrOrgId.activeOrganization.id;
     return this.events
-      .filter((e) => e.organizationId === organizationId)
+      .filter((e) => e.organizationId === orgId)
       .slice(0, limit);
   }
 }
