@@ -213,6 +213,14 @@ export class ShopfloorService {
   }
 
   // 5. Lookups
+  getTraveler(session: SessionContext, id: string): DigitalTraveler {
+    const traveler = this.travelers.get(id);
+    if (!traveler || traveler.organizationId !== session.activeOrganization.id) {
+      throw new Error(`Traveler not found in active organization: ${id}`);
+    }
+    return traveler;
+  }
+
   getTravelerByQr(session: SessionContext, qrOrNumber: string): DigitalTraveler {
     const clean = qrOrNumber.replace("yorkstead://traveler/", "").trim().toUpperCase();
     const traveler = Array.from(this.travelers.values()).find(

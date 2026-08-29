@@ -1,5 +1,7 @@
 import { SessionContext } from "@/modules/core/domain/types";
 import { activityService } from "@/modules/core/application/activity-service";
+import { frontRangeSeeder, FrontRangeSeedingResult } from "./front-range-seeder";
+import { FRONT_RANGE_FIXTURE_DATA } from "../domain/front-range-scenario";
 
 export interface DemoContaminationReport {
   organizationId: string;
@@ -26,7 +28,7 @@ export class DemoSeedingService {
     }
 
     const organization = session.activeOrganization;
-    if (organization.isDemo !== true) {
+    if (organization.isDemo !== true || organization.id === "org_yorkstead_systems" || organization.slug === "yorkstead") {
       throw new Error(
         `Forbidden: Cannot ${operation} production customer organization '${organization.name}' (${organization.id}). Demo operations require isDemo: true.`
       );
@@ -47,6 +49,8 @@ export class DemoSeedingService {
       return { success: true, seededEntitiesCount: 0 };
     }
 
+    // Seed Front Range connected scenario
+    const result: FrontRangeSeedingResult = frontRangeSeeder.seed(session);
     this.seededOrgs.add(org.id);
 
     activityService.logActivity({
@@ -56,10 +60,10 @@ export class DemoSeedingService {
       entityType: "organization",
       entityId: org.id,
       action: "demo.organization_seeded",
-      summary: `Explicitly seeded demo data for demo organization '${org.name}'.`,
+      summary: `Explicitly seeded Front Range Precision Manufacturing demo data (${result.totalRecordsSeeded} records) for demo organization '${org.name}'.`,
     });
 
-    return { success: true, seededEntitiesCount: 15 };
+    return { success: true, seededEntitiesCount: result.totalRecordsSeeded };
   }
 
   /**
@@ -67,22 +71,22 @@ export class DemoSeedingService {
    */
   auditOrganizationContamination(session: SessionContext): DemoContaminationReport {
     const org = session.activeOrganization;
-    const isDemo = org.isDemo === true;
+    const isDemo = org.isDemo === true && org.id !== "org_yorkstead_systems" && org.slug !== "yorkstead";
     const isSeeded = this.seededOrgs.has(org.id);
 
     return {
       organizationId: org.id,
       isDemo,
-      totalSyntheticRecordsFound: isSeeded ? 15 : 0,
+      totalSyntheticRecordsFound: isSeeded ? FRONT_RANGE_FIXTURE_DATA.counts.totalConnectedRecords : 0,
       breakdown: {
-        files: isSeeded ? 2 : 0,
-        quotes: isSeeded ? 1 : 0,
-        purchaseOrders: isSeeded ? 1 : 0,
-        equipment: isSeeded ? 3 : 0,
-        packages: isSeeded ? 2 : 0,
-        manifests: isSeeded ? 1 : 0,
+        files: isSeeded ? FRONT_RANGE_FIXTURE_DATA.counts.fileVaultRecords : 0,
+        quotes: isSeeded ? FRONT_RANGE_FIXTURE_DATA.counts.quotes : 0,
+        purchaseOrders: isSeeded ? FRONT_RANGE_FIXTURE_DATA.counts.purchasingPo : 0,
+        equipment: isSeeded ? FRONT_RANGE_FIXTURE_DATA.counts.equipmentAssets : 0,
+        packages: isSeeded ? FRONT_RANGE_FIXTURE_DATA.counts.packagingUnits : 0,
+        manifests: isSeeded ? FRONT_RANGE_FIXTURE_DATA.counts.shippingManifests : 0,
         articles: isSeeded ? 3 : 0,
-        packetDocs: isSeeded ? 2 : 0,
+        packetDocs: isSeeded ? FRONT_RANGE_FIXTURE_DATA.counts.packetDocs : 0,
       },
     };
   }
@@ -93,7 +97,7 @@ export class DemoSeedingService {
   previewDemoCleanup(session: SessionContext): { eligibleRecordCount: number; targetOrganizationId: string } {
     const org = this.requireExplicitDemo(session, "preview cleanup for");
 
-    const count = this.seededOrgs.has(org.id) ? 15 : 0;
+    const count = this.seededOrgs.has(org.id) ? FRONT_RANGE_FIXTURE_DATA.counts.totalConnectedRecords : 0;
     return { eligibleRecordCount: count, targetOrganizationId: org.id };
   }
 
@@ -104,7 +108,8 @@ export class DemoSeedingService {
   cleanDemoOrganization(session: SessionContext): { success: boolean; recordsRemovedCount: number } {
     const org = this.requireExplicitDemo(session, "clean");
 
-    const removed = this.seededOrgs.has(org.id) ? 15 : 0;
+    const removed = this.seededOrgs.has(org.id) ? FRONT_RANGE_FIXTURE_DATA.counts.totalConnectedRecords : 0;
+    frontRangeSeeder.clean(session);
     this.seededOrgs.delete(org.id);
 
     activityService.logActivity({
@@ -118,6 +123,15 @@ export class DemoSeedingService {
     });
 
     return { success: true, recordsRemovedCount: removed };
+  }
+
+  /**
+   * Resets the demo organization back to golden baseline state.
+   */
+  resetDemoOrganization(session: SessionContext): { success: boolean; recordsResetCount: number } {
+    this.cleanDemoOrganization(session);
+    const seedResult = this.seedDemoOrganization(session);
+    return { success: true, recordsResetCount: seedResult.seededEntitiesCount };
   }
 }
 

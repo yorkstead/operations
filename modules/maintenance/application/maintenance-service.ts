@@ -328,6 +328,30 @@ export class MaintenanceService {
     );
   }
 
+  getEquipment(session: SessionContext, idOrTag: string): Equipment {
+    return this.findEquipment(session, idOrTag);
+  }
+
+  listDowntimeIntervals(session: SessionContext, options?: { assetTag?: string }): DowntimeInterval[] {
+    return Array.from(this.downtimeIntervals.values()).filter((d) => {
+      if (d.organizationId !== session.activeOrganization.id) return false;
+      if (options?.assetTag && d.assetTag !== options.assetTag) return false;
+      return true;
+    });
+  }
+
+  listDowntimes(session: SessionContext, options?: { assetTag?: string }): DowntimeInterval[] {
+    return this.listDowntimeIntervals(session, options);
+  }
+
+  listWorkOrders(session: SessionContext, options?: { assetTag?: string }): MaintenanceWorkOrder[] {
+    return Array.from(this.workOrders.values()).filter((w) => {
+      if (w.organizationId !== session.activeOrganization.id) return false;
+      if (options?.assetTag && w.assetTag !== options.assetTag) return false;
+      return true;
+    });
+  }
+
   private findEquipment(session: SessionContext, idOrTag: string): Equipment {
     const eq = Array.from(this.equipment.values()).find(
       (e) => (e.id === idOrTag || e.assetTag === idOrTag) && e.organizationId === session.activeOrganization.id

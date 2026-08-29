@@ -305,6 +305,11 @@ export class AnalyticsService {
 
     return sug;
   }
+
+  listSuggestions(session: SessionContext): PlanningSuggestion[] {
+    authorizationService.requireCapability(session, "jobs:update_status");
+    return Array.from(this.suggestions.values());
+  }
 }
 
 export const analyticsService = new AnalyticsService();

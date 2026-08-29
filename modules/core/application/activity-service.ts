@@ -5,7 +5,23 @@ export interface ActivityEvent {
   organizationId: string;
   actorId: string;
   actorName: string;
-  entityType: "organization" | "membership" | "file" | "audit" | "job" | "system";
+  entityType:
+    | "organization"
+    | "membership"
+    | "file"
+    | "audit"
+    | "job"
+    | "system"
+    | "quote"
+    | "packet"
+    | "shortage"
+    | "purchase_order"
+    | "receipt"
+    | "traveler"
+    | "inspection"
+    | "ncr"
+    | "package"
+    | "manifest";
   entityId: string;
   action: string;
   summary: string;
@@ -58,6 +74,12 @@ export class ActivityService {
 
     return this.events
       .filter((e) => e.organizationId === session.activeOrganization.id)
+      .slice(0, limit);
+  }
+
+  getRecentActivities(organizationId: string, limit = 50): ActivityEvent[] {
+    return this.events
+      .filter((e) => e.organizationId === organizationId)
       .slice(0, limit);
   }
 }

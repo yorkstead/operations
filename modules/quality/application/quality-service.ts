@@ -268,6 +268,28 @@ export class QualityService {
       (n) => n.organizationId === session.activeOrganization.id
     );
   }
+
+  getInspection(session: SessionContext, id: string): InspectionRecord {
+    authorizationService.requireCapability(session, "quality:record_inspection");
+    const insp = this.inspections.get(id);
+    if (!insp || insp.organizationId !== session.activeOrganization.id) {
+      throw new Error(`Inspection not found: ${id}`);
+    }
+    return insp;
+  }
+
+  getNCR(session: SessionContext, idOrNumber: string): NonConformanceReport {
+    authorizationService.requireCapability(session, "quality:record_inspection");
+    const ncr = Array.from(this.ncrs.values()).find(
+      (n) =>
+        n.organizationId === session.activeOrganization.id &&
+        (n.id === idOrNumber || n.ncrNumber === idOrNumber)
+    );
+    if (!ncr) {
+      throw new Error(`NCR not found: ${idOrNumber}`);
+    }
+    return ncr;
+  }
 }
 
 export const qualityService = new QualityService();

@@ -5,6 +5,8 @@ import {
 import { SessionContext, Organization } from "../../core/domain/types";
 import { authorizationService } from "../../core/application/authorization-service";
 import { activityService } from "../../core/application/activity-service";
+import { demoSeedingService } from "./demo-seeding-service";
+import { FRONT_RANGE_FIXTURE_DATA } from "../domain/front-range-scenario";
 
 export class DemoFrameworkService {
   private scenarios: Map<string, DemoScenarioManifest> = new Map();
@@ -236,6 +238,9 @@ export class DemoFrameworkService {
     // Deterministic reset execution
     const resetTimestamp = new Date(now).toISOString();
 
+    demoSeedingService.cleanDemoOrganization(session);
+    const seedResult = demoSeedingService.seedDemoOrganization(session);
+
     activityService.logActivity({
       organizationId,
       actorId: session.user.id,
@@ -249,7 +254,7 @@ export class DemoFrameworkService {
     return {
       organizationId,
       scenarioSlug: session.activeOrganization.slug,
-      recordsResetCount: 42,
+      recordsResetCount: seedResult.seededEntitiesCount || FRONT_RANGE_FIXTURE_DATA.counts.totalConnectedRecords,
       resetAt: resetTimestamp,
       status: "success",
       message: `Demo organization successfully reset to pristine golden snapshot state.`,
