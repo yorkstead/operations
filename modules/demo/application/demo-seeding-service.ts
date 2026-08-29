@@ -3,9 +3,11 @@ import { activityService } from "@/modules/core/application/activity-service";
 import { frontRangeSeeder, FrontRangeSeedingResult } from "./front-range-seeder";
 import { summitFacilitySeeder, SummitFacilitySeedingResult } from "./summit-facility-seeder";
 import { signworksSeeder, SignworksSeedingResult } from "./signworks-seeder";
+import { mobileDetailSeeder, MobileDetailSeedingResult } from "./mobile-detail-seeder";
 import { FRONT_RANGE_FIXTURE_DATA } from "../domain/front-range-scenario";
 import { SUMMIT_FACILITY_FIXTURE_DATA } from "../domain/summit-facility-scenario";
 import { SIGNWORKS_FIXTURE_DATA } from "../domain/signworks-scenario";
+import { MOBILE_DETAIL_FIXTURE_DATA } from "../domain/mobile-detail-scenario";
 
 export interface DemoContaminationReport {
   organizationId: string;
@@ -60,6 +62,9 @@ export class DemoSeedingService {
     } else if (org.slug === "mile-high-signworks") {
       const result: SignworksSeedingResult = signworksSeeder.seed(session);
       totalCount = result.totalRecordsSeeded;
+    } else if (org.slug === "peak-mobile-detail") {
+      const result: MobileDetailSeedingResult = mobileDetailSeeder.seed(session);
+      totalCount = result.totalRecordsSeeded;
     } else {
       // Default to Front Range connected scenario
       const result: FrontRangeSeedingResult = frontRangeSeeder.seed(session);
@@ -92,6 +97,8 @@ export class DemoSeedingService {
       count = SUMMIT_FACILITY_FIXTURE_DATA.counts.totalConnectedRecords;
     } else if (org.slug === "mile-high-signworks") {
       count = SIGNWORKS_FIXTURE_DATA.counts.totalConnectedRecords;
+    } else if (org.slug === "peak-mobile-detail") {
+      count = MOBILE_DETAIL_FIXTURE_DATA.counts.totalConnectedRecords;
     }
 
     return {
@@ -123,6 +130,8 @@ export class DemoSeedingService {
         count = SUMMIT_FACILITY_FIXTURE_DATA.counts.totalConnectedRecords;
       } else if (org.slug === "mile-high-signworks") {
         count = SIGNWORKS_FIXTURE_DATA.counts.totalConnectedRecords;
+      } else if (org.slug === "peak-mobile-detail") {
+        count = MOBILE_DETAIL_FIXTURE_DATA.counts.totalConnectedRecords;
       } else {
         count = FRONT_RANGE_FIXTURE_DATA.counts.totalConnectedRecords;
       }
@@ -145,6 +154,9 @@ export class DemoSeedingService {
       } else if (org.slug === "mile-high-signworks") {
         removed = SIGNWORKS_FIXTURE_DATA.counts.totalConnectedRecords;
         signworksSeeder.clean(session);
+      } else if (org.slug === "peak-mobile-detail") {
+        removed = MOBILE_DETAIL_FIXTURE_DATA.counts.totalConnectedRecords;
+        mobileDetailSeeder.clean(session);
       } else {
         removed = FRONT_RANGE_FIXTURE_DATA.counts.totalConnectedRecords;
         frontRangeSeeder.clean(session);
