@@ -1,3 +1,6 @@
+import { EquipmentCriticality } from "@/modules/maintenance/domain/types";
+import { ItemCategory, InventoryUnit } from "@/modules/inventory/domain/types";
+
 export interface FacilitySite {
   id: string;
   code: string;
@@ -50,6 +53,18 @@ export interface ServiceException {
   resolutionAction?: string;
 }
 
+export interface SummitEquipmentItem {
+  assetTag: string;
+  name: string;
+  manufacturer: string;
+  modelNumber: string;
+  serialNumber: string;
+  locationCode: string;
+  workCenterCode: string;
+  criticality: EquipmentCriticality;
+  totalRunHours: number;
+}
+
 export interface SummitFacilityDemoData {
   organization: {
     id: string;
@@ -61,11 +76,47 @@ export interface SummitFacilityDemoData {
   sites: FacilitySite[];
   jobs: ServiceJobRelease[];
   exceptions: ServiceException[];
+  equipment: SummitEquipmentItem[];
+  inventoryItems: Array<{
+    itemCode: string;
+    description: string;
+    category: ItemCategory;
+    uom: InventoryUnit;
+    unitCostCents: number;
+    initialQuantity: number;
+    allocatedQuantity: number;
+    reorderThreshold: number;
+    lotNumber: string;
+  }>;
+  seededRecords: {
+    workOrderNumber: string;
+    pmWorkOrderNumber: string;
+    downtimeId: string;
+    inspectionNumber: string;
+    assetTag: string;
+    lotNumber: string;
+  };
+  counts: {
+    totalConnectedRecords: number;
+    equipmentAssets: number;
+    maintenanceWorkOrders: number;
+    maintenanceDowntimes: number;
+    inventoryItems: number;
+    inventoryLots: number;
+    inventoryMovements: number;
+    serviceJobs: number;
+    inspections: number;
+    fileVaultRecords: number;
+    planningSuggestions: number;
+    auditEvents: number;
+  };
   metrics: {
     activeSites: number;
     scheduledShiftsToday: number;
     auditPassingRate: string;
     supplyEfficiency: string;
+    equipmentAvailability: string;
+    mttrMinutes: number;
   };
 }
 
@@ -74,8 +125,16 @@ export const SUMMIT_FACILITY_FIXTURE_DATA: SummitFacilityDemoData = {
     id: "demo_summit_facility",
     name: "Summit Facility Services",
     slug: "summit-facility-services",
-    industry: "Commercial Facility Maintenance & Bio-Sanitation",
+    industry: "Commercial Facility Maintenance & HVAC Infrastructure",
     headquarters: "Denver & Boulder, Colorado",
+  },
+  seededRecords: {
+    workOrderNumber: "WO-2026-8842",
+    pmWorkOrderNumber: "WO-2026-8840",
+    downtimeId: "dt_summit_chill_01",
+    inspectionNumber: "INS-SUMMIT-2026-08",
+    assetTag: "EQ-CHILL-01",
+    lotNumber: "LOT-2026-POE68-01",
   },
   sites: [
     {
@@ -109,6 +168,76 @@ export const SUMMIT_FACILITY_FIXTURE_DATA: SummitFacilityDemoData = {
       activeServiceLevel: "deep_periodic",
     },
   ],
+  equipment: [
+    {
+      assetTag: "EQ-CHILL-01",
+      name: "York YK 500-Ton Centrifugal Liquid Chiller",
+      manufacturer: "Johnson Controls / York",
+      modelNumber: "YK-MAXE-500T",
+      serialNumber: "YK-2023-9941A",
+      locationCode: "LOC-MECH-ROOM-B1",
+      workCenterCode: "WC-CENTRAL-PLANT",
+      criticality: "critical_single_point_of_failure",
+      totalRunHours: 5240,
+    },
+    {
+      assetTag: "EQ-AHU-04",
+      name: "Trane Performance Climate Changer Air Handler",
+      manufacturer: "Trane Technologies",
+      modelNumber: "UCCA-040-CLINICAL",
+      serialNumber: "TR-2022-7712",
+      locationCode: "LOC-ROOFTOP-NORTH",
+      workCenterCode: "WC-HVAC-ROOF",
+      criticality: "high",
+      totalRunHours: 8120,
+    },
+    {
+      assetTag: "EQ-BOILER-02",
+      name: "Cleaver-Brooks 150HP Packaged Steam Boiler",
+      manufacturer: "Cleaver-Brooks",
+      modelNumber: "CB-700-150",
+      serialNumber: "CB-2021-3401",
+      locationCode: "LOC-MECH-ROOM-B1",
+      workCenterCode: "WC-CENTRAL-PLANT",
+      criticality: "high",
+      totalRunHours: 6410,
+    },
+  ],
+  inventoryItems: [
+    {
+      itemCode: "OIL-SYN-POE68",
+      description: "Synthetic POE Refrigeration Lubricant ISO VG 68",
+      category: "consumable",
+      uom: "BOX",
+      unitCostCents: 18500,
+      initialQuantity: 12,
+      allocatedQuantity: 2,
+      reorderThreshold: 4,
+      lotNumber: "LOT-2026-POE68-01",
+    },
+    {
+      itemCode: "GSK-FLANGE-EPDM",
+      description: "4-inch EPDM Chiller Condenser Flange Gasket Set",
+      category: "hardware",
+      uom: "EA",
+      unitCostCents: 4500,
+      initialQuantity: 20,
+      allocatedQuantity: 2,
+      reorderThreshold: 6,
+      lotNumber: "LOT-2026-GSK-88",
+    },
+    {
+      itemCode: "FLT-HEPA-24X24",
+      description: "Hospital Grade HEPA Air Filter 24in x 24in x 12in",
+      category: "consumable",
+      uom: "BOX",
+      unitCostCents: 12000,
+      initialQuantity: 32,
+      allocatedQuantity: 8,
+      reorderThreshold: 10,
+      lotNumber: "LOT-2026-HEPA-10",
+    },
+  ],
   jobs: [
     {
       id: "job_srv_401",
@@ -134,7 +263,7 @@ export const SUMMIT_FACILITY_FIXTURE_DATA: SummitFacilityDemoData = {
       ],
       proofOfWork: {
         photoCount: 6,
-        atpSwabScoreRlu: 14, // < 30 RLU indicates hospital-grade surface cleanliness
+        atpSwabScoreRlu: 14,
       },
     },
     {
@@ -159,7 +288,7 @@ export const SUMMIT_FACILITY_FIXTURE_DATA: SummitFacilityDemoData = {
       ],
       proofOfWork: {
         photoCount: 12,
-        atpSwabScoreRlu: 6, // Clinical grade
+        atpSwabScoreRlu: 6,
         clientSignoffName: "Dr. Karen Jensen (Facility Director)",
         signoffTimestamp: "2026-08-25T23:45:00Z",
       },
@@ -179,10 +308,26 @@ export const SUMMIT_FACILITY_FIXTURE_DATA: SummitFacilityDemoData = {
       resolutionAction: "Building security re-synchronized badge reader; crew completed sanitation protocol.",
     },
   ],
+  counts: {
+    totalConnectedRecords: 38,
+    equipmentAssets: 3,
+    maintenanceWorkOrders: 2,
+    maintenanceDowntimes: 1,
+    inventoryItems: 3,
+    inventoryLots: 3,
+    inventoryMovements: 3,
+    serviceJobs: 2,
+    inspections: 1,
+    fileVaultRecords: 2,
+    planningSuggestions: 1,
+    auditEvents: 8,
+  },
   metrics: {
     activeSites: 3,
     scheduledShiftsToday: 6,
     auditPassingRate: "99.4%",
     supplyEfficiency: "98.1%",
+    equipmentAvailability: "99.8%",
+    mttrMinutes: 45,
   },
 };
