@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Wrench, AlertTriangle, CheckCircle2, Clock, Activity, X } from "lucide-react";
 import { Equipment, MaintenanceMetricsSummary, DowntimeCategory } from "@/modules/maintenance/domain/types";
+import { ModuleGuidanceCard } from "@/components/guidance/module-guidance-card";
 
 export function MaintenanceWorkspace() {
   const [feedback, setFeedback] = React.useState<{ type: "success" | "error"; message: string } | null>(null);
@@ -133,6 +134,9 @@ export function MaintenanceWorkspace() {
           </Button>
         </div>
       </div>
+
+      {/* Guided Walkthrough & Domain Context */}
+      <ModuleGuidanceCard moduleCode="maintenance" />
 
       {/* Notification Banner */}
       {feedback && (

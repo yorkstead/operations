@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Box, CheckCircle2, Plus, Scale, X, Layers } from "lucide-react";
 import { PackagingUnit, PackagingMetricsSummary, ContainerType } from "@/modules/packaging/domain/types";
+import { ModuleGuidanceCard } from "@/components/guidance/module-guidance-card";
 
 export function PackagingWorkspace() {
   const [feedback, setFeedback] = React.useState<{ type: "success" | "error"; message: string } | null>(null);
@@ -162,6 +163,9 @@ export function PackagingWorkspace() {
           </Button>
         </div>
       </div>
+
+      {/* Guided Walkthrough & Domain Context */}
+      <ModuleGuidanceCard moduleCode="packaging" />
 
       {/* Notification Banner */}
       {feedback && (
