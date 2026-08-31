@@ -64,7 +64,8 @@ export function NotificationsDrawer() {
       <button
         onClick={() => setOpen(!open)}
         aria-label="View Notifications"
-        className="relative rounded-lg border border-border p-2 text-muted-foreground transition hover:border-primary/40 hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary"
+        aria-expanded={open}
+        className="relative flex size-9 items-center justify-center rounded-lg border border-border text-muted-foreground transition hover:border-primary/40 hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary"
       >
         <Bell className="size-4" />
         {unreadCount > 0 && (
@@ -75,7 +76,7 @@ export function NotificationsDrawer() {
       </button>
 
       {open && (
-        <div className="absolute right-0 top-full mt-2 w-[calc(100vw-1.5rem)] sm:w-80 max-w-sm rounded-xl border border-border bg-card p-3 shadow-2xl backdrop-blur-md z-50">
+        <div className="fixed inset-x-3 top-16 z-50 max-h-[calc(100vh-5rem)] rounded-xl border border-border bg-card p-3 shadow-2xl backdrop-blur-md sm:absolute sm:inset-auto sm:right-0 sm:top-full sm:mt-2 sm:w-80 sm:max-w-sm">
           <div className="flex items-center justify-between border-b border-border pb-2">
             <div className="flex items-center gap-2">
               <span className="font-mono text-xs font-semibold text-foreground">Notifications</span>
@@ -84,7 +85,7 @@ export function NotificationsDrawer() {
             {unreadCount > 0 && (
               <button
                 onClick={markAllRead}
-                className="flex items-center gap-1 font-mono text-[10px] text-primary hover:underline"
+                className="flex min-h-6 items-center gap-1 rounded px-1.5 font-mono text-[10px] text-primary hover:bg-primary/10 hover:underline"
               >
                 <Check className="size-3" />
                 Mark all read
@@ -92,7 +93,7 @@ export function NotificationsDrawer() {
             )}
           </div>
 
-          <div className="divide-y divide-border pt-1 max-h-72 overflow-y-auto">
+          <div className="divide-y divide-border pt-1 max-h-[calc(100vh-10rem)] sm:max-h-72 overflow-y-auto">
             {notifications.map((n) => (
               <div key={n.id} className={`py-2.5 ${!n.read ? "bg-primary/5 -mx-3 px-3" : ""}`}>
                 <div className="flex items-start justify-between gap-2">
@@ -104,7 +105,7 @@ export function NotificationsDrawer() {
                   <a
                     href={n.link}
                     onClick={() => setOpen(false)}
-                    className="mt-1 inline-flex items-center gap-1 font-mono text-[10px] text-primary hover:underline"
+                    className="mt-1.5 inline-flex min-h-6 items-center gap-1 font-mono text-[10px] text-primary hover:underline"
                   >
                     View details <ExternalLink className="size-2.5" />
                   </a>
