@@ -1,11 +1,12 @@
 import type { NextConfig } from "next";
-import { dirname, join } from "node:path";
+import { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { applicationSecurityHeaders } from "./lib/security-headers";
 
-const repositoryRoot = join(dirname(fileURLToPath(import.meta.url)), "../..");
+const repositoryRoot = dirname(fileURLToPath(import.meta.url));
 const nextConfig: NextConfig = {
-  output: "standalone",
+  // Vercel's adapter packages functions; standalone output is for containers.
+  output: process.env.VERCEL === "1" ? undefined : "standalone",
   outputFileTracingRoot: repositoryRoot,
   reactStrictMode: true,
 
