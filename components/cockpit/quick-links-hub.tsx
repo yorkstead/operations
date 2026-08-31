@@ -5,7 +5,8 @@ import Link from "next/link";
 import {
   Search,
   ArrowUpRight,
-  Zap,
+  Code2,
+  FolderKanban,
   Hammer,
   FileSpreadsheet,
   Layers,
@@ -30,6 +31,7 @@ import { Input } from "@/components/ui/input";
 import { QUICK_LINKS, type QuickLinkItem } from "@/lib/cockpit-data";
 
 const ICON_MAP: Record<string, React.ElementType> = {
+  FolderKanban,
   Hammer,
   FileSpreadsheet,
   Layers,
@@ -52,7 +54,7 @@ export function QuickLinksHub() {
   const [searchQuery, setSearchQuery] = React.useState("");
   const [selectedCategory, setSelectedCategory] = React.useState<string>("All");
 
-  const categories = ["All", "Production", "Commercial", "Plant Ops", "Platform"];
+  const categories = ["All", "Dev & Sprints", "Cloud & Platform", "Software Modules", "Client Demos"];
 
   const filteredLinks = QUICK_LINKS.filter((item: QuickLinkItem) => {
     const matchesCategory = selectedCategory === "All" || item.category === selectedCategory;
@@ -72,13 +74,13 @@ export function QuickLinksHub() {
         <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-center">
           <div>
             <div className="flex items-center gap-2">
-              <Zap className="size-5 text-primary" />
+              <Code2 className="size-5 text-primary" />
               <CardTitle className="text-base font-bold tracking-tight">
-                Command Center Quicklinks
+                Engineering & Operations Quicklinks
               </CardTitle>
             </div>
             <CardDescription className="text-xs">
-              Instant access to core operations, client engagement tools, plant modules, and platform consoles.
+              Direct access for software engineering workflows, active module development, cloud infrastructure, and sales demos.
             </CardDescription>
           </div>
 
@@ -87,11 +89,11 @@ export function QuickLinksHub() {
             <Search className="absolute left-2.5 top-1/2 size-3.5 -translate-y-1/2 text-muted-foreground" />
             <Input
               type="text"
-              placeholder="Jump to module or tool..."
+              placeholder="Search dev tools, modules, demos..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="h-8 pl-8 text-xs bg-background/80"
-              aria-label="Filter quicklinks"
+              aria-label="Filter engineering quicklinks"
             />
             {searchQuery && (
               <button
@@ -131,7 +133,7 @@ export function QuickLinksHub() {
         {filteredLinks.length === 0 ? (
           <div className="grid min-h-24 place-items-center rounded-xl border border-dashed border-border p-6 text-center">
             <p className="font-mono text-xs text-muted-foreground">
-              No operational tools matched &ldquo;{searchQuery}&rdquo;.
+              No developer tools or modules matched &ldquo;{searchQuery}&rdquo;.
             </p>
           </div>
         ) : (
@@ -177,7 +179,7 @@ export function QuickLinksHub() {
                   <div className="mt-3 flex items-center justify-between border-t border-border/50 pt-2 font-mono text-[10px] text-muted-foreground">
                     <span className="text-[10px] text-muted-foreground/80">{link.category}</span>
                     <span className="inline-flex items-center gap-0.5 text-primary opacity-0 transition group-hover:opacity-100">
-                      Open <ArrowUpRight className="size-3" />
+                      Launch <ArrowUpRight className="size-3" />
                     </span>
                   </div>
                 </Link>

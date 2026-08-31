@@ -5,15 +5,15 @@ import {
   getRelativeDateStr,
 } from "../lib/cockpit-data";
 
-describe("Project Command Center: Quicklinks Hub", () => {
-  it("defines comprehensive quicklinks across all four core business categories", () => {
-    expect(QUICK_LINKS.length).toBeGreaterThanOrEqual(12);
+describe("Project Command Center: Engineering & Developer Quicklinks Hub", () => {
+  it("defines comprehensive quicklinks across software dev, cloud, active modules, and demos", () => {
+    expect(QUICK_LINKS.length).toBeGreaterThanOrEqual(16);
 
     const categories = new Set(QUICK_LINKS.map((l) => l.category));
-    expect(categories.has("Production")).toBe(true);
-    expect(categories.has("Commercial")).toBe(true);
-    expect(categories.has("Plant Ops")).toBe(true);
-    expect(categories.has("Platform")).toBe(true);
+    expect(categories.has("Dev & Sprints")).toBe(true);
+    expect(categories.has("Cloud & Platform")).toBe(true);
+    expect(categories.has("Software Modules")).toBe(true);
+    expect(categories.has("Client Demos")).toBe(true);
   });
 
   it("ensures every quicklink has valid operational routing path and description", () => {
@@ -27,16 +27,31 @@ describe("Project Command Center: Quicklinks Hub", () => {
     }
   });
 
-  it("includes critical shopfloor, engagement, quoting, and maintenance destinations", () => {
+  it("includes software development, project management, and demo destinations", () => {
     const hrefs = QUICK_LINKS.map((l) => l.href);
-    expect(hrefs).toContain("/shopfloor");
+    expect(hrefs).toContain("/projects");
     expect(hrefs).toContain("/engagements");
     expect(hrefs).toContain("/quotes");
-    expect(hrefs).toContain("/inventory");
-    expect(hrefs).toContain("/maintenance");
-    expect(hrefs).toContain("/quality");
+    expect(hrefs).toContain("/audit");
     expect(hrefs).toContain("/infrastructure");
+    expect(hrefs).toContain("/files");
+    expect(hrefs).toContain("/activity");
+    expect(hrefs).toContain("/analytics");
     expect(hrefs).toContain("/demo");
+  });
+
+  it("includes active software modules currently in build", () => {
+    const moduleLinks = QUICK_LINKS.filter((l) => l.category === "Software Modules");
+    const moduleHrefs = moduleLinks.map((l) => l.href);
+
+    expect(moduleHrefs).toContain("/shopfloor");
+    expect(moduleHrefs).toContain("/job-packets");
+    expect(moduleHrefs).toContain("/jobs");
+    expect(moduleHrefs).toContain("/inventory");
+    expect(moduleHrefs).toContain("/quality");
+    expect(moduleHrefs).toContain("/maintenance");
+    expect(moduleHrefs).toContain("/shipping");
+    expect(moduleHrefs).toContain("/purchasing");
   });
 });
 
