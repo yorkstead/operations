@@ -118,7 +118,7 @@ export function OrgSwitcher() {
           <Building2 className="size-3.5 text-primary shrink-0" />
         )}
 
-        <div className="flex items-center gap-1.5 truncate max-w-[130px] sm:max-w-[200px]">
+        <div className="flex items-center gap-1.5 truncate max-w-[80px] min-[360px]:max-w-[110px] sm:max-w-[200px]">
           <span className="font-mono text-[11px] sm:text-xs font-semibold truncate">
             {activeWorkspace.name}
           </span>
