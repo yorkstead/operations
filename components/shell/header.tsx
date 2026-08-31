@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { MobileNav } from "@/components/shell/mobile-nav";
 import { OrgSwitcher } from "@/components/shell/org-switcher";
 import { NotificationsDrawer } from "@/components/shell/notifications-drawer";
+import { ThemeToggle } from "@/components/shell/theme-toggle";
 import { Settings, ChevronDown } from "lucide-react";
 
 export function Header() {
@@ -177,6 +178,7 @@ export function Header() {
         <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
           <OrgSwitcher />
           <NotificationsDrawer />
+          <ThemeToggle />
           <Link
             href="/settings/organization"
             aria-label="Organization Settings"

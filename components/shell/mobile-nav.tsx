@@ -5,6 +5,7 @@ import { createPortal } from "react-dom";
 import Link from "next/link";
 import { Menu, X, ArrowRight, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { ThemeToggle } from "@/components/shell/theme-toggle";
 import { brand } from "@/lib/brand";
 import { YorksteadMark } from "@/components/brand/yorkstead-logo";
 
@@ -66,14 +67,17 @@ export function MobileNav() {
                   </span>
                 </div>
               </div>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setOpen(false)}
-                className="font-mono text-xs text-muted-foreground"
-              >
-                Close
-              </Button>
+              <div className="flex items-center gap-2">
+                <ThemeToggle />
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setOpen(false)}
+                  className="font-mono text-xs text-muted-foreground"
+                >
+                  Close
+                </Button>
+              </div>
             </div>
 
             <div className="space-y-6 pb-20">

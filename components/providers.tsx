@@ -7,7 +7,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <NextThemesProvider
       attribute="class"
-      defaultTheme="dark"
+      defaultTheme="system"
       enableSystem
       disableTransitionOnChange
     >
@@ -15,3 +15,4 @@ export function Providers({ children }: { children: React.ReactNode }) {
     </NextThemesProvider>
   );
 }
+
