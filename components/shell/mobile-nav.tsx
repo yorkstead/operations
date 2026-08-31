@@ -84,7 +84,7 @@ export function MobileNav() {
               {/* Executive Cockpit */}
               <div className="space-y-2">
                 <p className="font-mono text-[10px] uppercase tracking-widest text-primary font-semibold">
-                  Executive Cockpit & Client Engagements
+                  Executive Cockpit & Projects
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   <Link
@@ -93,6 +93,14 @@ export function MobileNav() {
                     className="flex items-center justify-between rounded-lg border border-primary/40 bg-primary/10 p-3 font-mono text-xs text-primary font-semibold transition hover:border-primary"
                   >
                     <span>Operator Cockpit</span>
+                    <ArrowRight className="size-3.5 text-primary" />
+                  </Link>
+                  <Link
+                    href="/projects"
+                    onClick={() => setOpen(false)}
+                    className="flex items-center justify-between rounded-lg border border-primary/40 bg-primary/10 p-3 font-mono text-xs text-primary font-semibold transition hover:border-primary"
+                  >
+                    <span>Projects Command Center</span>
                     <ArrowRight className="size-3.5 text-primary" />
                   </Link>
                   <Link

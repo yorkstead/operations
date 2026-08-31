@@ -96,6 +96,7 @@ export const ALLOWLISTED_OPERATIONS_PREFIXES = [
   "/knowledge",
   "/analytics",
   "/engagements",
+  "/projects",
   "/infrastructure",
   "/files",
   "/packet-intelligence",

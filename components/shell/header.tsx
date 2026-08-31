@@ -14,41 +14,42 @@ import { ThemeToggle } from "@/components/shell/theme-toggle";
 
 const primaryLinks = [
   { href: "/", label: "Cockpit" },
+  { href: "/projects", label: "Projects" },
   { href: "/engagements", label: "Engagements" },
-  { href: "/jobs", label: "Jobs" },
-  { href: "/shopfloor", label: "Shopfloor" },
-  { href: "/inventory", label: "Inventory" },
-  { href: "/analytics", label: "Analytics" },
 ];
 
 const moduleGroups = [
   {
-    label: "Factory Operations",
+    label: "Production & Shopfloor",
     links: [
-      { href: "/purchasing", label: "Purchasing" },
-      { href: "/quality", label: "Quality" },
+      { href: "/jobs", label: "Jobs & Routing" },
+      { href: "/shopfloor", label: "Shopfloor" },
+      { href: "/inventory", label: "Inventory" },
+      { href: "/job-packets", label: "Job Packets" },
       { href: "/maintenance", label: "Maintenance" },
       { href: "/packaging", label: "Packaging" },
       { href: "/shipping", label: "Shipping" },
-      { href: "/job-packets", label: "Job Packets" },
     ],
   },
   {
-    label: "Business & Knowledge",
+    label: "Sourcing & Quality",
     links: [
       { href: "/quotes", label: "Quotes" },
-      { href: "/knowledge", label: "KnowHow" },
+      { href: "/purchasing", label: "Purchasing" },
+      { href: "/quality", label: "Quality" },
+      { href: "/knowledge", label: "KnowHow SOPs" },
       { href: "/directory", label: "Directory" },
-      { href: "/files", label: "File Vault" },
     ],
   },
   {
-    label: "Platform & Tools",
+    label: "Intelligence & Platform",
     links: [
+      { href: "/analytics", label: "Analytics Engine" },
       { href: "/infrastructure", label: "Cloud Ops" },
       { href: "/audit", label: "Audit Engine" },
+      { href: "/files", label: "File Vault" },
       { href: "/activity", label: "Activity Log" },
-      { href: "/demo", label: "Demo Orgs" },
+      { href: "/demo", label: "Demo Sandboxes" },
     ],
   },
 ];
