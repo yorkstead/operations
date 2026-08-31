@@ -8,7 +8,7 @@ import { z } from "zod";
 export const dynamic = "force-dynamic";
 
 const approveSchema = z.object({
-  overrides: z.record(z.union([z.string(), z.number()])).optional(),
+  overrides: z.record(z.string(), z.union([z.string(), z.number()])).optional(),
 });
 
 export async function POST(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
