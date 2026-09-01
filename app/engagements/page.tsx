@@ -1,7 +1,9 @@
 import * as React from "react";
+import { redirect } from "next/navigation";
 import { engagementService } from "@/modules/engagements/application/engagement-service";
 import { EngagementsListView } from "@/components/engagements/engagements-list-view";
-import { resolveServerSession } from "@/modules/core/application/server-session";
+import { resolveOwnerSession } from "@/modules/core/application/server-session";
+import { ownerLoginPath } from "@/lib/owner-routes";
 import { Badge } from "@/components/ui/badge";
 
 export const metadata = {
@@ -10,12 +12,9 @@ export const metadata = {
 };
 
 export default async function EngagementsPage() {
-  const sessionResult = await resolveServerSession();
-  const session = sessionResult.sessionContext;
-
-  const engagements = session
-    ? engagementService.listEngagements(session)
-    : [];
+  const { sessionContext } = await resolveOwnerSession();
+  if (!sessionContext) redirect(ownerLoginPath("/engagements"));
+  const engagements = engagementService.listEngagements(sessionContext);
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 space-y-6">

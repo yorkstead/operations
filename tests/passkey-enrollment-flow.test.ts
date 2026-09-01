@@ -9,7 +9,8 @@ describe("owner passkey enrollment flow", () => {
     const loginPage = readFileSync(join(operationsRoot, "app/login/page.tsx"), "utf8");
     const passkeyPage = readFileSync(join(operationsRoot, "app/account/passkeys/page.tsx"), "utf8");
 
-    expect(loginPage).toContain('router.push("/account/passkeys?next=/jobs")');
+    expect(loginPage).toContain('router.push(`/account/passkeys?next=${encodeURIComponent(nextPath)}`)');
+    expect(loginPage).toContain("safePostLoginPath(requestedPath)");
     expect(passkeyPage).toContain("auth.api.getSession");
     expect(passkeyPage).toContain('redirect("/login?next=/account/passkeys")');
   });

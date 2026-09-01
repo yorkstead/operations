@@ -26,29 +26,20 @@ export interface ResolvedSessionResult {
   error?: "unauthenticated" | "no_memberships" | "inactive_organization" | "forbidden";
 }
 
-export async function resolveServerSession(): Promise<ResolvedSessionResult> {
+async function resolvePersistentSession(): Promise<ResolvedSessionResult> {
   const reqHeaders = await headers();
   const reqCookies = await cookies();
 
-  // 1. Check for Active Demo Session (Isolated Sandbox Mode)
-  const demoOrgCookie = reqCookies.get("yorkstead_demo_org")?.value;
-  const demoContext = resolveDemoSession(demoOrgCookie);
-  if (demoContext) return { sessionContext: demoContext };
-
-  // 2. Production Persistent Better Auth & Database Session Validation
   try {
-    const session = await auth.api.getSession({
-      headers: reqHeaders,
-    });
+    const session = await auth.api.getSession({ headers: reqHeaders });
 
-    if (!session || !session.user) {
+    if (!session?.user) {
       return { sessionContext: null, error: "unauthenticated" };
     }
 
     const activeOrgCookie = reqCookies.get("yorkstead_active_org")?.value;
 
     try {
-      // Resolve persistent session context and validate requested organization against database membership
       const context = await identityRepository.resolveSessionContext(session.user.id, activeOrgCookie);
       return { sessionContext: context };
     } catch (err: unknown) {
@@ -64,4 +55,21 @@ export async function resolveServerSession(): Promise<ResolvedSessionResult> {
   } catch {
     return { sessionContext: null, error: "unauthenticated" };
   }
+}
+
+/** Resolves a real authenticated account and deliberately ignores demo cookies. */
+export async function resolveOwnerSession(): Promise<ResolvedSessionResult> {
+  return resolvePersistentSession();
+}
+
+export async function resolveServerSession(): Promise<ResolvedSessionResult> {
+  const reqCookies = await cookies();
+
+  // 1. Check for Active Demo Session (Isolated Sandbox Mode)
+  const demoOrgCookie = reqCookies.get("yorkstead_demo_org")?.value;
+  const demoContext = resolveDemoSession(demoOrgCookie);
+  if (demoContext) return { sessionContext: demoContext };
+
+  // 2. Production Persistent Better Auth & Database Session Validation
+  return resolvePersistentSession();
 }

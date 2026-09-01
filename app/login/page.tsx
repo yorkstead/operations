@@ -9,14 +9,21 @@ import { Badge } from "@/components/ui/badge";
 import { ShieldCheck, KeyRound, Lock, ArrowRight } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
+import { safePostLoginPath } from "@/lib/owner-routes";
 
-export default function LoginPage() {
+export default function LoginPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ next?: string | string[] }>;
+}) {
   const router = useRouter();
+  const params = React.use(searchParams);
+  const requestedPath = Array.isArray(params.next) ? params.next[0] : params.next;
+  const nextPath = safePostLoginPath(requestedPath);
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
-
   const handleCredentialsSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -31,7 +38,7 @@ export default function LoginPage() {
       if (res.error) {
         setError(res.error.message || "Invalid credentials. Please verify your email and password.");
       } else {
-        router.push("/account/passkeys?next=/jobs");
+        router.push(`/account/passkeys?next=${encodeURIComponent(nextPath)}`);
         router.refresh();
       }
     } catch (err: unknown) {
@@ -50,7 +57,7 @@ export default function LoginPage() {
       if (res?.error) {
         setError(res.error.message || "No passkey registered on this device for this account.");
       } else {
-        router.push("/jobs");
+        router.push(nextPath);
         router.refresh();
       }
     } catch (err: unknown) {

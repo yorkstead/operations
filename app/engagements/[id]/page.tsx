@@ -1,8 +1,9 @@
 import * as React from "react";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { engagementService } from "@/modules/engagements/application/engagement-service";
 import { EngagementWorkspace } from "@/components/engagements/engagement-workspace";
-import { resolveServerSession } from "@/modules/core/application/server-session";
+import { resolveOwnerSession } from "@/modules/core/application/server-session";
+import { ownerLoginPath } from "@/lib/owner-routes";
 
 export const metadata = {
   title: "Client Engagement Workspace | Yorkstead Operations",
@@ -15,16 +16,12 @@ export default async function EngagementDetailPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const sessionResult = await resolveServerSession();
-  const session = sessionResult.sessionContext;
-
-  if (!session) {
-    notFound();
-  }
+  const { sessionContext } = await resolveOwnerSession();
+  if (!sessionContext) redirect(ownerLoginPath(`/engagements/${id}`));
 
   let engagement;
   try {
-    engagement = engagementService.getEngagementById(session, id);
+    engagement = engagementService.getEngagementById(sessionContext, id);
   } catch {
     notFound();
   }
