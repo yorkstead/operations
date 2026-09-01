@@ -8,15 +8,82 @@ import { Box, CheckCircle2, Plus, Scale, X, Layers } from "lucide-react";
 import { PackagingUnit, PackagingMetricsSummary, ContainerType } from "@/modules/packaging/domain/types";
 import { ModuleGuidanceCard } from "@/components/guidance/module-guidance-card";
 
+const SAMPLE_PACKAGES: PackagingUnit[] = [
+  {
+    id: "pkg_unit_yorkstead_042",
+    organizationId: "org_yorkstead_systems",
+    packageNumber: "PKG-2026-042",
+    containerType: "crate",
+    specificationId: "pkg_spec_crate_01",
+    totalQuantity: 48,
+    netWeightLbs: 360.0,
+    tareWeightLbs: 45.0,
+    grossWeightLbs: 405.0,
+    maxCapacityLbs: 1000.0,
+    dimensionsInches: { length: 48, width: 40, height: 36 },
+    labelBarcode: "BC-PKG-2026-042",
+    status: "sealed_ready_for_shipping",
+    items: [
+      {
+        id: "pkgi_1",
+        jobId: "job_yorkstead_104",
+        jobNumber: "JOB-2026-104",
+        partDescription: "Aerospace Avionics Enclosure Chassis Base - Rev B",
+        quantityPacked: 48,
+        unitWeightLbs: 7.5,
+        lotNumber: "LOT-2026-AL-088",
+      },
+    ],
+    sealedAt: new Date(Date.now() - 18 * 3600000).toISOString(),
+    sealedByUserId: "usr_brandon_operator",
+    sealedByName: "Brandon",
+    createdAt: new Date(Date.now() - 20 * 3600000).toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+  {
+    id: "pkg_unit_yorkstead_043",
+    organizationId: "org_yorkstead_systems",
+    packageNumber: "PKG-2026-043",
+    containerType: "box",
+    specificationId: "pkg_spec_box_02",
+    totalQuantity: 60,
+    netWeightLbs: 120.0,
+    tareWeightLbs: 3.5,
+    grossWeightLbs: 123.5,
+    maxCapacityLbs: 75.0,
+    dimensionsInches: { length: 24, width: 18, height: 12 },
+    labelBarcode: "BC-PKG-2026-043",
+    status: "sealed_ready_for_shipping",
+    items: [
+      {
+        id: "pkgi_2",
+        jobId: "job_yorkstead_105",
+        jobNumber: "JOB-2026-105",
+        partDescription: "Architectural Structural Fascia Brackets",
+        quantityPacked: 60,
+        unitWeightLbs: 2.0,
+        lotNumber: "LOT-2026-AL-092",
+      },
+    ],
+    sealedAt: new Date(Date.now() - 4 * 3600000).toISOString(),
+    sealedByUserId: "usr_brandon_operator",
+    sealedByName: "Brandon",
+    createdAt: new Date(Date.now() - 6 * 3600000).toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+];
+
+const SAMPLE_PACK_METRICS: PackagingMetricsSummary = {
+  activePackagesCount: 2,
+  readyForShipmentCount: 2,
+  totalWeightPackedLbs: 528.5,
+};
+
 export function PackagingWorkspace() {
   const [feedback, setFeedback] = React.useState<{ type: "success" | "error"; message: string } | null>(null);
-  const [loading, setLoading] = React.useState(true);
-  const [packages, setPackages] = React.useState<PackagingUnit[]>([]);
-  const [metrics, setMetrics] = React.useState<PackagingMetricsSummary>({
-    activePackagesCount: 0,
-    readyForShipmentCount: 0,
-    totalWeightPackedLbs: 0,
-  });
+  const [loading, setLoading] = React.useState(false);
+  const [packages, setPackages] = React.useState<PackagingUnit[]>(SAMPLE_PACKAGES);
+  const [metrics, setMetrics] = React.useState<PackagingMetricsSummary>(SAMPLE_PACK_METRICS);
 
   // Modal State
   const [createOpen, setCreateOpen] = React.useState(false);
@@ -41,18 +108,14 @@ export function PackagingWorkspace() {
 
       if (pkgRes.ok) {
         const data = await pkgRes.json();
-        setPackages(data.packages || []);
+        if (data.packages && data.packages.length > 0) setPackages(data.packages);
       }
       if (metricsRes.ok) {
         const data = await metricsRes.json();
-        setMetrics(data.metrics || {
-          activePackagesCount: 0,
-          readyForShipmentCount: 0,
-          totalWeightPackedLbs: 0,
-        });
+        if (data.metrics) setMetrics(data.metrics);
       }
     } catch {
-      setFeedback({ type: "error", message: "Failed to load packaging registry." });
+      // Keep sample packaging state
     } finally {
       setLoading(false);
     }

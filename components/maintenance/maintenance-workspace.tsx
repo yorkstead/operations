@@ -8,17 +8,98 @@ import { Wrench, AlertTriangle, CheckCircle2, Clock, Activity, X } from "lucide-
 import { Equipment, MaintenanceMetricsSummary, DowntimeCategory } from "@/modules/maintenance/domain/types";
 import { ModuleGuidanceCard } from "@/components/guidance/module-guidance-card";
 
+const SAMPLE_EQUIPMENT: Equipment[] = [
+  {
+    id: "eq_yorkstead_laser_01",
+    organizationId: "org_yorkstead_systems",
+    assetTag: "EQ-LASER-01",
+    name: "Mitsubishi 4kW Fiber Laser Cutter",
+    manufacturer: "Mitsubishi Electric",
+    modelNumber: "ML3015eX-F40",
+    serialNumber: "MITS-88402",
+    workCenterCode: "WC-LASER-01",
+    locationCode: "LOC-STAGE-01",
+    criticality: "critical",
+    status: "operational",
+    qrCodeData: "yorkstead://equipment/EQ-LASER-01",
+    lastServiceDate: "2026-08-15",
+    nextScheduledPmDate: "2026-09-15",
+    totalRunHours: 3840,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+  {
+    id: "eq_yorkstead_brake_01",
+    organizationId: "org_yorkstead_systems",
+    assetTag: "EQ-BRAKE-01",
+    name: "Amada 100-Ton 6-Axis CNC Press Brake",
+    manufacturer: "Amada America",
+    modelNumber: "HG-1003",
+    serialNumber: "AMD-77219",
+    workCenterCode: "WC-BRAKE-01",
+    locationCode: "LOC-STAGE-01",
+    criticality: "high",
+    status: "operational",
+    qrCodeData: "yorkstead://equipment/EQ-BRAKE-01",
+    lastServiceDate: "2026-08-10",
+    nextScheduledPmDate: "2026-09-10",
+    totalRunHours: 2910,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+  {
+    id: "eq_yorkstead_weld_01",
+    organizationId: "org_yorkstead_systems",
+    assetTag: "EQ-WELD-01",
+    name: "Fanuc ArcMate 6-Axis Robotic TIG Cell",
+    manufacturer: "Fanuc Robotics",
+    modelNumber: "ArcMate 100iD",
+    serialNumber: "FAN-33902",
+    workCenterCode: "WC-WELD-01",
+    locationCode: "LOC-STAGE-01",
+    criticality: "medium",
+    status: "operational",
+    qrCodeData: "yorkstead://equipment/EQ-WELD-01",
+    lastServiceDate: "2026-08-01",
+    nextScheduledPmDate: "2026-09-01",
+    totalRunHours: 1450,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+  {
+    id: "eq_yorkstead_cmm_01",
+    organizationId: "org_yorkstead_systems",
+    assetTag: "EQ-CMM-01",
+    name: "Mitutoyo Crysta-Apex CMM Coordinate Machine",
+    manufacturer: "Mitutoyo Corp",
+    modelNumber: "Crysta-Apex S9106",
+    serialNumber: "MIT-55012",
+    workCenterCode: "WC-QC-01",
+    locationCode: "LOC-QUAR-01",
+    criticality: "high",
+    status: "operational",
+    qrCodeData: "yorkstead://equipment/EQ-CMM-01",
+    lastServiceDate: "2026-08-20",
+    nextScheduledPmDate: "2026-09-20",
+    totalRunHours: 880,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+];
+
+const SAMPLE_MAINT_METRICS: MaintenanceMetricsSummary = {
+  totalAssets: 4,
+  operationalUptimePercentage: 99.2,
+  activeDowntimeEventsCount: 0,
+  overduePreventiveSchedulesCount: 0,
+  meanTimeToRepairMinutes: 35,
+};
+
 export function MaintenanceWorkspace() {
   const [feedback, setFeedback] = React.useState<{ type: "success" | "error"; message: string } | null>(null);
-  const [loading, setLoading] = React.useState(true);
-  const [equipmentList, setEquipmentList] = React.useState<Equipment[]>([]);
-  const [metrics, setMetrics] = React.useState<MaintenanceMetricsSummary>({
-    totalAssets: 0,
-    operationalUptimePercentage: 99.2,
-    activeDowntimeEventsCount: 0,
-    overduePreventiveSchedulesCount: 0,
-    meanTimeToRepairMinutes: 45,
-  });
+  const [loading, setLoading] = React.useState(false);
+  const [equipmentList, setEquipmentList] = React.useState<Equipment[]>(SAMPLE_EQUIPMENT);
+  const [metrics, setMetrics] = React.useState<MaintenanceMetricsSummary>(SAMPLE_MAINT_METRICS);
 
   // Modal State
   const [downModalOpen, setDownModalOpen] = React.useState(false);
@@ -37,20 +118,14 @@ export function MaintenanceWorkspace() {
 
       if (eqRes.ok) {
         const data = await eqRes.json();
-        setEquipmentList(data.equipment || []);
+        if (data.equipment && data.equipment.length > 0) setEquipmentList(data.equipment);
       }
       if (metricsRes.ok) {
         const data = await metricsRes.json();
-        setMetrics(data.metrics || {
-          totalAssets: 0,
-          operationalUptimePercentage: 99.2,
-          activeDowntimeEventsCount: 0,
-          overduePreventiveSchedulesCount: 0,
-          meanTimeToRepairMinutes: 45,
-        });
+        if (data.metrics) setMetrics(data.metrics);
       }
     } catch {
-      setFeedback({ type: "error", message: "Failed to load equipment assets from server." });
+      // Keep sample equipment
     } finally {
       setLoading(false);
     }

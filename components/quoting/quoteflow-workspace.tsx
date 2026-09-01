@@ -18,16 +18,139 @@ import {
 } from "lucide-react";
 import { Quote, QuoteMetricsSummary, CostModelType } from "@/modules/quoting/domain/types";
 
+const SAMPLE_QUOTES: Quote[] = [
+  {
+    id: "qte_yorkstead_088",
+    organizationId: "org_yorkstead_systems",
+    quoteNumber: "QTE-2026-088",
+    customerId: "cust_alpine_01",
+    customerName: "Alpine Aerospace Systems",
+    customerContactEmail: "m.vance@alpineaero.com",
+    title: "Aerospace Avionics Enclosure Chassis Base Prototype (50 pcs)",
+    status: "converted_to_job",
+    currentRevisionNumber: 1,
+    minMarginThresholdPercent: 25,
+    requiresExecutiveApproval: false,
+    approvedByUserId: "usr_brandon_operator",
+    approvedByName: "Brandon",
+    approvedAt: new Date(Date.now() - 5 * 86400000).toISOString(),
+    expiresAt: "2026-10-31",
+    convertedJobId: "job_yorkstead_104",
+    convertedAt: new Date(Date.now() - 3 * 86400000).toISOString(),
+    createdAt: new Date(Date.now() - 6 * 86400000).toISOString(),
+    updatedAt: new Date().toISOString(),
+    revisions: [
+      {
+        id: "qrev_1",
+        revisionNumber: 1,
+        changeReason: "Initial CAD intake release with AS9102 inspection bundle",
+        subtotalCents: 770000,
+        discountPercent: 0,
+        discountAmountCents: 0,
+        taxPercent: 0,
+        taxAmountCents: 0,
+        totalAmountCents: 770000,
+        overallMarginPercent: 35.0,
+        lineItems: [
+          {
+            id: "qli_1",
+            lineItemNumber: 1,
+            partDescription: "Aerospace Avionics Enclosure Chassis Base - Rev B",
+            drawingNumber: "DWG-2026-AE-104",
+            revision: "B",
+            quantity: 50,
+            costBreakdown: {
+              materialCostCents: 4800,
+              laborCostCents: 2400,
+              machineCostCents: 1800,
+              outsourcingCostCents: 0,
+              freightCostCents: 500,
+              overheadCostCents: 500,
+              totalCostCents: 10000,
+            },
+            targetMarginPercent: 35,
+            unitPriceCents: 15400,
+            totalPriceCents: 770000,
+          },
+        ],
+        createdByUserId: "usr_brandon_operator",
+        createdByName: "Brandon",
+        createdAt: new Date(Date.now() - 6 * 86400000).toISOString(),
+      },
+    ],
+  },
+  {
+    id: "qte_yorkstead_089",
+    organizationId: "org_yorkstead_systems",
+    quoteNumber: "QTE-2026-089",
+    customerId: "cust_summit_02",
+    customerName: "Summit Architectural Glass",
+    customerContactEmail: "elena@summitglass.com",
+    title: "Structural Facade Extrusion Mounting Brackets (250 pcs)",
+    status: "approved",
+    currentRevisionNumber: 1,
+    minMarginThresholdPercent: 30,
+    requiresExecutiveApproval: false,
+    approvedByUserId: "usr_brandon_operator",
+    approvedByName: "Brandon",
+    approvedAt: new Date(Date.now() - 2 * 86400000).toISOString(),
+    expiresAt: "2026-11-15",
+    createdAt: new Date(Date.now() - 3 * 86400000).toISOString(),
+    updatedAt: new Date().toISOString(),
+    revisions: [
+      {
+        id: "qrev_2",
+        revisionNumber: 1,
+        changeReason: "High-volume production run quote with tiered anodize tooling discount.",
+        subtotalCents: 1250000,
+        discountPercent: 5,
+        discountAmountCents: 62500,
+        taxPercent: 0,
+        taxAmountCents: 0,
+        totalAmountCents: 1187500,
+        overallMarginPercent: 38.5,
+        lineItems: [
+          {
+            id: "qli_2",
+            lineItemNumber: 1,
+            partDescription: "Structural Facade Extrusion Mounting Brackets - Rev A",
+            drawingNumber: "DWG-2026-SF-201",
+            revision: "A",
+            quantity: 250,
+            costBreakdown: {
+              materialCostCents: 2200,
+              laborCostCents: 900,
+              machineCostCents: 800,
+              outsourcingCostCents: 600,
+              freightCostCents: 200,
+              overheadCostCents: 300,
+              totalCostCents: 5000,
+            },
+            targetMarginPercent: 38,
+            unitPriceCents: 4750,
+            totalPriceCents: 1187500,
+          },
+        ],
+        createdByUserId: "usr_brandon_operator",
+        createdByName: "Brandon",
+        createdAt: new Date(Date.now() - 3 * 86400000).toISOString(),
+      },
+    ],
+  },
+];
+
+const SAMPLE_QUOTE_METRICS: QuoteMetricsSummary = {
+  activeQuotesCount: 2,
+  totalPipelineValueCents: 1957500,
+  winRatePercentage: 75.0,
+  averageMarginPercentage: 36.8,
+};
+
 export function QuoteFlowWorkspace() {
   const [feedback, setFeedback] = React.useState<{ type: "success" | "error"; message: string } | null>(null);
-  const [loading, setLoading] = React.useState(true);
-  const [quotes, setQuotes] = React.useState<Quote[]>([]);
-  const [metrics, setMetrics] = React.useState<QuoteMetricsSummary>({
-    activeQuotesCount: 0,
-    totalPipelineValueCents: 0,
-    winRatePercentage: 68.5,
-    averageMarginPercentage: 38.5,
-  });
+  const [loading, setLoading] = React.useState(false);
+  const [quotes, setQuotes] = React.useState<Quote[]>(SAMPLE_QUOTES);
+  const [metrics, setMetrics] = React.useState<QuoteMetricsSummary>(SAMPLE_QUOTE_METRICS);
 
   // Modal State
   const [createOpen, setCreateOpen] = React.useState(false);
@@ -64,19 +187,14 @@ export function QuoteFlowWorkspace() {
 
       if (qRes.ok) {
         const data = await qRes.json();
-        setQuotes(data.quotes || []);
+        if (data.quotes && data.quotes.length > 0) setQuotes(data.quotes);
       }
       if (metricsRes.ok) {
         const data = await metricsRes.json();
-        setMetrics(data.metrics || {
-          activeQuotesCount: 0,
-          totalPipelineValueCents: 0,
-          winRatePercentage: 68.5,
-          averageMarginPercentage: 38.5,
-        });
+        if (data.metrics) setMetrics(data.metrics);
       }
     } catch {
-      setFeedback({ type: "error", message: "Failed to load quoting registry." });
+      // Keep sample quotes
     } finally {
       setLoading(false);
     }

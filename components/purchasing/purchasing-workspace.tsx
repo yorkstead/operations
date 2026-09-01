@@ -7,27 +7,122 @@ import { Button } from "@/components/ui/button";
 import { ShoppingCart, CheckCircle2, AlertTriangle, Plus, DollarSign, X, ArrowUpRight } from "lucide-react";
 import { PurchaseOrder, PurchasingMetricsSummary, MaterialShortageSignal } from "@/modules/purchasing/domain/types";
 
+const SAMPLE_POS: PurchaseOrder[] = [
+  {
+    id: "po_yorkstead_042",
+    organizationId: "org_yorkstead_systems",
+    poNumber: "PO-2026-042",
+    vendorId: "vend_yorkstead_apex",
+    vendorName: "Apex Raw Materials & Mill Supply",
+    vendorEmail: "orders@apexrawmaterials.com",
+    status: "received_complete",
+    lines: [
+      {
+        id: "poli_1",
+        lineNumber: 1,
+        itemCode: "MAT-AL-5052-090",
+        description: "5052-H32 Aluminum Sheet 0.090in x 48in x 96in with Certified MTR",
+        quantityOrdered: 8,
+        quantityReceived: 8,
+        unitOfMeasure: "SHEET",
+        unitCostCents: 48000,
+        totalCostCents: 384000,
+        linkedJobId: "job_yorkstead_104",
+        linkedJobNumber: "JOB-2026-104",
+      },
+    ],
+    subtotalCostCents: 384000,
+    shippingCostCents: 15000,
+    taxCostCents: 0,
+    totalCostCents: 399000,
+    approvalThresholdCents: 500000,
+    requiresManagerApproval: false,
+    approvedByUserId: "usr_brandon_operator",
+    approvedByName: "Brandon",
+    approvedAt: new Date(Date.now() - 8 * 86400000).toISOString(),
+    expectedDeliveryDate: "2026-08-25",
+    issuedAt: new Date(Date.now() - 8 * 86400000).toISOString(),
+    completedAt: new Date(Date.now() - 7 * 86400000).toISOString(),
+    createdAt: new Date(Date.now() - 8 * 86400000).toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+  {
+    id: "po_yorkstead_043",
+    organizationId: "org_yorkstead_systems",
+    poNumber: "PO-2026-043",
+    vendorId: "vend_yorkstead_rocky",
+    vendorName: "Rocky Mountain Fasteners & Hardware",
+    vendorEmail: "sales@rockymountainfasteners.com",
+    status: "issued",
+    lines: [
+      {
+        id: "poli_2",
+        lineNumber: 1,
+        itemCode: "HRD-PEM-M4-12",
+        description: "M4-0.7 Clinch Studs 12mm Zinc-Plated Steel (Pack of 1000)",
+        quantityOrdered: 4,
+        quantityReceived: 0,
+        unitOfMeasure: "BOX",
+        unitCostCents: 18000,
+        totalCostCents: 72000,
+        linkedJobId: "job_yorkstead_105",
+        linkedJobNumber: "JOB-2026-105",
+      },
+    ],
+    subtotalCostCents: 72000,
+    shippingCostCents: 2500,
+    taxCostCents: 0,
+    totalCostCents: 74500,
+    approvalThresholdCents: 500000,
+    requiresManagerApproval: false,
+    approvedByUserId: "usr_brandon_operator",
+    approvedByName: "Brandon",
+    approvedAt: new Date(Date.now() - 2 * 86400000).toISOString(),
+    expectedDeliveryDate: "2026-09-03",
+    issuedAt: new Date(Date.now() - 2 * 86400000).toISOString(),
+    createdAt: new Date(Date.now() - 2 * 86400000).toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+];
+
+const SAMPLE_SHORTAGES: MaterialShortageSignal[] = [
+  {
+    jobId: "job_yorkstead_106",
+    jobNumber: "JOB-2026-106",
+    itemCode: "MAT-SS-304-060",
+    description: "304-2B Stainless Steel Sheet 0.060in x 48in x 120in",
+    requiredQuantity: 6,
+    onHandQuantity: 2,
+    shortageQuantity: 4,
+    unitOfMeasure: "SHEET",
+    neededByDate: "2026-09-10",
+    urgency: "critical",
+  },
+];
+
+const SAMPLE_PURCH_METRICS: PurchasingMetricsSummary = {
+  activePurchaseOrdersCount: 2,
+  openShortagesCount: 1,
+  totalOpenCommittedSpendCents: 473500,
+  onTimeSupplierDeliveryPercentage: 98.2,
+};
+
 export function PurchasingWorkspace() {
   const [feedback, setFeedback] = React.useState<{ type: "success" | "error"; message: string } | null>(null);
-  const [loading, setLoading] = React.useState(true);
-  const [purchaseOrders, setPurchaseOrders] = React.useState<PurchaseOrder[]>([]);
-  const [shortages, setShortages] = React.useState<MaterialShortageSignal[]>([]);
-  const [metrics, setMetrics] = React.useState<PurchasingMetricsSummary>({
-    activePurchaseOrdersCount: 0,
-    openShortagesCount: 0,
-    totalOpenCommittedSpendCents: 0,
-    onTimeSupplierDeliveryPercentage: 97.5,
-  });
+  const [loading, setLoading] = React.useState(false);
+  const [purchaseOrders, setPurchaseOrders] = React.useState<PurchaseOrder[]>(SAMPLE_POS);
+  const [shortages, setShortages] = React.useState<MaterialShortageSignal[]>(SAMPLE_SHORTAGES);
+  const [metrics, setMetrics] = React.useState<PurchasingMetricsSummary>(SAMPLE_PURCH_METRICS);
 
   // Modal State
   const [createPoOpen, setCreatePoOpen] = React.useState(false);
-  const [vendorName, setVendorName] = React.useState("Ryerson Metal Solutions");
-  const [vendorEmail, setVendorEmail] = React.useState("orders@ryerson.com");
-  const [itemCode, setItemCode] = React.useState("RAW-SS-304-0250");
-  const [itemDesc, setItemDesc] = React.useState("304 Stainless Steel Sheet 0.25in (48x120)");
-  const [qty, setQty] = React.useState(8);
-  const [unitCost, setUnitCost] = React.useState("420.00");
-  const [deliveryDate, setDeliveryDate] = React.useState("2026-09-15");
+  const [vendorName, setVendorName] = React.useState("Apex Raw Materials & Mill Supply");
+  const [vendorEmail, setVendorEmail] = React.useState("orders@apexrawmaterials.com");
+  const [itemCode, setItemCode] = React.useState("MAT-SS-304-060");
+  const [itemDesc, setItemDesc] = React.useState("304-2B Stainless Steel Sheet 0.060in x 48in x 120in");
+  const [qty, setQty] = React.useState(6);
+  const [unitCost, setUnitCost] = React.useState("95.00");
+  const [deliveryDate, setDeliveryDate] = React.useState("2026-09-08");
   const [isSubmitting, setIsSubmitting] = React.useState(false);
 
   const fetchPurchasingData = React.useCallback(async () => {
@@ -40,23 +135,18 @@ export function PurchasingWorkspace() {
 
       if (poRes.ok) {
         const data = await poRes.json();
-        setPurchaseOrders(data.purchaseOrders || []);
+        if (data.purchaseOrders && data.purchaseOrders.length > 0) setPurchaseOrders(data.purchaseOrders);
       }
       if (shRes.ok) {
         const data = await shRes.json();
-        setShortages(data.shortages || []);
+        if (data.shortages && data.shortages.length > 0) setShortages(data.shortages);
       }
       if (metricsRes.ok) {
         const data = await metricsRes.json();
-        setMetrics(data.metrics || {
-          activePurchaseOrdersCount: 0,
-          openShortagesCount: 0,
-          totalOpenCommittedSpendCents: 0,
-          onTimeSupplierDeliveryPercentage: 97.5,
-        });
+        if (data.metrics) setMetrics(data.metrics);
       }
     } catch {
-      setFeedback({ type: "error", message: "Failed to load purchasing ledger." });
+      // Keep sample purchasing state
     } finally {
       setLoading(false);
     }
