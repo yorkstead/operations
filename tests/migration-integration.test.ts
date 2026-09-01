@@ -3,10 +3,10 @@ import { validateMigrationFiles, computeFileChecksum, MIGRATION_ADVISORY_LOCK_ID
 
 describe("Database Migration Runner & Readiness Gate Integration Suite", () => {
   // 1. Offline Migration Files Integrity
-  it("validates all 15 migration files have valid sequential numbering, non-empty SQL, and deterministic checksums", () => {
+  it("validates all 16 migration files have valid sequential numbering, non-empty SQL, and deterministic checksums", () => {
     const res = validateMigrationFiles();
-    expect(res.count).toBe(15);
-    expect(res.migrations.length).toBe(15);
+    expect(res.count).toBe(16);
+    expect(res.migrations.length).toBe(16);
 
     for (let i = 0; i < res.migrations.length; i++) {
       const m = res.migrations[i];

@@ -12,20 +12,26 @@ export function MasterDataWorkspace() {
   const [feedback, setFeedback] = React.useState<string | null>(null);
 
   const [customers] = React.useState([
-    { id: "cust_1", name: "Alpine Aerospace Systems", code: "AERO-01", status: "active", terms: "Net 30", city: "Denver, CO" },
-    { id: "cust_2", name: "Summit Architectural Glass", code: "SAG-02", status: "active", terms: "Net 45", city: "Boulder, CO" },
-    { id: "cust_3", name: "Frontier Precision Works", code: "FPW-03", status: "active", terms: "Due on Receipt", city: "Colorado Springs, CO" },
+    { id: "cust_1", name: "Alpine Aerospace Systems", code: "AERO-01", status: "active", terms: "Net 30", city: "Denver, CO", contact: "Marcus Vance (m.vance@alpineaero.com)" },
+    { id: "cust_2", name: "Summit Architectural Glass", code: "SAG-02", status: "active", terms: "Net 45", city: "Boulder, CO", contact: "Elena Gomez (elena@summitglass.com)" },
+    { id: "cust_3", name: "Frontier Precision Works", code: "FPW-03", status: "active", terms: "Net 30", city: "Colorado Springs, CO", contact: "David Ortiz (d.ortiz@frontierprec.com)" },
+    { id: "cust_4", name: "Boulder Cryogenics Laboratory", code: "BCL-04", status: "active", terms: "Due on Receipt", city: "Boulder, CO", contact: "Dr. Sarah Chen (schen@bouldercryo.org)" },
+    { id: "cust_5", name: "Mile High Defense Systems", code: "MHDS-05", status: "active", terms: "Net 60", city: "Aurora, CO", contact: "Col. Thomas Briggs (tbriggs@mhds-gov.com)" },
   ]);
 
   const [vendors] = React.useState([
-    { id: "vend_1", name: "Mile High Steel & Alloy", code: "VEND-STEEL", category: "Raw Materials", leadTime: "5 days", city: "Pueblo, CO" },
-    { id: "vend_2", name: "Rocky Mountain Fasteners", code: "VEND-FAST", category: "Hardware", leadTime: "2 days", city: "Aurora, CO" },
-    { id: "vend_3", name: "Precision Tooling Co", code: "VEND-TOOL", category: "Consumables", leadTime: "10 days", city: "Longmont, CO" },
+    { id: "vend_1", name: "Apex Raw Materials & Mill Supply", code: "VEND-AL-01", category: "Raw Materials", leadTime: "3-5 days", city: "Pueblo, CO", contact: "orders@apexrawmaterials.com" },
+    { id: "vend_2", name: "Rocky Mountain Fasteners & Hardware", code: "VEND-FAST-02", category: "Hardware & PEM", leadTime: "1-2 days", city: "Aurora, CO", contact: "sales@rockymountainfasteners.com" },
+    { id: "vend_3", name: "Precision Tooling & CNC Carbide Co", code: "VEND-TOOL-03", category: "Tooling & Inserts", leadTime: "5-7 days", city: "Longmont, CO", contact: "dispatch@precisiontooling.com" },
+    { id: "vend_4", name: "Summit Finishing & Anodizing Labs", code: "VEND-CHEM-04", category: "Chemical / Anodize", leadTime: "3-4 days", city: "Denver, CO", contact: "billing@summitfinishing.com" },
+    { id: "vend_5", name: "Front Range Nitrogen & Industrial Gases", code: "VEND-GAS-05", category: "Gases & Consumables", leadTime: "Next day", city: "Commerce City, CO", contact: "deliveries@frontrangegas.com" },
   ]);
 
   const [locations] = React.useState([
-    { id: "loc_1", name: "Main Fabrication Plant", code: "PLANT-01", type: "Shopfloor", address: "1420 40th St, Denver, CO 80205", isDefault: true },
-    { id: "loc_2", name: "Logistics & Distribution Dock", code: "DOCK-02", type: "Shipping Dock", address: "1450 40th St, Denver, CO 80205", isDefault: false },
+    { id: "loc_1", name: "Main Precision Fabrication Plant", code: "PLANT-01", type: "CNC Laser & Forming Floor", address: "1420 40th St, Denver, CO 80205", isDefault: true },
+    { id: "loc_2", name: "Robotic Welding & Assembly Annex", code: "ANNEX-02", type: "Welding & Fastening Cell", address: "1430 40th St, Denver, CO 80205", isDefault: false },
+    { id: "loc_3", name: "CMM Metrology & Quality Inspection Lab", code: "QC-LAB-01", type: "Cleanroom / Inspection", address: "1420 40th St, Bay 4, Denver, CO 80205", isDefault: false },
+    { id: "loc_4", name: "Logistics, Crate Staging & Outbound Dock", code: "DOCK-02", type: "Shipping & Receiving Dock", address: "1450 40th St, Denver, CO 80205", isDefault: false },
   ]);
 
   const filteredCustomers = customers.filter(
