@@ -9,52 +9,111 @@ import { ExecutiveDashboardSummary } from "@/modules/analytics/domain/types";
 import Link from "next/link";
 
 const SAMPLE_DASHBOARD: ExecutiveDashboardSummary = {
-  kpis: {
-    activeJobsCount: 3,
-    onTimeDeliveryPercentage: 98.4,
-    firstPassYieldPercentage: 98.4,
-    operationalUptimePercentage: 99.2,
-    totalCommittedSpendCents: 473500,
-    openShortagesCount: 1,
-    activeDowntimeEventsCount: 0,
-    scrapLossCents: 0,
-  },
-  suggestions: [
+  metrics: [
+    {
+      metricKey: "otd",
+      title: "On-Time Customer Delivery",
+      businessQuestion: "Are customer production deliverables shipping by committed dock date?",
+      owner: "Shipping & Fulfillment Operations",
+      formula: "(on_time_shipments / total_completed_shipments) * 100",
+      grain: "monthly_rolling",
+      sourceOfTruth: "shipping_manifests",
+      valueFormatted: "98.4%",
+      numericValue: 98.4,
+      unit: "percent",
+      targetFormatted: ">= 98.0%",
+      targetNumeric: 98.0,
+      status: "healthy",
+      freshnessTimestamp: new Date().toISOString(),
+      knownLimitations: "Excludes customer carrier delay hold times",
+    },
+    {
+      metricKey: "fpy",
+      title: "First Pass Quality Yield",
+      businessQuestion: "What percentage of fabricated lots pass CMM/QA without rework?",
+      owner: "Quality Assurance",
+      formula: "(passed_inspections / total_inspections) * 100",
+      grain: "daily_shift",
+      sourceOfTruth: "quality_inspections",
+      valueFormatted: "98.4%",
+      numericValue: 98.4,
+      unit: "percent",
+      targetFormatted: ">= 97.5%",
+      targetNumeric: 97.5,
+      status: "healthy",
+      freshnessTimestamp: new Date().toISOString(),
+      knownLimitations: "Calculated at final acceptance inspection signoff",
+    },
+    {
+      metricKey: "uptime",
+      title: "Equipment Availability & Uptime",
+      businessQuestion: "Are primary fabrication machines available during scheduled shift hours?",
+      owner: "Facilities & Maintenance",
+      formula: "((scheduled_hours - downtime_hours) / scheduled_hours) * 100",
+      grain: "weekly_rolling",
+      sourceOfTruth: "maintenance_telemetry",
+      valueFormatted: "99.2%",
+      numericValue: 99.2,
+      unit: "percent",
+      targetFormatted: ">= 98.5%",
+      targetNumeric: 98.5,
+      status: "healthy",
+      freshnessTimestamp: new Date().toISOString(),
+      knownLimitations: "Planned maintenance windows during weekend shifts are omitted",
+    },
+  ],
+  needsAttentionQueue: [
+    {
+      id: "attn_1",
+      module: "purchasing",
+      severity: "critical",
+      title: "Material Shortage: 304 Stainless Steel Sheet",
+      description: "JOB-2026-106 requires 6 sheets MAT-SS-304-060; current inventory is 2 sheets.",
+      recommendedAction: "Issue expedited PO to Ryerson or Apex for 4 sheets delivery by Sept 10.",
+      constraints: ["Mill Test Report (MTR) required upon receiving dock intake"],
+      tradeOffs: ["Expedite surcharge vs 2-day workcenter idle delay"],
+      link: "/purchasing",
+      actionLabel: "Open Purchasing",
+    },
+  ],
+  capacitySignals: [
+    {
+      workCenterCode: "WC-LASER-01",
+      workCenterName: "4kW Fiber Laser Cell",
+      availableHoursWeekly: 80,
+      committedHoursWeekly: 68,
+      utilizationPercentage: 85.0,
+      status: "balanced",
+    },
+  ],
+  planningSuggestions: [
     {
       id: "plan_sug_yorkstead_001",
-      organizationId: "org_yorkstead_systems",
       title: "Workcenter Rebalance: Route Secondary Forming to Brake Cell #2 during Laser Shift 2 Peak",
       category: "workcenter_rebalance",
       rationale: "Forming queue projected to exceed buffer threshold by 18% during peak laser cutting throughput.",
       constraints: ["Maintain AS9102 First Article certified operator on duty", "Preserve tooling clearance"],
       tradeOffs: ["+15 min setup time on Brake #2 vs -3.5 hours backlog wait time"],
       confidenceScore: 0.94,
+      requiresHumanApproval: true,
       status: "approved",
       approvedByUserId: "usr_brandon_operator",
       approvedByName: "Brandon",
       approvedAt: new Date(Date.now() - 86400000).toISOString(),
-      createdAt: new Date(Date.now() - 2 * 86400000).toISOString(),
-      updatedAt: new Date().toISOString(),
     },
     {
       id: "plan_sug_yorkstead_002",
-      organizationId: "org_yorkstead_systems",
-      title: "Material Consolidation: Combine 5052-H32 Nesting Sheets between JOB-104 and JOB-107",
-      category: "material_consolidation",
-      rationale: "Consolidating nest patterns reduces sheet scrap drop from 14.2% to 6.8%, saving $340 in raw material.",
-      constraints: ["Grain direction alignment required for aerospace 90 deg bends"],
-      tradeOffs: ["Requires nested laser program re-post (+10 min CAM time)"],
+      title: "Expedite Procurement: Authorize PO-2026-044 for Stainless Steel 304-2B",
+      category: "expedite_procurement",
+      rationale: "Early PO dispatch prevents a 4-day line stoppage on Architectural Fascia Job 106.",
+      constraints: ["Vendor must guarantee delivery within 5 business days"],
+      tradeOffs: ["+$85 freight expedite fee"],
       confidenceScore: 0.96,
-      status: "pending_review",
-      createdAt: new Date(Date.now() - 12 * 3600000).toISOString(),
-      updatedAt: new Date().toISOString(),
+      requiresHumanApproval: true,
+      status: "pending",
     },
   ],
-  riskSummary: {
-    criticalEquipmentDown: 0,
-    shortageImpactedJobs: 1,
-    overdueWorkOrders: 0,
-  },
+  lastRefreshedAt: new Date().toISOString(),
 };
 
 export function AnalyticsWorkspace() {
@@ -67,7 +126,7 @@ export function AnalyticsWorkspace() {
       const res = await fetch("/api/analytics/dashboard");
       if (res.ok) {
         const data = await res.json();
-        if (data && data.kpis) setDashboard(data);
+        if (data && data.metrics) setDashboard(data);
       }
     } catch {
       // Keep sample dashboard

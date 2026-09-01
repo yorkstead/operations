@@ -23,6 +23,24 @@ const SAMPLE_JOBS: Job[] = [
     targetDueDate: "2026-09-15",
     estimatedLaborHours: 24,
     notes: "High-precision avionics enclosure for satellite communications array. Tolerance critical on flange bends (+/-0.005 in).",
+    revisions: [
+      {
+        revision: "B",
+        changeSummary: "Updated PEM hardware mounting locations per CAD rev B",
+        changedByUserId: "usr_brandon_operator",
+        createdAt: new Date(Date.now() - 3 * 86400000).toISOString(),
+      },
+    ],
+    timeline: [
+      {
+        id: "ev_1",
+        fromStatus: "released_to_shopfloor",
+        toStatus: "in_progress",
+        actorUserId: "usr_brandon_operator",
+        actorName: "Brandon",
+        timestamp: new Date(Date.now() - 2 * 86400000).toISOString(),
+      },
+    ],
     version: 2,
     createdAt: new Date(Date.now() - 3 * 86400000).toISOString(),
     updatedAt: new Date().toISOString(),
@@ -40,6 +58,24 @@ const SAMPLE_JOBS: Job[] = [
     targetDueDate: "2026-09-22",
     estimatedLaborHours: 18,
     notes: "Heavy-duty 6061-T6 aluminum facade brackets. Clear anodize finish per MIL-A-8625 Type II.",
+    revisions: [
+      {
+        revision: "A",
+        changeSummary: "Initial engineering drawing release",
+        changedByUserId: "usr_brandon_operator",
+        createdAt: new Date(Date.now() - 2 * 86400000).toISOString(),
+      },
+    ],
+    timeline: [
+      {
+        id: "ev_2",
+        fromStatus: "engineering_ready",
+        toStatus: "released_to_shopfloor",
+        actorUserId: "usr_brandon_operator",
+        actorName: "Brandon",
+        timestamp: new Date(Date.now() - 86400000).toISOString(),
+      },
+    ],
     version: 1,
     createdAt: new Date(Date.now() - 2 * 86400000).toISOString(),
     updatedAt: new Date().toISOString(),
@@ -57,6 +93,24 @@ const SAMPLE_JOBS: Job[] = [
     targetDueDate: "2026-09-10",
     estimatedLaborHours: 32,
     notes: "Precision stainless sheet metal enclosure for clinical imaging scanner. Class 1 cosmetic finish required.",
+    revisions: [
+      {
+        revision: "A",
+        changeSummary: "Initial CAD intake and DFM validation",
+        changedByUserId: "usr_brandon_operator",
+        createdAt: new Date(Date.now() - 86400000).toISOString(),
+      },
+    ],
+    timeline: [
+      {
+        id: "ev_3",
+        fromStatus: "draft",
+        toStatus: "engineering_ready",
+        actorUserId: "usr_brandon_operator",
+        actorName: "Brandon",
+        timestamp: new Date(Date.now() - 86400000).toISOString(),
+      },
+    ],
     version: 1,
     createdAt: new Date(Date.now() - 86400000).toISOString(),
     updatedAt: new Date().toISOString(),

@@ -41,7 +41,6 @@ const SAMPLE_QUOTES: Quote[] = [
     updatedAt: new Date().toISOString(),
     revisions: [
       {
-        id: "qrev_1",
         revisionNumber: 1,
         changeReason: "Initial CAD intake release with AS9102 inspection bundle",
         subtotalCents: 770000,
@@ -99,7 +98,6 @@ const SAMPLE_QUOTES: Quote[] = [
     updatedAt: new Date().toISOString(),
     revisions: [
       {
-        id: "qrev_2",
         revisionNumber: 1,
         changeReason: "High-volume production run quote with tiered anodize tooling discount.",
         subtotalCents: 1250000,

@@ -18,11 +18,7 @@ const SAMPLE_FILES: StoredFile[] = [
     checksumSha256: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     status: "clean",
     uploadedByUserId: "usr_brandon_operator",
-    uploadedByName: "Brandon",
-    entityType: "job",
-    entityId: "job_yorkstead_104",
     createdAt: new Date(Date.now() - 3 * 86400000).toISOString(),
-    updatedAt: new Date().toISOString(),
   },
   {
     id: "file_yorkstead_mtr_088",
@@ -34,11 +30,7 @@ const SAMPLE_FILES: StoredFile[] = [
     checksumSha256: "2c26b46b68ffc68ff99b453c1d30413413422d706483bfa0f98a5e886266e7ae",
     status: "clean",
     uploadedByUserId: "usr_brandon_operator",
-    uploadedByName: "Brandon",
-    entityType: "purchase_order",
-    entityId: "po_yorkstead_042",
     createdAt: new Date(Date.now() - 7 * 86400000).toISOString(),
-    updatedAt: new Date().toISOString(),
   },
   {
     id: "file_yorkstead_fai_044",
@@ -50,11 +42,7 @@ const SAMPLE_FILES: StoredFile[] = [
     checksumSha256: "fcde2b2edba56bf408601fb721fe9b5c338d10ee429ea04fae5511b68fbf8fb9",
     status: "clean",
     uploadedByUserId: "usr_brandon_operator",
-    uploadedByName: "Brandon",
-    entityType: "inspection",
-    entityId: "insp_yorkstead_044",
     createdAt: new Date(Date.now() - 86400000).toISOString(),
-    updatedAt: new Date().toISOString(),
   },
   {
     id: "file_yorkstead_as9100",
@@ -66,11 +54,7 @@ const SAMPLE_FILES: StoredFile[] = [
     checksumSha256: "a591a6d40bf420404a011733cfb7b190d62c65bf0bcda32b57b277d9ad9f146e",
     status: "clean",
     uploadedByUserId: "usr_brandon_operator",
-    uploadedByName: "Brandon",
-    entityType: "organization",
-    entityId: "org_yorkstead_systems",
     createdAt: new Date(Date.now() - 30 * 86400000).toISOString(),
-    updatedAt: new Date().toISOString(),
   },
 ];
 

@@ -19,14 +19,12 @@ const SAMPLE_EQUIPMENT: Equipment[] = [
     serialNumber: "MITS-88402",
     workCenterCode: "WC-LASER-01",
     locationCode: "LOC-STAGE-01",
-    criticality: "critical",
+    criticality: "critical_single_point_of_failure",
     status: "operational",
     qrCodeData: "yorkstead://equipment/EQ-LASER-01",
     lastServiceDate: "2026-08-15",
     nextScheduledPmDate: "2026-09-15",
     totalRunHours: 3840,
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
   },
   {
     id: "eq_yorkstead_brake_01",
@@ -44,8 +42,6 @@ const SAMPLE_EQUIPMENT: Equipment[] = [
     lastServiceDate: "2026-08-10",
     nextScheduledPmDate: "2026-09-10",
     totalRunHours: 2910,
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
   },
   {
     id: "eq_yorkstead_weld_01",
@@ -63,8 +59,6 @@ const SAMPLE_EQUIPMENT: Equipment[] = [
     lastServiceDate: "2026-08-01",
     nextScheduledPmDate: "2026-09-01",
     totalRunHours: 1450,
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
   },
   {
     id: "eq_yorkstead_cmm_01",
@@ -82,8 +76,6 @@ const SAMPLE_EQUIPMENT: Equipment[] = [
     lastServiceDate: "2026-08-20",
     nextScheduledPmDate: "2026-09-20",
     totalRunHours: 880,
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
   },
 ];
 

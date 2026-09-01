@@ -16,7 +16,7 @@ const SAMPLE_POS: PurchaseOrder[] = [
     vendorName: "Apex Raw Materials & Mill Supply",
     vendorEmail: "orders@apexrawmaterials.com",
     status: "received_complete",
-    lines: [
+    lineItems: [
       {
         id: "poli_1",
         lineNumber: 1,
@@ -24,7 +24,7 @@ const SAMPLE_POS: PurchaseOrder[] = [
         description: "5052-H32 Aluminum Sheet 0.090in x 48in x 96in with Certified MTR",
         quantityOrdered: 8,
         quantityReceived: 8,
-        unitOfMeasure: "SHEET",
+        uom: "SHEET",
         unitCostCents: 48000,
         totalCostCents: 384000,
         linkedJobId: "job_yorkstead_104",
@@ -53,8 +53,8 @@ const SAMPLE_POS: PurchaseOrder[] = [
     vendorId: "vend_yorkstead_rocky",
     vendorName: "Rocky Mountain Fasteners & Hardware",
     vendorEmail: "sales@rockymountainfasteners.com",
-    status: "issued",
-    lines: [
+    status: "sent_to_vendor",
+    lineItems: [
       {
         id: "poli_2",
         lineNumber: 1,
@@ -62,7 +62,7 @@ const SAMPLE_POS: PurchaseOrder[] = [
         description: "M4-0.7 Clinch Studs 12mm Zinc-Plated Steel (Pack of 1000)",
         quantityOrdered: 4,
         quantityReceived: 0,
-        unitOfMeasure: "BOX",
+        uom: "BOX",
         unitCostCents: 18000,
         totalCostCents: 72000,
         linkedJobId: "job_yorkstead_105",
@@ -87,6 +87,7 @@ const SAMPLE_POS: PurchaseOrder[] = [
 
 const SAMPLE_SHORTAGES: MaterialShortageSignal[] = [
   {
+    id: "sh_1",
     jobId: "job_yorkstead_106",
     jobNumber: "JOB-2026-106",
     itemCode: "MAT-SS-304-060",
@@ -94,9 +95,9 @@ const SAMPLE_SHORTAGES: MaterialShortageSignal[] = [
     requiredQuantity: 6,
     onHandQuantity: 2,
     shortageQuantity: 4,
-    unitOfMeasure: "SHEET",
+    uom: "SHEET",
     neededByDate: "2026-09-10",
-    urgency: "critical",
+    urgency: "critical_line_down",
   },
 ];
 

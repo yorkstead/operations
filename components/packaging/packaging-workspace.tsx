@@ -38,7 +38,6 @@ const SAMPLE_PACKAGES: PackagingUnit[] = [
     sealedByUserId: "usr_brandon_operator",
     sealedByName: "Brandon",
     createdAt: new Date(Date.now() - 20 * 3600000).toISOString(),
-    updatedAt: new Date().toISOString(),
   },
   {
     id: "pkg_unit_yorkstead_043",
@@ -69,7 +68,6 @@ const SAMPLE_PACKAGES: PackagingUnit[] = [
     sealedByUserId: "usr_brandon_operator",
     sealedByName: "Brandon",
     createdAt: new Date(Date.now() - 6 * 3600000).toISOString(),
-    updatedAt: new Date().toISOString(),
   },
 ];
 

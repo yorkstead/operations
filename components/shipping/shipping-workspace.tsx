@@ -19,7 +19,6 @@ const SAMPLE_MANIFESTS: ShippingManifest[] = [
     trailerOrPlateNumber: "TR-8814",
     stops: [
       {
-        id: "stop_1",
         stopSequence: 1,
         destinationCustomerName: "Alpine Aerospace Systems",
         destinationAddress: "1200 Space Technology Blvd, Longmont, CO 80501",
@@ -32,13 +31,7 @@ const SAMPLE_MANIFESTS: ShippingManifest[] = [
         deliveredAt: new Date(Date.now() - 6 * 3600000).toISOString(),
       },
     ],
-    assignedPackages: [
-      {
-        id: "shp_pkg_1",
-        packageNumber: "PKG-2026-042",
-        grossWeightLbs: 405.0,
-      },
-    ],
+    packageNumbers: ["PKG-2026-042"],
     totalPackages: 1,
     totalGrossWeightLbs: 405.0,
     status: "delivered",
@@ -48,20 +41,18 @@ const SAMPLE_MANIFESTS: ShippingManifest[] = [
     dispatchedByName: "Brandon",
     deliveredAt: new Date(Date.now() - 6 * 3600000).toISOString(),
     createdAt: new Date(Date.now() - 86400000).toISOString(),
-    updatedAt: new Date().toISOString(),
   },
   {
     id: "shp_yorkstead_089",
     organizationId: "org_yorkstead_systems",
     manifestNumber: "SHP-2026-089",
-    carrierType: "dedicated_courier",
+    carrierType: "hotshot_courier",
     carrierName: "Front Range Express Logistics",
     trackingOrProNumber: "FREX-44019",
     driverName: "Elena Gomez",
     trailerOrPlateNumber: "VAN-2201",
     stops: [
       {
-        id: "stop_2",
         stopSequence: 1,
         destinationCustomerName: "Summit Architectural Glass",
         destinationAddress: "4820 Valmont Rd, Boulder, CO 80301",
@@ -72,19 +63,12 @@ const SAMPLE_MANIFESTS: ShippingManifest[] = [
         status: "pending",
       },
     ],
-    assignedPackages: [
-      {
-        id: "shp_pkg_2",
-        packageNumber: "PKG-2026-043",
-        grossWeightLbs: 123.5,
-      },
-    ],
+    packageNumbers: ["PKG-2026-043"],
     totalPackages: 1,
     totalGrossWeightLbs: 123.5,
     status: "staged_for_loading",
     billOfLadingBarcode: "BOL-2026-089-YS",
     createdAt: new Date(Date.now() - 4 * 3600000).toISOString(),
-    updatedAt: new Date().toISOString(),
   },
 ];
 

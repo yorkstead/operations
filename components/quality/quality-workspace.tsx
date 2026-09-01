@@ -73,7 +73,6 @@ const SAMPLE_INSPECTIONS: InspectionRecord[] = [
     ],
     ncrId: "ncr_yorkstead_012",
     completedAt: new Date(Date.now() - 86400000).toISOString(),
-    createdAt: new Date(Date.now() - 86400000).toISOString(),
   },
   {
     id: "insp_yorkstead_045",
@@ -94,7 +93,6 @@ const SAMPLE_INSPECTIONS: InspectionRecord[] = [
       { id: "chk_11", characteristic: "CMM 12-Hole Pattern Location", targetSpec: "True Position 0.005 in RFS", result: "pass", measuredValue: "Max deviation 0.0021 in" },
     ],
     completedAt: new Date(Date.now() - 10 * 3600000).toISOString(),
-    createdAt: new Date(Date.now() - 10 * 3600000).toISOString(),
   },
 ];
 

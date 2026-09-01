@@ -30,7 +30,7 @@ const SAMPLE_TRAVELERS: DigitalTraveler[] = [
     customerName: "Alpine Aerospace Systems",
     totalQuantity: 50,
     currentStepIndex: 3,
-    status: "in_progress",
+    status: "active",
     priority: "rush",
     targetDueDate: "2026-09-15",
     version: 1,
@@ -39,7 +39,6 @@ const SAMPLE_TRAVELERS: DigitalTraveler[] = [
     operations: [
       {
         id: "top_1",
-        travelerId: "trv_yorkstead_104",
         sequence: 10,
         workCenterCode: "WC-LASER-01",
         workCenterName: "Mitsubishi 4kW Fiber Laser Cell",
@@ -54,7 +53,6 @@ const SAMPLE_TRAVELERS: DigitalTraveler[] = [
       },
       {
         id: "top_2",
-        travelerId: "trv_yorkstead_104",
         sequence: 20,
         workCenterCode: "WC-BRAKE-01",
         workCenterName: "Amada 100-Ton 6-Axis CNC Press Brake",
@@ -69,7 +67,6 @@ const SAMPLE_TRAVELERS: DigitalTraveler[] = [
       },
       {
         id: "top_3",
-        travelerId: "trv_yorkstead_104",
         sequence: 30,
         workCenterCode: "WC-WELD-01",
         workCenterName: "Fanuc Robotic TIG & PEM Fastener Cell",
@@ -84,7 +81,6 @@ const SAMPLE_TRAVELERS: DigitalTraveler[] = [
       },
       {
         id: "top_4",
-        travelerId: "trv_yorkstead_104",
         sequence: 40,
         workCenterCode: "WC-QC-01",
         workCenterName: "Mitutoyo Crysta-Apex CMM Inspection Bay",
@@ -99,7 +95,6 @@ const SAMPLE_TRAVELERS: DigitalTraveler[] = [
       },
       {
         id: "top_5",
-        travelerId: "trv_yorkstead_104",
         sequence: 50,
         workCenterCode: "WC-PACK-01",
         workCenterName: "Packaging, Crate Staging & Palletization",
@@ -125,7 +120,7 @@ const SAMPLE_TRAVELERS: DigitalTraveler[] = [
     customerName: "Summit Architectural Glass",
     totalQuantity: 120,
     currentStepIndex: 1,
-    status: "pending",
+    status: "queued",
     priority: "standard",
     targetDueDate: "2026-09-22",
     version: 1,
@@ -134,7 +129,6 @@ const SAMPLE_TRAVELERS: DigitalTraveler[] = [
     operations: [
       {
         id: "top_105_1",
-        travelerId: "trv_yorkstead_105",
         sequence: 10,
         workCenterCode: "WC-LASER-01",
         workCenterName: "Mitsubishi 4kW Fiber Laser Cell",

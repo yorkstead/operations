@@ -32,8 +32,6 @@ const SAMPLE_DOCUMENTS: JobPacketDocument[] = [
     humanReviewerName: "Brandon",
     humanApprovedAt: new Date(Date.now() - 2 * 86400000).toISOString(),
     uploadedAt: new Date(Date.now() - 3 * 86400000).toISOString(),
-    createdAt: new Date(Date.now() - 3 * 86400000).toISOString(),
-    updatedAt: new Date().toISOString(),
   },
   {
     id: "pkt_doc_yorkstead_105",
@@ -56,8 +54,6 @@ const SAMPLE_DOCUMENTS: JobPacketDocument[] = [
     humanReviewerName: "Brandon",
     humanApprovedAt: new Date(Date.now() - 86400000).toISOString(),
     uploadedAt: new Date(Date.now() - 2 * 86400000).toISOString(),
-    createdAt: new Date(Date.now() - 2 * 86400000).toISOString(),
-    updatedAt: new Date().toISOString(),
   },
 ];
 
