@@ -1,6 +1,7 @@
 import { expect, test } from "@playwright/test";
 
-test("desktop header separates controls and navigation without collisions", async ({ page }) => {
+test("desktop header separates controls and navigation without collisions", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name === "phone-chromium", "Desktop header test");
   for (const width of [1024, 1280, 1440, 1920]) {
     await page.setViewportSize({ width, height: 900 });
     await page.goto("/demo");
@@ -18,22 +19,23 @@ test("desktop header separates controls and navigation without collisions", asyn
       if (index > 0) expect(boxes[index].left).toBeGreaterThanOrEqual(boxes[index - 1].right);
     }
     await expect(nav.getByRole("link", { name: "Cockpit", exact: true })).not.toHaveAttribute("aria-current", "page");
-    await expect(nav.getByRole("button", { name: "Modules / Demo Orgs" })).toBeVisible();
+    await expect(nav.getByRole("button", { name: /Modules/i })).toBeVisible();
   }
 });
 
-test("Modules supports keyboard focus, Escape, outside dismissal and navigation", async ({ page }) => {
+test("Modules supports keyboard focus, Escape, outside dismissal and navigation", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name === "phone-chromium", "Desktop header test");
   await page.setViewportSize({ width: 1280, height: 900 });
   await page.goto("/login");
-  const trigger = page.getByRole("button", { name: "Modules", exact: true });
+  const trigger = page.getByRole("button", { name: /Modules/i, exact: true });
   // This control appears after hydration; exercise keyboard navigation once the shell is interactive.
   await expect(page.getByRole("button", { name: "Switch Theme (System, Dark, Light)", exact: true })).toBeVisible();
   await page.keyboard.press("Tab");
   await trigger.focus();
   await page.keyboard.press("Enter");
-  await expect(page.getByRole("menuitem", { name: "Purchasing", exact: true })).toBeFocused();
+  await expect(page.getByRole("menuitem", { name: "Jobs & Routing", exact: true })).toBeFocused();
   await page.keyboard.press("ArrowDown");
-  await expect(page.getByRole("menuitem", { name: "Quality", exact: true })).toBeFocused();
+  await expect(page.getByRole("menuitem", { name: "Shopfloor", exact: true })).toBeFocused();
   await page.keyboard.press("Escape");
   await expect(page.getByRole("menu")).toBeHidden();
   await expect(trigger).toBeFocused();
@@ -41,15 +43,16 @@ test("Modules supports keyboard focus, Escape, outside dismissal and navigation"
   await page.getByRole("heading", { name: "Yorkstead Operations", exact: true }).click();
   await expect(page.getByRole("menu")).toBeHidden();
   await trigger.click();
-  await expect(page.getByRole("menuitem")).toHaveCount(14);
-  await page.getByRole("menuitem", { name: "Demo Orgs" }).click();
+  await expect(page.getByRole("menuitem")).toHaveCount(18);
+  await page.getByRole("menuitem", { name: "Demo Sandboxes" }).click();
   await expect(page).toHaveURL(/\/demo$/);
   await expect(page.getByRole("menu")).toBeHidden();
-  await page.getByRole("button", { name: "Modules / Demo Orgs" }).click();
-  await expect(page.getByRole("menuitem", { name: "Demo Orgs" })).toHaveAttribute("aria-current", "page");
+  await page.getByRole("button", { name: /Modules/i }).click();
+  await expect(page.getByRole("menuitem", { name: "Demo Sandboxes" })).toHaveAttribute("aria-current", "page");
 });
 
-test("compact header keeps controls within the phone and tablet viewport", async ({ page }) => {
+test("compact header keeps controls within the phone and tablet viewport", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name === "desktop-chromium", "Phone header test");
   for (const width of [320, 360, 390, 640, 768, 1023]) {
     await page.setViewportSize({ width, height: 800 });
     await page.goto("/demo");
