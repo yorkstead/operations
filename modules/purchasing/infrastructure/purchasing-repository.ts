@@ -20,6 +20,7 @@ import {
   PurchaseOrderStatus,
 } from "../domain/types";
 import { SessionContext } from "@/modules/core/domain/types";
+import { authorizationService } from "@/modules/core/application/authorization-service";
 
 export class PurchasingRepository {
   async ensureSeededData(session: SessionContext): Promise<void> {
@@ -285,6 +286,15 @@ export class PurchasingRepository {
       }
 
       const po = poRows[0];
+
+      // Authorization: high-value POs require spend-approval authority;
+      // sub-threshold POs require only material-receiving capability.
+      if (po.requiresManagerApproval) {
+        authorizationService.requireCapability(session, "purchasing:approve_po");
+      } else {
+        authorizationService.requireCapability(session, "inventory:receive_material");
+      }
+
       if (po.status !== "pending_approval" && po.status !== "draft") {
         throw new Error(`Purchase order cannot be approved from status '${po.status}'.`);
       }

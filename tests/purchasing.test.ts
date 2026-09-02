@@ -126,4 +126,51 @@ describe("Purchasing & Material Sourcing Module", () => {
     expect(completePO.status).toBe("received_complete");
     expect(completePO.lineItems[0].quantityReceived).toBe(10);
   });
+  it("denies high-value PO approval to roles lacking purchasing:approve_po (operator denied, owner allowed)", () => {
+    const { user: owner } = identityService.bootstrapOwner({
+      email: "owner@factory.com",
+      name: "Owner",
+      organizationName: "Factory B",
+      organizationSlug: "factory-b",
+    });
+
+    const ownerSession = identityService.getSessionContext(owner.id);
+
+    // Simulate an operator session: same tenant, same org, role = operator.
+    // Operators do not hold purchasing:approve_po.
+    const operatorSession = {
+      ...ownerSession,
+      currentMembership: { ...ownerSession.currentMembership, role: "operator" as const },
+    };
+
+    // High-value PO: 20 sheets @ $400 = $8,000 (exceeds $5,000 threshold)
+    const po = purchasingService.createPurchaseOrder(ownerSession, {
+      vendorId: "vend_1",
+      vendorName: "Ryerson Metals",
+      vendorEmail: "orders@ryerson.com",
+      expectedDeliveryDate: "2026-10-01",
+      lineItems: [
+        {
+          itemCode: "RAW-SS-304-0250",
+          description: "304 SS Sheet",
+          quantityOrdered: 20,
+          uom: "sheets",
+          unitCostCents: 40000,
+        },
+      ],
+    });
+
+    expect(po.requiresManagerApproval).toBe(true);
+    expect(po.status).toBe("pending_approval");
+
+    // Operator must be denied — they lack purchasing:approve_po
+    expect(() => {
+      purchasingService.approvePurchaseOrder(operatorSession, po.poNumber);
+    }).toThrow();
+
+    // Owner must succeed — they hold purchasing:approve_po
+    const approved = purchasingService.approvePurchaseOrder(ownerSession, po.poNumber);
+    expect(approved.status).toBe("approved");
+    expect(approved.approvedByUserId).toBe(owner.id);
+  });
 });

@@ -41,6 +41,9 @@ export const ALL_CAPABILITIES = [
   // Packaging & Shipping
   "shipping:create_manifest",
   "shipping:complete_shipment",
+
+  // Purchasing spend authority
+  "purchasing:approve_po",
 ] as const;
 
 export type Capability = typeof ALL_CAPABILITIES[number];
@@ -72,6 +75,7 @@ export const ROLE_CAPABILITIES_MAP: Record<string, Capability[]> = {
     "quoting:convert_to_job",
     "shipping:create_manifest",
     "shipping:complete_shipment",
+    "purchasing:approve_po",
   ],
   admin: [
     "org:manage_profile",
@@ -97,6 +101,7 @@ export const ROLE_CAPABILITIES_MAP: Record<string, Capability[]> = {
     "quoting:convert_to_job",
     "shipping:create_manifest",
     "shipping:complete_shipment",
+    "purchasing:approve_po",
   ],
   manager: [
     "org:view_audit_logs",
@@ -118,6 +123,7 @@ export const ROLE_CAPABILITIES_MAP: Record<string, Capability[]> = {
     "quoting:convert_to_job",
     "shipping:create_manifest",
     "shipping:complete_shipment",
+    "purchasing:approve_po",
   ],
   operator: [
     "shopfloor:view_travelers",

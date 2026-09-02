@@ -175,7 +175,8 @@ export class PurchasingService {
     const po = this.findPurchaseOrder(session, poNumber);
 
     if (po.requiresManagerApproval) {
-      authorizationService.requireCapability(session, "org:manage_roles");
+      // POs above the $5,000 threshold require explicit spend-approval authority.
+      authorizationService.requireCapability(session, "purchasing:approve_po");
     } else {
       authorizationService.requireCapability(session, "inventory:receive_material");
     }
