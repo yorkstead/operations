@@ -337,3 +337,148 @@ export const DEFAULT_CALENDAR_EVENTS: CalendarEvent[] = [
     notes: "Synthetic sandbox isolation audit verified with zero leaks.",
   },
 ];
+
+// ---------------------------------------------------------------------------
+// Running Projects Registry
+// ---------------------------------------------------------------------------
+// `status` drives the card health color:
+//   Active    → green   (all good)
+//   In Review → amber   (needs attention)
+//   Paused    → sky     (on hold)
+//   Blocked   → rose    (something broken / needs action)
+//
+// `note` is optional — shown as a small alert line when set.
+//
+// `service` on each link drives the icon shown next to the label so you can
+// recognize GitHub vs Vercel vs Cloudflare at a glance without reading.
+//
+// Update `href` values below when real project URLs are confirmed.
+// ---------------------------------------------------------------------------
+
+export type ProjectStatus = "Active" | "Paused" | "Blocked" | "In Review";
+
+/** Named service — maps to an icon in the component */
+export type ProjectService =
+  | "github"
+  | "vercel"
+  | "netlify"
+  | "cloudflare"
+  | "cloud-run"
+  | "neon"
+  | "internal";
+
+export interface ProjectLink {
+  label: string;
+  href: string;
+  isExternal: boolean;
+  service: ProjectService;
+}
+
+export interface RunningProject {
+  id: string;
+  codename: string;
+  title: string;
+  description: string;
+  status: ProjectStatus;
+  /** Short phase label e.g. "Sprint 3" or "Live" */
+  stageBadge: string;
+  /** Tailwind bg-* for the left accent stripe */
+  accentClass: string;
+  /** Optional one-line alert shown when status != Active */
+  note?: string;
+  links: ProjectLink[];
+}
+
+export const RUNNING_PROJECTS: RunningProject[] = [
+  {
+    id: "ellwood",
+    codename: "Ellwood",
+    title: "Project Ellwood",
+    description: "Client software delivery engagement.",
+    status: "Active",
+    stageBadge: "Sprint 2",
+    accentClass: "bg-primary",
+    links: [
+      { label: "Engagement",  href: "/engagements",                                                  isExternal: false, service: "internal"    },
+      { label: "GitHub",      href: "https://github.com/Yorkstead-Systems/ellwood",                  isExternal: true,  service: "github"      },
+      { label: "Vercel",      href: "https://vercel.com/yorkstead-systems/ellwood",                  isExternal: true,  service: "vercel"      },
+      { label: "Cloudflare",  href: "https://dash.cloudflare.com",                                   isExternal: true,  service: "cloudflare"  },
+    ],
+  },
+  {
+    id: "sic",
+    codename: "Sic",
+    title: "Project Sic",
+    description: "Client software delivery engagement.",
+    status: "Active",
+    stageBadge: "Sprint 1",
+    accentClass: "bg-sky-400",
+    links: [
+      { label: "Engagement",  href: "/engagements",                                                  isExternal: false, service: "internal"    },
+      { label: "GitHub",      href: "https://github.com/Yorkstead-Systems/sic",                      isExternal: true,  service: "github"      },
+      { label: "Vercel",      href: "https://vercel.com/yorkstead-systems/sic",                      isExternal: true,  service: "vercel"      },
+      { label: "Cloudflare",  href: "https://dash.cloudflare.com",                                   isExternal: true,  service: "cloudflare"  },
+    ],
+  },
+  {
+    id: "barcodes",
+    codename: "Barcodes",
+    title: "Project Barcodes",
+    description: "Client software delivery engagement.",
+    status: "Active",
+    stageBadge: "Staging",
+    accentClass: "bg-amber-400",
+    links: [
+      { label: "Engagement",  href: "/engagements",                                                  isExternal: false, service: "internal"    },
+      { label: "GitHub",      href: "https://github.com/Yorkstead-Systems/barcodes",                 isExternal: true,  service: "github"      },
+      { label: "Vercel",      href: "https://vercel.com/yorkstead-systems/barcodes",                 isExternal: true,  service: "vercel"      },
+      { label: "Cloudflare",  href: "https://dash.cloudflare.com",                                   isExternal: true,  service: "cloudflare"  },
+    ],
+  },
+  {
+    id: "jwld",
+    codename: "Jwld",
+    title: "Project Jwld",
+    description: "Client software delivery engagement.",
+    status: "Active",
+    stageBadge: "Sprint 3",
+    accentClass: "bg-emerald-400",
+    links: [
+      { label: "Engagement",  href: "/engagements",                                                  isExternal: false, service: "internal"    },
+      { label: "GitHub",      href: "https://github.com/Yorkstead-Systems/jwld",                     isExternal: true,  service: "github"      },
+      { label: "Vercel",      href: "https://vercel.com/yorkstead-systems/jwld",                     isExternal: true,  service: "vercel"      },
+      { label: "Cloudflare",  href: "https://dash.cloudflare.com",                                   isExternal: true,  service: "cloudflare"  },
+    ],
+  },
+  {
+    id: "website",
+    codename: "Website",
+    title: "Yorkstead Website",
+    description: "Public site — yorkstead.com. Deploys to Netlify; edge via Cloudflare.",
+    status: "Active",
+    stageBadge: "Live",
+    accentClass: "bg-purple-400",
+    links: [
+      { label: "yorkstead.com", href: "https://yorkstead.com",                                         isExternal: true,  service: "netlify"     },
+      { label: "GitHub",        href: "https://github.com/Yorkstead-Systems/yorkstead-website",         isExternal: true,  service: "github"      },
+      { label: "Netlify",       href: "https://app.netlify.com/sites/yorkstead",                        isExternal: true,  service: "netlify"     },
+      { label: "Cloudflare",    href: "https://dash.cloudflare.com",                                    isExternal: true,  service: "cloudflare"  },
+    ],
+  },
+  {
+    id: "operations",
+    codename: "Operations",
+    title: "Yorkstead Operations",
+    description: "This platform — ops.yorkstead.com. Vercel + Neon + Cloud Run + Cloudflare.",
+    status: "Active",
+    stageBadge: "Live",
+    accentClass: "bg-rose-400",
+    links: [
+      { label: "GitHub",      href: "https://github.com/Yorkstead-Systems/yorkstead-operations",     isExternal: true,  service: "github"      },
+      { label: "Vercel",      href: "https://vercel.com/yorkstead-operations",                       isExternal: true,  service: "vercel"      },
+      { label: "Cloudflare",  href: "https://dash.cloudflare.com",                                   isExternal: true,  service: "cloudflare"  },
+      { label: "Cloud Run",   href: "https://console.cloud.google.com/run",                          isExternal: true,  service: "cloud-run"   },
+      { label: "Neon",        href: "https://console.neon.tech",                                     isExternal: true,  service: "neon"        },
+    ],
+  },
+];

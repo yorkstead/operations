@@ -1,5 +1,6 @@
 import * as React from "react";
 import { redirect } from "next/navigation";
+import { RunningProjectsHub } from "@/components/cockpit/running-projects-hub";
 import { FocusBriefing } from "@/components/cockpit/focus-briefing";
 import { QuickLinksHub } from "@/components/cockpit/quick-links-hub";
 import { OperatorCalendar } from "@/components/cockpit/operator-calendar";
@@ -21,6 +22,9 @@ export default async function HomePage() {
 
   return (
     <div className="mx-auto max-w-7xl px-3 py-6 sm:px-6 lg:px-8 space-y-6">
+      {/* 0. Running Projects Hub */}
+      <RunningProjectsHub />
+
       {/* 1. Operator Focus Briefing */}
       <FocusBriefing operatorName="Brandon" />
 
