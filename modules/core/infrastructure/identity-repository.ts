@@ -182,12 +182,21 @@ export class IdentityRepository {
       if (rows.length === 0) return null;
       const r = rows[0];
 
+      // `status`: The Better Auth `user` table carries no status column.
+      // A disable feature must add that column and read it here before this
+      // can accurately reflect suspended accounts.
+      //
+      // `isGlobalOwner`: Requires membership context (owner role in a non-demo
+      // org). A bare user lookup cannot determine this — always return false
+      // here. `resolveSessionContext` derives the correct value from the joined
+      // membership rows it already fetches and patches the user object before
+      // returning the SessionContext.
       return {
         id: r.id,
         email: r.email,
         name: r.name,
         status: "active",
-        isGlobalOwner: true,
+        isGlobalOwner: false,
         createdAt: r.createdAt.toISOString(),
         updatedAt: r.updatedAt.toISOString(),
       };
@@ -268,6 +277,16 @@ export class IdentityRepository {
       throw new Error("User has no active organization memberships.");
     }
 
+    // Derive isGlobalOwner: user holds an "owner" role in at least one
+    // non-demo organization. We use the memberships already fetched above
+    // rather than issuing an extra query.
+    const isGlobalOwner = allMemberships.some(
+      (m) => m.membership.role === "owner" && !m.organization.isDemo
+    );
+    const resolvedUser = isGlobalOwner === user.isGlobalOwner
+      ? user
+      : { ...user, isGlobalOwner };
+
     let activePair = allMemberships[0];
 
     if (requestedOrgId) {
@@ -279,7 +298,7 @@ export class IdentityRepository {
     }
 
     return {
-      user,
+      user: resolvedUser,
       activeOrganization: activePair.organization,
       currentMembership: activePair.membership,
       allMemberships,
