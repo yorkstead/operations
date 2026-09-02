@@ -1,7 +1,11 @@
 export interface QuickLinkItem {
   id: string;
   title: string;
-  category: "Dev & Sprints" | "Cloud & Platform" | "Software Modules" | "Client Demos";
+  category:
+    | "Dev & Sprints"
+    | "Cloud & Platform"
+    | "Software Modules"
+    | "Client Demos";
   description: string;
   href: string;
   iconName: string;
@@ -17,7 +21,8 @@ export const QUICK_LINKS: QuickLinkItem[] = [
     id: "projects-command-center",
     title: "Projects & Sprints",
     category: "Dev & Sprints",
-    description: "Active engineering sprints, milestone checklists, staging URLs, and capital tracking.",
+    description:
+      "Active engineering sprints, milestone checklists, staging URLs, and capital tracking.",
     href: "/projects",
     iconName: "FolderKanban",
     tag: "Sprints",
@@ -28,7 +33,8 @@ export const QUICK_LINKS: QuickLinkItem[] = [
     id: "client-engagements",
     title: "Client Software Delivery",
     category: "Dev & Sprints",
-    description: "6-stage software delivery lifecycle, milestone tasks, deliverables, and SOW checklists.",
+    description:
+      "6-stage software delivery lifecycle, milestone tasks, deliverables, and SOW checklists.",
     href: "/engagements",
     iconName: "Users",
     tag: "Delivery",
@@ -39,7 +45,8 @@ export const QUICK_LINKS: QuickLinkItem[] = [
     id: "quoteflow-estimator",
     title: "QuoteFlow & Scoping",
     category: "Dev & Sprints",
-    description: "Software consulting cost models, margin floors, and client proposal generator.",
+    description:
+      "Software consulting cost models, margin floors, and client proposal generator.",
     href: "/quotes",
     iconName: "Calculator",
     tag: "Scoping",
@@ -48,7 +55,8 @@ export const QUICK_LINKS: QuickLinkItem[] = [
     id: "workflow-audit-engine",
     title: "Architecture Audit Engine",
     category: "Dev & Sprints",
-    description: "Client technical discovery, diagnostic briefings, and systems bottleneck assessments.",
+    description:
+      "Client technical discovery, diagnostic briefings, and systems bottleneck assessments.",
     href: "/audit",
     iconName: "FileCheck2",
     tag: "Architecture",
@@ -57,7 +65,8 @@ export const QUICK_LINKS: QuickLinkItem[] = [
     id: "knowhow-sops",
     title: "Engineering SOPs & Docs",
     category: "Dev & Sprints",
-    description: "Software architecture guidelines, module contracts, API standards, and runbooks.",
+    description:
+      "Software architecture guidelines, module contracts, API standards, and runbooks.",
     href: "/knowledge",
     iconName: "BookOpen",
     tag: "Engineering",
@@ -66,7 +75,8 @@ export const QUICK_LINKS: QuickLinkItem[] = [
     id: "master-directory",
     title: "Directory & Stakeholders",
     category: "Dev & Sprints",
-    description: "Client technical contacts, engineering stakeholders, and tenant roster.",
+    description:
+      "Client technical contacts, engineering stakeholders, and tenant roster.",
     href: "/directory",
     iconName: "Users",
     tag: "Contacts",
@@ -77,7 +87,8 @@ export const QUICK_LINKS: QuickLinkItem[] = [
     id: "cloud-infrastructure",
     title: "Cloud Ops & DevOps",
     category: "Cloud & Platform",
-    description: "Google Cloud Run, Neon Postgres, Cloudflare Edge DNS, and deployment telemetry.",
+    description:
+      "Google Cloud Run, Neon Postgres, Cloudflare Edge DNS, and deployment telemetry.",
     href: "/infrastructure",
     iconName: "Cloud",
     tag: "DevOps",
@@ -88,7 +99,8 @@ export const QUICK_LINKS: QuickLinkItem[] = [
     id: "file-vault",
     title: "Object Storage & Vault",
     category: "Cloud & Platform",
-    description: "Cloudflare R2/S3 storage, presigned upload/download URLs, and drawing artifacts.",
+    description:
+      "Cloudflare R2/S3 storage, presigned upload/download URLs, and drawing artifacts.",
     href: "/files",
     iconName: "FolderLock",
     tag: "Storage",
@@ -97,7 +109,8 @@ export const QUICK_LINKS: QuickLinkItem[] = [
     id: "activity-security-log",
     title: "Security & Event Stream",
     category: "Cloud & Platform",
-    description: "Operational event outbox, tenant access logs, and background worker telemetry.",
+    description:
+      "Operational event outbox, tenant access logs, and background worker telemetry.",
     href: "/activity",
     iconName: "Activity",
     tag: "Security",
@@ -106,7 +119,8 @@ export const QUICK_LINKS: QuickLinkItem[] = [
     id: "analytics-telemetry",
     title: "Analytics & Telemetry",
     category: "Cloud & Platform",
-    description: "App route metrics, event throughput, transaction volume, and latency.",
+    description:
+      "App route metrics, event throughput, transaction volume, and latency.",
     href: "/analytics",
     iconName: "Activity",
     tag: "Telemetry",
@@ -115,7 +129,8 @@ export const QUICK_LINKS: QuickLinkItem[] = [
     id: "org-multi-tenant",
     title: "Multi-Tenant Config",
     category: "Cloud & Platform",
-    description: "Tenant 0 super-admin settings, tenant capabilities, and organization profile.",
+    description:
+      "Tenant 0 super-admin settings, tenant capabilities, and organization profile.",
     href: "/settings/organization",
     iconName: "Sliders",
     tag: "Auth / Tenant",
@@ -124,7 +139,8 @@ export const QUICK_LINKS: QuickLinkItem[] = [
     id: "passkey-auth",
     title: "Passkey & WebAuthn",
     category: "Cloud & Platform",
-    description: "FIDO2 passkey credentials, session identity, and hardware security keys.",
+    description:
+      "FIDO2 passkey credentials, session identity, and hardware security keys.",
     href: "/account/passkeys",
     iconName: "ShieldCheck",
     tag: "Identity",
@@ -135,7 +151,8 @@ export const QUICK_LINKS: QuickLinkItem[] = [
     id: "shopfloor-module",
     title: "ShopFloor Execution Engine",
     category: "Software Modules",
-    description: "Digital traveler state machines, QR scanning endpoints, and station dispatches.",
+    description:
+      "Digital traveler state machines, QR scanning endpoints, and station dispatches.",
     href: "/shopfloor",
     iconName: "Hammer",
     tag: "Workflow Engine",
@@ -144,7 +161,8 @@ export const QUICK_LINKS: QuickLinkItem[] = [
     id: "job-packets-module",
     title: "Job Packet Intelligence",
     category: "Software Modules",
-    description: "CAD vector parsing, OCR drawing ingestion, and BOM schema extraction.",
+    description:
+      "CAD vector parsing, OCR drawing ingestion, and BOM schema extraction.",
     href: "/job-packets",
     iconName: "FileSpreadsheet",
     tag: "Data Ingestion",
@@ -153,7 +171,8 @@ export const QUICK_LINKS: QuickLinkItem[] = [
     id: "jobs-routing-module",
     title: "Work Order & Routing Service",
     category: "Software Modules",
-    description: "Machine scheduling algorithms, job dispatch, and operational status.",
+    description:
+      "Machine scheduling algorithms, job dispatch, and operational status.",
     href: "/jobs",
     iconName: "Layers",
     tag: "Scheduling Engine",
@@ -162,7 +181,8 @@ export const QUICK_LINKS: QuickLinkItem[] = [
     id: "inventory-module",
     title: "Inventory & Material Ledger",
     category: "Software Modules",
-    description: "Material transaction ledger, reorder triggers, and balance state machines.",
+    description:
+      "Material transaction ledger, reorder triggers, and balance state machines.",
     href: "/inventory",
     iconName: "Package",
     tag: "Ledger Service",
@@ -171,7 +191,8 @@ export const QUICK_LINKS: QuickLinkItem[] = [
     id: "quality-module",
     title: "Quality & NCR Desk",
     category: "Software Modules",
-    description: "First-article inspection workflows, defect state machines, and CAPA logs.",
+    description:
+      "First-article inspection workflows, defect state machines, and CAPA logs.",
     href: "/quality",
     iconName: "ShieldCheck",
     tag: "Quality Engine",
@@ -180,7 +201,8 @@ export const QUICK_LINKS: QuickLinkItem[] = [
     id: "maintenance-module",
     title: "Maintenance Telemetry",
     category: "Software Modules",
-    description: "Equipment telemetry listeners, downtime intervals, and preventative queues.",
+    description:
+      "Equipment telemetry listeners, downtime intervals, and preventative queues.",
     href: "/maintenance",
     iconName: "Wrench",
     tag: "Telemetry Service",
@@ -189,7 +211,8 @@ export const QUICK_LINKS: QuickLinkItem[] = [
     id: "shipping-module",
     title: "Shipping & BOL Manifests",
     category: "Software Modules",
-    description: "BOL generator, staging state machines, and carrier dispatch APIs.",
+    description:
+      "BOL generator, staging state machines, and carrier dispatch APIs.",
     href: "/shipping",
     iconName: "Truck",
     tag: "Logistics Engine",
@@ -198,7 +221,8 @@ export const QUICK_LINKS: QuickLinkItem[] = [
     id: "purchasing-module",
     title: "Purchasing & PO Engine",
     category: "Software Modules",
-    description: "Vendor PO automation, receipt matching, and material lead time estimators.",
+    description:
+      "Vendor PO automation, receipt matching, and material lead time estimators.",
     href: "/purchasing",
     iconName: "Sliders",
     tag: "Procurement",
@@ -209,7 +233,8 @@ export const QUICK_LINKS: QuickLinkItem[] = [
     id: "demo-hub",
     title: "Deterministic Demo Hub",
     category: "Client Demos",
-    description: "Isolated multi-scenario sandboxes for live client sales presentations.",
+    description:
+      "Isolated multi-scenario sandboxes for live client sales presentations.",
     href: "/demo",
     iconName: "Sparkles",
     tag: "Sales Mode",
@@ -220,7 +245,8 @@ export const QUICK_LINKS: QuickLinkItem[] = [
     id: "demo-front-range",
     title: "Front Range Precision Demo",
     category: "Client Demos",
-    description: "CNC machining, digital travelers, and QR first-article inspections sandbox.",
+    description:
+      "CNC machining, digital travelers, and QR first-article inspections sandbox.",
     href: "/demo?scenario=front-range-manufacturing",
     iconName: "Hammer",
     tag: "CNC / Traveler",
@@ -229,7 +255,8 @@ export const QUICK_LINKS: QuickLinkItem[] = [
     id: "demo-summit-facility",
     title: "Summit Facility Services Demo",
     category: "Client Demos",
-    description: "Multi-site facility inspection, mobile checklist, and equipment telemetry sandbox.",
+    description:
+      "Multi-site facility inspection, mobile checklist, and equipment telemetry sandbox.",
     href: "/demo?scenario=summit-facility-services",
     iconName: "Wrench",
     tag: "Facility Telemetry",
@@ -238,7 +265,8 @@ export const QUICK_LINKS: QuickLinkItem[] = [
     id: "demo-mile-high",
     title: "Mile High Signworks Demo",
     category: "Client Demos",
-    description: "Architectural CAD vector approvals, CNC routing, and field crane dispatch sandbox.",
+    description:
+      "Architectural CAD vector approvals, CNC routing, and field crane dispatch sandbox.",
     href: "/demo?scenario=mile-high-signworks",
     iconName: "Truck",
     tag: "CAD / Dispatch",
@@ -250,7 +278,11 @@ export interface CalendarEvent {
   title: string;
   date: string; // YYYY-MM-DD
   time?: string;
-  category: "Client Milestone" | "Sprint Deadline" | "Audit & Review" | "Maintenance Window";
+  category:
+    | "Client Milestone"
+    | "Sprint Deadline"
+    | "Audit & Review"
+    | "Maintenance Window";
   clientName?: string;
   status: "upcoming" | "completed" | "in_progress" | "critical";
   notes?: string;
@@ -268,13 +300,15 @@ export function getRelativeDateStr(dayOffset: number): string {
 export const DEFAULT_CALENDAR_EVENTS: CalendarEvent[] = [
   {
     id: "cal_1",
-    title: "Front Range MFG: First-Article Digital Traveler Review & Staging Cutover",
+    title:
+      "Front Range MFG: First-Article Digital Traveler Review & Staging Cutover",
     date: getRelativeDateStr(0),
     time: "10:30 AM",
     category: "Client Milestone",
     clientName: "Front Range MFG",
     status: "in_progress",
-    notes: "Review CNC station routing QR scans, traveler dispatches, and staging sandbox.",
+    notes:
+      "Review CNC station routing QR scans, traveler dispatches, and staging sandbox.",
   },
   {
     id: "cal_2",
@@ -294,7 +328,8 @@ export const DEFAULT_CALENDAR_EVENTS: CalendarEvent[] = [
     category: "Client Milestone",
     clientName: "Mile High Signworks",
     status: "upcoming",
-    notes: "Architectural vector approval stage transition signoff and crane dispatch review.",
+    notes:
+      "Architectural vector approval stage transition signoff and crane dispatch review.",
   },
   {
     id: "cal_4",
@@ -304,7 +339,8 @@ export const DEFAULT_CALENDAR_EVENTS: CalendarEvent[] = [
     category: "Sprint Deadline",
     clientName: "Yorkstead Core",
     status: "upcoming",
-    notes: "Verify zero-cross-tenant boundary and presigned expiration headers.",
+    notes:
+      "Verify zero-cross-tenant boundary and presigned expiration headers.",
   },
   {
     id: "cal_5",
@@ -314,17 +350,20 @@ export const DEFAULT_CALENDAR_EVENTS: CalendarEvent[] = [
     category: "Client Milestone",
     clientName: "Summit Facility",
     status: "upcoming",
-    notes: "Review mobile checklist telemetry, offline sync queues, and staging demo.",
+    notes:
+      "Review mobile checklist telemetry, offline sync queues, and staging demo.",
   },
   {
     id: "cal_6",
-    title: "Cloud Infrastructure: Database Connection Pool & Index Optimization",
+    title:
+      "Cloud Infrastructure: Database Connection Pool & Index Optimization",
     date: getRelativeDateStr(10),
     time: "08:00 AM",
     category: "Maintenance Window",
     clientName: "Neon Postgres / Vercel",
     status: "upcoming",
-    notes: "Scheduled database connection pool maintenance and query index verification.",
+    notes:
+      "Scheduled database connection pool maintenance and query index verification.",
   },
   {
     id: "cal_7",
@@ -399,10 +438,30 @@ export const RUNNING_PROJECTS: RunningProject[] = [
     stageBadge: "Sprint 2",
     accentClass: "bg-primary",
     links: [
-      { label: "Engagement",  href: "/engagements",                                                  isExternal: false, service: "internal"    },
-      { label: "GitHub",      href: "https://github.com/Yorkstead-Systems/ellwood",                  isExternal: true,  service: "github"      },
-      { label: "Vercel",      href: "https://vercel.com/yorkstead-systems/ellwood",                  isExternal: true,  service: "vercel"      },
-      { label: "Cloudflare",  href: "https://dash.cloudflare.com",                                   isExternal: true,  service: "cloudflare"  },
+      {
+        label: "Engagement",
+        href: "/engagements",
+        isExternal: false,
+        service: "internal",
+      },
+      {
+        label: "GitHub",
+        href: "https://github.com/yorkstead/ellwood",
+        isExternal: true,
+        service: "github",
+      },
+      {
+        label: "Vercel",
+        href: "https://vercel.com/yorkstead-systems/ellwood",
+        isExternal: true,
+        service: "vercel",
+      },
+      {
+        label: "Cloudflare",
+        href: "https://dash.cloudflare.com",
+        isExternal: true,
+        service: "cloudflare",
+      },
     ],
   },
   {
@@ -414,10 +473,30 @@ export const RUNNING_PROJECTS: RunningProject[] = [
     stageBadge: "Sprint 1",
     accentClass: "bg-sky-400",
     links: [
-      { label: "Engagement",  href: "/engagements",                                                  isExternal: false, service: "internal"    },
-      { label: "GitHub",      href: "https://github.com/Yorkstead-Systems/sic",                      isExternal: true,  service: "github"      },
-      { label: "Vercel",      href: "https://vercel.com/yorkstead-systems/sic",                      isExternal: true,  service: "vercel"      },
-      { label: "Cloudflare",  href: "https://dash.cloudflare.com",                                   isExternal: true,  service: "cloudflare"  },
+      {
+        label: "Engagement",
+        href: "/engagements",
+        isExternal: false,
+        service: "internal",
+      },
+      {
+        label: "GitHub",
+        href: "https://github.com/Yorkstead-Systems/sic",
+        isExternal: true,
+        service: "github",
+      },
+      {
+        label: "Vercel",
+        href: "https://vercel.com/yorkstead-systems/sic",
+        isExternal: true,
+        service: "vercel",
+      },
+      {
+        label: "Cloudflare",
+        href: "https://dash.cloudflare.com",
+        isExternal: true,
+        service: "cloudflare",
+      },
     ],
   },
   {
@@ -429,10 +508,30 @@ export const RUNNING_PROJECTS: RunningProject[] = [
     stageBadge: "Staging",
     accentClass: "bg-amber-400",
     links: [
-      { label: "Engagement",  href: "/engagements",                                                  isExternal: false, service: "internal"    },
-      { label: "GitHub",      href: "https://github.com/Yorkstead-Systems/barcodes",                 isExternal: true,  service: "github"      },
-      { label: "Vercel",      href: "https://vercel.com/yorkstead-systems/barcodes",                 isExternal: true,  service: "vercel"      },
-      { label: "Cloudflare",  href: "https://dash.cloudflare.com",                                   isExternal: true,  service: "cloudflare"  },
+      {
+        label: "Engagement",
+        href: "/engagements",
+        isExternal: false,
+        service: "internal",
+      },
+      {
+        label: "GitHub",
+        href: "https://github.com/Yorkstead-Systems/barcodes",
+        isExternal: true,
+        service: "github",
+      },
+      {
+        label: "Vercel",
+        href: "https://vercel.com/yorkstead-systems/barcodes",
+        isExternal: true,
+        service: "vercel",
+      },
+      {
+        label: "Cloudflare",
+        href: "https://dash.cloudflare.com",
+        isExternal: true,
+        service: "cloudflare",
+      },
     ],
   },
   {
@@ -444,41 +543,108 @@ export const RUNNING_PROJECTS: RunningProject[] = [
     stageBadge: "Sprint 3",
     accentClass: "bg-emerald-400",
     links: [
-      { label: "Engagement",  href: "/engagements",                                                  isExternal: false, service: "internal"    },
-      { label: "GitHub",      href: "https://github.com/Yorkstead-Systems/jwld",                     isExternal: true,  service: "github"      },
-      { label: "Vercel",      href: "https://vercel.com/yorkstead-systems/jwld",                     isExternal: true,  service: "vercel"      },
-      { label: "Cloudflare",  href: "https://dash.cloudflare.com",                                   isExternal: true,  service: "cloudflare"  },
+      {
+        label: "Engagement",
+        href: "/engagements",
+        isExternal: false,
+        service: "internal",
+      },
+      {
+        label: "GitHub",
+        href: "https://github.com/Yorkstead-Systems/jwld",
+        isExternal: true,
+        service: "github",
+      },
+      {
+        label: "Vercel",
+        href: "https://vercel.com/yorkstead-systems/jwld",
+        isExternal: true,
+        service: "vercel",
+      },
+      {
+        label: "Cloudflare",
+        href: "https://dash.cloudflare.com",
+        isExternal: true,
+        service: "cloudflare",
+      },
     ],
   },
   {
     id: "website",
     codename: "Website",
     title: "Yorkstead Website",
-    description: "Public site — yorkstead.com. Deploys to Netlify; edge via Cloudflare.",
+    description:
+      "Public site — yorkstead.com. Deploys to Netlify; edge via Cloudflare.",
     status: "Active",
     stageBadge: "Live",
     accentClass: "bg-purple-400",
     links: [
-      { label: "yorkstead.com", href: "https://yorkstead.com",                                         isExternal: true,  service: "netlify"     },
-      { label: "GitHub",        href: "https://github.com/Yorkstead-Systems/yorkstead-website",         isExternal: true,  service: "github"      },
-      { label: "Netlify",       href: "https://app.netlify.com/sites/yorkstead",                        isExternal: true,  service: "netlify"     },
-      { label: "Cloudflare",    href: "https://dash.cloudflare.com",                                    isExternal: true,  service: "cloudflare"  },
+      {
+        label: "yorkstead.com",
+        href: "https://yorkstead.com",
+        isExternal: true,
+        service: "netlify",
+      },
+      {
+        label: "GitHub",
+        href: "https://github.com/Yorkstead-Systems/yorkstead-website",
+        isExternal: true,
+        service: "github",
+      },
+      {
+        label: "Netlify",
+        href: "https://app.netlify.com/sites/yorkstead",
+        isExternal: true,
+        service: "netlify",
+      },
+      {
+        label: "Cloudflare",
+        href: "https://dash.cloudflare.com",
+        isExternal: true,
+        service: "cloudflare",
+      },
     ],
   },
   {
     id: "operations",
     codename: "Operations",
     title: "Yorkstead Operations",
-    description: "This platform — ops.yorkstead.com. Vercel + Neon + Cloud Run + Cloudflare.",
+    description:
+      "This platform — ops.yorkstead.com. Vercel + Neon + Cloud Run + Cloudflare.",
     status: "Active",
     stageBadge: "Live",
     accentClass: "bg-rose-400",
     links: [
-      { label: "GitHub",      href: "https://github.com/Yorkstead-Systems/yorkstead-operations",     isExternal: true,  service: "github"      },
-      { label: "Vercel",      href: "https://vercel.com/yorkstead-operations",                       isExternal: true,  service: "vercel"      },
-      { label: "Cloudflare",  href: "https://dash.cloudflare.com",                                   isExternal: true,  service: "cloudflare"  },
-      { label: "Cloud Run",   href: "https://console.cloud.google.com/run",                          isExternal: true,  service: "cloud-run"   },
-      { label: "Neon",        href: "https://console.neon.tech",                                     isExternal: true,  service: "neon"        },
+      {
+        label: "GitHub",
+        href: "https://github.com/Yorkstead-Systems/yorkstead-operations",
+        isExternal: true,
+        service: "github",
+      },
+      {
+        label: "Vercel",
+        href: "https://vercel.com/yorkstead-operations",
+        isExternal: true,
+        service: "vercel",
+      },
+      {
+        label: "Cloudflare",
+        href: "https://dash.cloudflare.com",
+        isExternal: true,
+        service: "cloudflare",
+      },
+      {
+        label: "Cloud Run",
+        href: "https://console.cloud.google.com/run",
+        isExternal: true,
+        service: "cloud-run",
+      },
+      {
+        label: "Neon",
+        href: "https://console.neon.tech",
+        isExternal: true,
+        service: "neon",
+      },
     ],
   },
 ];
