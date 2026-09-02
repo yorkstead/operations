@@ -56,14 +56,13 @@ describe("locked architecture and deployment configuration invariants", () => {
   });
 
   it("uses the canonical Yorkstead mark for installed-app and splash surfaces", () => {
-    const icon = readFileSync(join(rootDir, "app/icon.tsx"), "utf-8");
+    const logo = readFileSync(join(rootDir, "components/brand/yorkstead-logo.tsx"), "utf-8");
     const manifest = readFileSync(join(rootDir, "app/manifest.ts"), "utf-8");
 
-    expect(icon).toContain("export function YorksteadIcon");
-    expect(icon).toContain('stroke="#38bdf8"');
-    expect(manifest).toContain("yorkstead-y-20260828");
+    expect(logo).toContain("yorkstead-transparent-light.png");
+    expect(logo).toContain("yorkstead-transparent-dark.png");
+    expect(manifest).toContain("/brand/logo/yorkstead-dark.png");
     expect(manifest).toContain('purpose: "maskable"');
     expect(manifest).toContain('background_color: "#0d1117"');
   });
 });
-

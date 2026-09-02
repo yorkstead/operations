@@ -66,7 +66,7 @@ Preserve color behavior, typography, spacing philosophy, borders, radii, shadows
 ## 4. Component Pattern Inventory
 
 1. **Brand Identity**:
-   - `BrandMark`: Inline wordmark `Yorkstead` with `.DEV` cyan suffix, paired with optional uppercase mono descriptor separated by vertical border.
+   - `BrandMark`: The approved theme-aware mark from `public/brand/logo`, paired with the `YORKSTEAD.SYSTEMS` wordmark and optional uppercase mono descriptor separated by a vertical border.
 2. **Buttons**:
    - `default`: Primary cyan background with dark contrast text and subtle cyan glow.
    - `secondary`: Neutral dark slate surface with 1px border.

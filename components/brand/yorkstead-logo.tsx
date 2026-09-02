@@ -1,46 +1,35 @@
+import Image from "next/image";
 import * as React from "react";
 
 export function YorksteadMark({
   size = 24,
   className = "",
   ...props
-}: { size?: number; className?: string } & React.SVGProps<SVGSVGElement>) {
+}: { size?: number; className?: string } & Omit<React.ComponentProps<typeof Image>, "src" | "alt" | "width" | "height">) {
   return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 32 32"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className={`shrink-0 ${className}`}
+    <span
+      aria-hidden="true"
+      className={`relative inline-block shrink-0 ${className}`}
+      style={{ width: size, height: size }}
       {...props}
     >
-      {/* Precision Industrial Monogram: Hexagonal Faceted 'Y' Core */}
-      <rect width="32" height="32" rx="6" className="fill-card stroke-border" strokeWidth="1.5" />
-      
-      {/* Upper Left Prismatic Ray */}
-      <path
-        d="M8 8L16 16V24"
-        stroke="currentColor"
-        strokeWidth="2.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className="text-foreground"
+      <Image
+        src="/brand/logo/yorkstead-transparent-light.png"
+        alt=""
+      width={size}
+      height={size}
+        className="size-full object-contain dark:hidden"
+        priority
       />
-      {/* Upper Right Prismatic Ray with Cyan Accent */}
-      <path
-        d="M24 8L16 16"
-        stroke="currentColor"
-        strokeWidth="2.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className="text-primary"
+      <Image
+        src="/brand/logo/yorkstead-transparent-dark.png"
+        alt=""
+        width={size}
+        height={size}
+        className="hidden size-full object-contain dark:block"
+        priority
       />
-      {/* Center Precision Vertex Node */}
-      <circle cx="16" cy="16" r="2" className="fill-primary" />
-      {/* Baseline Anchor Accent */}
-      <circle cx="16" cy="24" r="1.5" className="fill-foreground" />
-    </svg>
+    </span>
   );
 }
 
