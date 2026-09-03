@@ -2,11 +2,13 @@
 import { ProblemDemoModule } from "./domain/demo-module-types";
 import { manufacturingRevisionBarrierDemo } from "./modules/manufacturing-revision-barrier";
 import { restaurantInventoryInterlockDemo } from "./modules/restaurant-inventory-interlock";
+import { inventoryPhantomDriftDemo } from "./modules/inventory-phantom-drift";
 
 // Register all active demo modules here
 const ALL_DEMO_MODULES: ProblemDemoModule[] = [
   manufacturingRevisionBarrierDemo,
   restaurantInventoryInterlockDemo,
+  inventoryPhantomDriftDemo, // <--- Add your new module here
 ];
 
 export function getAllDemoModules(): ProblemDemoModule[] {
