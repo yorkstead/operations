@@ -182,7 +182,199 @@ export const syntheticFrontRangeBriefing: AuditClientBriefing = {
   internalNotes: "CONFIDENTIAL INTERNAL NOTE: Client has $15k allocated budget for Q3 operational software improvements. Strong executive sponsorship from VP of Operations.",
 };
 
+export const syntheticDenverExpressBriefing: AuditClientBriefing = {
+  engagementId: "audit_denver_express_2026_01",
+  organizationId: "org_denver_express",
+  clientName: "Denver Express Warehousing & No Limit Trucking",
+  industry: "Emergency Cross-Docking & Freight Rework",
+  version: "v1.0-DELIVERABLE",
+  status: "client_delivered",
+  deliveryDate: "2026-09-04",
+  leadAuditor: "Brandon York (Principal Product Engineer)",
+  approvedBy: "Operations Director Review Gate",
+  executiveSummary: "This workflow briefing synthesizes the 60-minute operational diagnostic conducted at Denver Express Warehousing & Cross-Docking (6030 Washington St, Ste 130). Denver Express operates an essential 60,000 sq ft emergency cross-dock for freight descending Floyd Hill and the Eisenhower Tunnel. They currently lose 60% of inbound shifted-pallet rework loads due to paper clipboard intake, lack of online bay holds, and phone-based Comchek collection. Deploying ReworkFlow™ with driver self-service bay reservation (/reserve), forklift glove-friendly photo terminals (/dock), and automated Evidence Certificate billing (/office) resolves clipboard friction without SaaS rental lock-in.",
+  currentStateMap: [
+    {
+      stage: "intake",
+      stageTitle: "1. Inbound Driver Bay Reservation & Rate Estimate",
+      currentTool: "Personal Cell Phone & Incoming Landline",
+      handOffMethod: "Verbal rate quote given to stranded driver or dispatcher",
+      frictionLevel: "critical",
+      observedFriction: "Stranded truckers calling from I-70 look for online bay guarantees; dispatch misses 60% of calls while out on the dock.",
+      evidenceType: "measured_fact",
+      evidenceNotes: "Audited phone log shows 14 missed inbound load calls over a 3-day weekend period.",
+    },
+    {
+      stage: "engineering_review",
+      stageTitle: "2. Dock Arrival & Pallet Inspection",
+      currentTool: "Physical Clipboard & Paper Intake Form",
+      handOffMethod: "Driver walks clipboard into Arvada/Washington St office",
+      frictionLevel: "high",
+      observedFriction: "Forklift operators inspect shifted pallets with dirty gloves; paper forms get stained, lost, or handwriting is illegible for broker claims.",
+      evidenceType: "measured_fact",
+      evidenceNotes: "Observed paper intake sheets taking 18 minutes to manually decipher and type into billing records.",
+    },
+    {
+      stage: "shopfloor_wip",
+      stageTitle: "3. Forklift Rework & Banding Breakdown",
+      currentTool: "Manual Whiteboard on Bay 1 & Bay 2 Roll Cages",
+      handOffMethod: "Shouting across 60,000 sq ft dock floor to notify office",
+      frictionLevel: "high",
+      observedFriction: "Forklift operators re-stack and re-shrinkwrap shifted freight with zero real-time timestamps or photographic proof for cargo claims.",
+      evidenceType: "operator_estimate",
+      evidenceNotes: "Dock superintendent estimates 8.5 hours weekly spent looking for paperwork or confirming completed re-stacks.",
+    },
+    {
+      stage: "quality_inspection",
+      stageTitle: "4. Cargo Claim Proof & Driver Sign-off",
+      currentTool: "Ballpoint Pen on Carbon-Copy Bill of Lading",
+      handOffMethod: "Driver takes yellow copy, white copy filed in metal drawer",
+      frictionLevel: "high",
+      observedFriction: "Brokers dispute rework charges without high-resolution photographic evidence certificates showing before/after pallet condition.",
+      evidenceType: "measured_fact",
+      evidenceNotes: "Average of $1,200/mo in broker short-pays due to lack of immediate photographic proof-of-work.",
+    },
+    {
+      stage: "shipping_dispatch",
+      stageTitle: "5. Comchek / EFS Processing & QuickBooks Export",
+      currentTool: "Phone Call to Broker + Manual QuickBooks Entry",
+      handOffMethod: "Calling Comchek verification number, re-typing into desktop accounting",
+      frictionLevel: "medium",
+      observedFriction: "Billing staff manually calls brokers to authorize Comcheks; re-keying into QuickBooks takes 25 minutes per completed job.",
+      evidenceType: "measured_fact",
+      evidenceNotes: "Timed 22 minutes average time from truck departure to QuickBooks invoice creation.",
+    },
+  ],
+  opportunityRankings: [
+    {
+      rank: 1,
+      title: "Self-Service Driver Bay Reservation Portal (/reserve)",
+      impact: "high",
+      effort: "medium",
+      timeframe: "Milestone 1 (Immediate)",
+      recommendedModule: "ReworkFlow Intake Engine",
+      evidenceType: "measured_fact",
+      evidenceBasis: "Recovers estimated $4,500/mo in lost I-70/I-25 inbound rework loads captured by competitors.",
+      operationalOutcome: "Stranded truckers calculate instant rework rates ($450-$550) and lock 45-minute guaranteed bay holds directly on mobile.",
+    },
+    {
+      rank: 2,
+      title: "Glove-Friendly Forklift Roll-Cage Terminal (/dock)",
+      impact: "high",
+      effort: "medium",
+      timeframe: "Milestone 2 (Staging Dock Trial)",
+      recommendedModule: "ReworkFlow Terminal PWA",
+      evidenceType: "measured_fact",
+      evidenceBasis: "Eliminates paper clipboard loss, provides 90-second photo intake and instant on-screen driver signoff.",
+      operationalOutcome: "Turnkey rugged HOTWAV R9 Pro tablet mounted via RAM Tough-Claw on forklift roll cage survives industrial dock environment.",
+    },
+    {
+      rank: 3,
+      title: "Automated Evidence Certificate PDF & QuickBooks CSV Export (/office)",
+      impact: "high",
+      effort: "low",
+      timeframe: "Milestone 3 (Live Go-Live)",
+      recommendedModule: "ReworkFlow Dispatch Board",
+      evidenceType: "measured_fact",
+      evidenceBasis: "Eliminates $1,200/mo broker invoice disputes with tamper-evident PDF before/after certificates.",
+      operationalOutcome: "Office dispatch gets audible arrival chimes, 1-click Comchek verification, and zero-entry QuickBooks export.",
+    },
+  ],
+  recommendedFirstRelease: {
+    title: "Vertical Slice 1: ReworkFlow™ Complete Buyout & Dock Terminal Staging",
+    scopeSummary: "Turnkey deployment of the 4 core ReworkFlow routes (/maps, /reserve, /dock, /office) backed by 2x rugged forklift tablet terminals.",
+    keyCapabilities: [
+      "Stranded driver mobile portal with 45-min bay hold countdown timer",
+      "Glove-friendly touchscreen terminal with camera capture & digital signature pad",
+      "Office dispatcher operations board with Web Audio chime alerts & QuickBooks export",
+      "15-mile protected non-compete covenant along I-70 and I-25",
+    ],
+    exclusions: [
+      "Automated automated EDI freight billing broker network (Phase 2)",
+      "Automated overhead gate RFID driver sensor integration (Phase 3)",
+    ],
+  },
+  implementationMilestones: [
+    {
+      milestoneNumber: 1,
+      title: "50% Buyout Deposit & Cloud Architecture Provisioning",
+      targetScope: "Deploy multi-tenant ReworkFlow cloud infrastructure to rework.yorkstead.com.",
+      deliverables: [
+        "Interactive driver bay hold engine with rate estimator",
+        "Forklift PWA terminal with offline photo cache",
+        "Dispatcher sound-alert board with QuickBooks CSV schema",
+      ],
+      estimatedWeeks: "1 week",
+      priceRangeCents: { min: 475000, max: 475000 },
+      assumptions: [
+        "Denver Express provides facility dock Wi-Fi or tablet 4G LTE SIM cards.",
+      ],
+      risks: [
+        "Dock Wi-Fi dead spots (Remediated by 4G LTE fallback on HOTWAV tablets).",
+      ],
+    },
+    {
+      milestoneNumber: 2,
+      title: "30% Staging Deployment & 6030 Washington St Dock Walkthrough",
+      targetScope: "Physical forklift roll-cage mounting trial and live dual-device test.",
+      deliverables: [
+        "2x HOTWAV R9 Pro 11-inch rugged tablets staged with RAM Tough-Claw mounts",
+        "Physical clipboard count and floor walkthrough at 6030 Washington St",
+        "End-to-end 3-minute driver intake simulation test",
+      ],
+      estimatedWeeks: "1 week",
+      priceRangeCents: { min: 285000, max: 285000 },
+      assumptions: [
+        "Principals Steve Chapman & Dale Burget present for 30-minute dock trial.",
+      ],
+      risks: [
+        "Forklift vibration loosening mounts (Remediated by heavy-duty RAM Mount Tough-Claw RAP-B-400U).",
+      ],
+    },
+    {
+      milestoneNumber: 3,
+      title: "20% Live Forklift Terminal Go-Live & SpinFlow Agency Handover",
+      targetScope: "Live dock acceptance, driver sign-off, and DNS cutover to rework.denverexpressco.com.",
+      deliverables: [
+        "Complete GitHub repository handover to SpinFlow.ai",
+        "Zero vendor lock-in, zero monthly license rent buyout confirmation",
+        "DNS migration and staff training completion",
+      ],
+      estimatedWeeks: "1 week",
+      priceRangeCents: { min: 190000, max: 190000 },
+      assumptions: [
+        "SpinFlow.ai web agency receives repository transfer and DNS control.",
+      ],
+      risks: [
+        "DNS TTL propagation delay (Remediated by parallel Cloudflare edge routing).",
+      ],
+    },
+  ],
+  assumptionsAndRisks: {
+    assumptions: [
+      "Software buyout is single lump sum ($9,500 total) with 0 recurring platform fees.",
+      "15-mile non-compete covenant strictly protects Denver Express corridor freight.",
+      "Hardware package A ($980) covers 2 primary rework bays (Bay 1 & Bay 2).",
+    ],
+    risks: [
+      "Floor operators reluctant to trade paper for screen (Remediated by oversized glove-friendly buttons and 90-sec workflow).",
+      "Cold temperature battery drain in winter (Remediated by HOTWAV 20,080mAh extreme-temp industrial battery).",
+    ],
+    remediations: [
+      "Pre-configured rugged tablets locked to ReworkFlow PWA kiosk mode.",
+      "Direct 1-button driver signature capture without dropdown navigation.",
+    ],
+  },
+  nextSteps: [
+    "Conduct 45-second phone hook with Steve Chapman on mountain freight loss.",
+    "Execute 3-minute dual-device live demo (/dock on phone, /office on laptop).",
+    "Conduct 30-minute floor walkthrough at 6030 Washington St and count clipboards.",
+  ],
+  internalNotes: "CONFIDENTIAL INTERNAL NOTE: Principals have zero patience for SaaS subscription models. $9,500 complete asset buyout is pre-approved in strategy brief.",
+};
+
 briefingsStore.set(syntheticFrontRangeBriefing.engagementId, syntheticFrontRangeBriefing);
+briefingsStore.set(syntheticDenverExpressBriefing.engagementId, syntheticDenverExpressBriefing);
 
 export const AuditDeliverableService = {
   getBriefing(engagementId: string): AuditClientBriefing | null {
@@ -191,6 +383,10 @@ export const AuditDeliverableService = {
 
   getSyntheticBriefing(): AuditClientBriefing {
     return syntheticFrontRangeBriefing;
+  },
+
+  listBriefings(): AuditClientBriefing[] {
+    return Array.from(briefingsStore.values());
   },
 
   sanitizeClientBriefing(briefing: AuditClientBriefing): AuditClientBriefing {

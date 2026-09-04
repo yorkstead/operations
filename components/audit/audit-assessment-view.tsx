@@ -130,33 +130,143 @@ export function AuditAssessmentView() {
           </div>
 
       {/* Engagement Parameters */}
-      <div className="grid gap-4 rounded-xl border border-border bg-card p-4 sm:grid-cols-3">
-        <div>
-          <label className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">Client / Facility</label>
-          <input
-            type="text"
-            value={clientName}
-            onChange={(e) => setClientName(e.target.value)}
-            className="mt-1 w-full rounded-md border border-border bg-background px-3 py-1.5 font-mono text-xs text-foreground focus:border-primary focus:outline-none"
-          />
+      <div className="space-y-3">
+        <div className="flex flex-wrap items-center gap-2 font-mono text-xs">
+          <span className="text-[10px] uppercase text-muted-foreground tracking-wider">Quick Presets:</span>
+          <button
+            type="button"
+            onClick={() => {
+              setClientName("Front Range Manufacturing");
+              setIndustry("Precision Architectural Fabrication");
+              setAnswers({
+                q_intake_1: {
+                  questionId: "q_intake_1",
+                  score: 2,
+                  factType: "measured_fact",
+                  evidenceNotes: "Estimates handled via Excel spreadsheets with frequent re-keying into email quotes.",
+                  estimatedHoursLostWeekly: 6.5,
+                  severity: "high",
+                },
+                q_shopfloor_1: {
+                  questionId: "q_shopfloor_1",
+                  score: 2,
+                  factType: "measured_fact",
+                  evidenceNotes: "Physical clipboards lost between laser cutting and press brake stations.",
+                  estimatedHoursLostWeekly: 9.0,
+                  severity: "critical",
+                },
+                q_inventory_1: {
+                  questionId: "q_inventory_1",
+                  score: 3,
+                  factType: "operator_estimate",
+                  evidenceNotes: "Weekly stock reconciliation uncovers missing aluminum extrusion drops.",
+                  estimatedHoursLostWeekly: 4.0,
+                  severity: "medium",
+                },
+                q_quality_1: {
+                  questionId: "q_quality_1",
+                  score: 3,
+                  factType: "operator_estimate",
+                  evidenceNotes: "Paper first-piece inspection tags stored in binder; no digital yield trends.",
+                  estimatedHoursLostWeekly: 3.5,
+                  severity: "medium",
+                },
+                q_shipping_1: {
+                  questionId: "q_shipping_1",
+                  score: 4,
+                  factType: "measured_fact",
+                  evidenceNotes: "Shipping manifests generated promptly, minor billing delay on custom freight.",
+                  estimatedHoursLostWeekly: 1.5,
+                  severity: "low",
+                },
+              });
+            }}
+            className={`rounded px-2.5 py-1 transition border ${
+              clientName.includes("Front Range")
+                ? "bg-primary/20 text-primary border-primary/40 font-bold"
+                : "bg-card border-border text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            Front Range Precision
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              setClientName("Denver Express & No Limit Trucking");
+              setIndustry("Emergency Cross-Docking & Freight Rework");
+              setAnswers({
+                q_intake_1: {
+                  questionId: "q_intake_1",
+                  score: 1,
+                  factType: "measured_fact",
+                  evidenceNotes: "Inbound stranded truckers call from I-70 corridor; 14 calls missed over weekend while staff was on dock floor.",
+                  estimatedHoursLostWeekly: 8.5,
+                  severity: "critical",
+                },
+                q_shopfloor_1: {
+                  questionId: "q_shopfloor_1",
+                  score: 2,
+                  factType: "operator_estimate",
+                  evidenceNotes: "Shifted pallet rework on Bay 1 & 2 tracked via whiteboards and paper clipboards stained with grease.",
+                  estimatedHoursLostWeekly: 8.5,
+                  severity: "high",
+                },
+                q_quality_1: {
+                  questionId: "q_quality_1",
+                  score: 2,
+                  factType: "measured_fact",
+                  evidenceNotes: "Cargo claims lack high-resolution before/after photo proof; brokers short-pay $1,200/mo in disputed rework fees.",
+                  estimatedHoursLostWeekly: 4.5,
+                  severity: "high",
+                },
+                q_shipping_1: {
+                  questionId: "q_shipping_1",
+                  score: 2,
+                  factType: "measured_fact",
+                  evidenceNotes: "Calling brokers for Comchek phone authorization and manual re-typing into QuickBooks takes 22 min per load.",
+                  estimatedHoursLostWeekly: 5.5,
+                  severity: "high",
+                },
+              });
+            }}
+            className={`rounded px-2.5 py-1 transition border ${
+              clientName.includes("Denver Express")
+                ? "bg-primary/20 text-primary border-primary/40 font-bold"
+                : "bg-card border-border text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            Denver Express ReworkFlow
+          </button>
         </div>
-        <div>
-          <label className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">Industry Classification</label>
-          <input
-            type="text"
-            value={industry}
-            onChange={(e) => setIndustry(e.target.value)}
-            className="mt-1 w-full rounded-md border border-border bg-background px-3 py-1.5 font-mono text-xs text-foreground focus:border-primary focus:outline-none"
-          />
-        </div>
-        <div>
-          <label className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">Lead Auditor</label>
-          <input
-            type="text"
-            value={leadAuditor}
-            onChange={(e) => setLeadAuditor(e.target.value)}
-            className="mt-1 w-full rounded-md border border-border bg-background px-3 py-1.5 font-mono text-xs text-foreground focus:border-primary focus:outline-none"
-          />
+
+        <div className="grid gap-4 rounded-xl border border-border bg-card p-4 sm:grid-cols-3">
+          <div>
+            <label className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">Client / Facility</label>
+            <input
+              type="text"
+              value={clientName}
+              onChange={(e) => setClientName(e.target.value)}
+              className="mt-1 w-full rounded-md border border-border bg-background px-3 py-1.5 font-mono text-xs text-foreground focus:border-primary focus:outline-none"
+            />
+          </div>
+          <div>
+            <label className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">Industry Classification</label>
+            <input
+              type="text"
+              value={industry}
+              onChange={(e) => setIndustry(e.target.value)}
+              className="mt-1 w-full rounded-md border border-border bg-background px-3 py-1.5 font-mono text-xs text-foreground focus:border-primary focus:outline-none"
+            />
+          </div>
+          <div>
+            <label className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">Lead Auditor</label>
+            <input
+              type="text"
+              value={leadAuditor}
+              onChange={(e) => setLeadAuditor(e.target.value)}
+              className="mt-1 w-full rounded-md border border-border bg-background px-3 py-1.5 font-mono text-xs text-foreground focus:border-primary focus:outline-none"
+            />
+          </div>
         </div>
       </div>
 

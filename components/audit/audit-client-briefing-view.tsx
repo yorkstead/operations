@@ -21,9 +21,17 @@ export function AuditClientBriefingView({
 }: {
   briefing?: AuditClientBriefing;
 }) {
-  const [briefing] = React.useState<AuditClientBriefing>(
-    initialBriefing || AuditDeliverableService.getSyntheticBriefing()
+  const allBriefings = React.useMemo(() => AuditDeliverableService.listBriefings(), []);
+  const [selectedEngagementId, setSelectedEngagementId] = React.useState<string>(
+    initialBriefing?.engagementId || AuditDeliverableService.getSyntheticBriefing().engagementId
   );
+
+  const briefing = React.useMemo(() => {
+    if (initialBriefing && initialBriefing.engagementId === selectedEngagementId) {
+      return initialBriefing;
+    }
+    return AuditDeliverableService.getBriefing(selectedEngagementId) || AuditDeliverableService.getSyntheticBriefing();
+  }, [initialBriefing, selectedEngagementId]);
 
   const handlePrint = () => {
     window.print();
@@ -73,7 +81,24 @@ export function AuditClientBriefingView({
           </h2>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-3">
+          {/* Client Briefing Selector */}
+          <div className="flex items-center gap-2 font-mono text-xs">
+            <span className="text-muted-foreground text-[11px] uppercase">Client:</span>
+            <select
+              value={selectedEngagementId}
+              onChange={(e) => setSelectedEngagementId(e.target.value)}
+              aria-label="Select Client Briefing"
+              className="rounded-md border border-border bg-background px-3 py-1.5 font-mono text-xs text-foreground focus:border-primary focus:outline-none"
+            >
+              {allBriefings.map((b) => (
+                <option key={b.engagementId} value={b.engagementId}>
+                  {b.clientName}
+                </option>
+              ))}
+            </select>
+          </div>
+
           <Button
             onClick={handlePrint}
             variant="default"

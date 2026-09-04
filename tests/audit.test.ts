@@ -80,4 +80,22 @@ describe("Workflow Audit Domain & Scoring Engine", () => {
     expect(report.clientName).toBe("Summit Facility Services");
     expect(report.totalMeasuredWeeklyWasteHours).toBe(8);
   });
+
+  it("verifies AuditDeliverableService briefings store and sanitization", () => {
+    const { AuditDeliverableService } = require("../modules/audit/application/audit-deliverable-service");
+    const briefings = AuditDeliverableService.listBriefings();
+
+    expect(briefings.length).toBeGreaterThanOrEqual(2);
+
+    const deBriefing = AuditDeliverableService.getBriefing("audit_denver_express_2026_01");
+    expect(deBriefing).toBeDefined();
+    expect(deBriefing?.clientName).toContain("Denver Express");
+    expect(deBriefing?.currentStateMap.length).toBe(5);
+    expect(deBriefing?.opportunityRankings.length).toBe(3);
+
+    // Verify sanitization strips internal notes
+    const sanitized = AuditDeliverableService.sanitizeClientBriefing(deBriefing!);
+    expect(sanitized.internalNotes).toBeUndefined();
+    expect(sanitized.clientName).toBe(deBriefing!.clientName);
+  });
 });
