@@ -12,7 +12,7 @@ describe("locked architecture and deployment configuration invariants", () => {
     const content = readFileSync(packageJsonPath, "utf-8");
     const pkg = JSON.parse(content);
     expect(pkg.name).toBe("@yorkstead/operations");
-    expect(pkg.scripts.build).toBe("next build");
+    expect(pkg.scripts.build).toContain("next build");
     expect(pkg.scripts.test).toBe("bun test");
   });
 

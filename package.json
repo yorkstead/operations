@@ -12,7 +12,8 @@
   "packageManager": "bun@1.3.14",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "bun scripts/sync-vault.ts && next build",
+    "vault:sync": "bun scripts/sync-vault.ts",
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",

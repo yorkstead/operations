@@ -1,0 +1,412 @@
+[
+  {
+    "title": "Yorkstead Systems OS",
+    "slug": "00-yorkstead-dashboard",
+    "relativePath": "00 - Yorkstead Dashboard.md",
+    "category": "Root Index",
+    "tags": [
+      "yorkstead",
+      "master-index",
+      "operations",
+      "Package"
+    ],
+    "date": "2026-09-04",
+    "status": "active",
+    "type": "dashboard",
+    "lastModified": "2026-09-04T07:48:59.285Z",
+    "excerpt": "> \"Fixing the work before selling the software.\"  ",
+    "content": "# 🌐 Yorkstead Systems — Operations Dashboard\n\n> *\"Fixing the work before selling the software.\"*  \n> Custom operational workflows, internal tools, hardware integration, and industrial software systems.\n\n---\n\n## ⚡ Active Priorities & Pipeline Status\n\n| Initiative                       | Client / Domain                        | Status                             | Key Deliverables / Links                                                                                                                                                                                      |\n| :------------------------------- | :------------------------------------- | :--------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |\n| **ReworkFlow Terminal Platform** | [[Denver Express & No Limit Trucking]] | 🟢 **Proposal & Demo Ready**       | Live: [rework.yorkstead.com](https://rework.yorkstead.com)<br/>Kit: `Denver_Express_ReworkFlow_Deal_Kit.zip`<br/>Offer: [[The $9,500 Asset Purchase Strategy]]                                                |\n| **Forklift Hardware Deployment** | [[Industrial Hardware Specification]]  | 🟢 **Validated & Sourced**         | HOTWAV R9 Pro 11\" (20,080mAh) + RAM Tough-Claw<br/>[[Industrial Hardware Specification#Package A: 2-Forklift Starter Bundle]]<br/>[[Industrial Hardware Specification#Package B: 6-Bay Full Facility Bundle]] |\n| **SpinFlow Agency Partnership**  | [[Partner Dossier - SpinFlow.ai]]      | 🟢 **Handover Architecture Ready** | Clean Next.js/React stack designed for seamless SpinFlow hosting on `rework.denverexpressco.com`                                                                                                              |\n| **Core Platform Monorepo**       | [[Yorkstead Monorepo]]                 | 🟢 **Active Deployed**             | [yorkstead.com](https://yorkstead.com) (Netlify)<br/>[ops.yorkstead.com](https://ops.yorkstead.com) (Vercel)                                                                                                  |\n| **Architectural Manufacturing**  | [[Elward Systems]]                     | ⚪ **Historical Reference**         | Foundation of operational credibility and Morelli relationship                                                                                                                                                |\n\n---\n\n## 🧭 Vault Navigation (Map of Content)\n\n### 🏢 01. Clients & Commercial Pipeline\n* [[Denver Express & No Limit Trucking]] — 6030 Washington St, 60,000 sq ft, 6 dock doors. Primary target for ReworkFlow.\n* [[Elward Systems]] — Architectural panel manufacturing background; warm relationship bridge with the Morelli brothers.\n\n### 🛠️ 02. Systems, Products & Hardware\n* [[ReworkFlow Terminal Platform]] — 4-stage freight intake and highway reservation system (`/maps`, `/reserve`, `/dock`, `/office`).\n* [[Industrial Hardware Specification]] — Rugged tablet blueprints: HOTWAV R9 Pro 11\" + RAM Mounts Tough-Claw & X-Grip.\n* [[Yorkstead Monorepo]] — Unified multi-app monorepo structure (`apps/website`, `apps/operations`, shared domain packages).\n\n### 📅 03. Daily Operations & Activity Logs\n* [[2026-09-04 - Denver Express Deal Kit & ReworkFlow Launch]] — Comprehensive record of ReworkFlow deployment, deal kit packaging, and hardware standardization.\n\n### 🔍 04. Market Intelligence & Regional Research\n* [[I-70 & I-25 Freight Corridor Intelligence]] — Floyd Hill grade, ELD 45-minute limits, Comchek workflows, and competitor landscape (FreightBox, FMG).\n* [[Partner Dossier - SpinFlow.ai]] — Technical and business dossier on Denver Express's web agency.\n\n### 🎯 05. Sales Playbooks & Offer Architecture\n* [[The $9,500 Asset Purchase Strategy]] — Single-tier non-SaaS capital asset sale philosophy, payment milestones, and 58-day ROI economics.\n* [[Warm Referral Pitch - Morelli Playbook]] — Phone and dock walkthrough scripts leveraging manufacturing supervisor background.\n\n### 📋 06. Operational Templates\n* [[Client Dossier Template]] — Standard format for vetting and structuring new industrial clients.\n* [[Daily Log Template]] — Standard template for logging engineering builds, client calls, and deployments.\n\n---\n\n## 📊 Commercial Snapshot\n\n> [!tip] The Yorkstead Rule\n> Never lock an industrial operator into SaaS dependency. Sell clean, robust, capital assets with 100% code ownership, optional SLAs, and hardware pre-mounted on their forklifts.\n\n```\nTotal Deal Value (Denver Express):\n├── Software Buyout:    $9,500.00 (100% Ownership + 15-Mile Non-Compete)\n├── Hardware Add-On:    $980.00 (2-Bay) OR $2,850.00 (6-Bay Full Facility)\n└── Optional SLA:       $450.00/month (Or $0.00 with SpinFlow handover)\n```\n",
+    "rawContent": "---\ntitle: Yorkstead Systems OS\ndate: 2026-09-04\ntype: dashboard\nstatus: active\ntags:\n  - yorkstead\n  - master-index\n  - operations\n---\n\n# 🌐 Yorkstead Systems — Operations Dashboard\n\n> *\"Fixing the work before selling the software.\"*  \n> Custom operational workflows, internal tools, hardware integration, and industrial software systems.\n\n---\n\n## ⚡ Active Priorities & Pipeline Status\n\n| Initiative                       | Client / Domain                        | Status                             | Key Deliverables / Links                                                                                                                                                                                      |\n| :------------------------------- | :------------------------------------- | :--------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |\n| **ReworkFlow Terminal Platform** | [[Denver Express & No Limit Trucking]] | 🟢 **Proposal & Demo Ready**       | Live: [rework.yorkstead.com](https://rework.yorkstead.com)<br/>Kit: `Denver_Express_ReworkFlow_Deal_Kit.zip`<br/>Offer: [[The $9,500 Asset Purchase Strategy]]                                                |\n| **Forklift Hardware Deployment** | [[Industrial Hardware Specification]]  | 🟢 **Validated & Sourced**         | HOTWAV R9 Pro 11\" (20,080mAh) + RAM Tough-Claw<br/>[[Industrial Hardware Specification#Package A: 2-Forklift Starter Bundle]]<br/>[[Industrial Hardware Specification#Package B: 6-Bay Full Facility Bundle]] |\n| **SpinFlow Agency Partnership**  | [[Partner Dossier - SpinFlow.ai]]      | 🟢 **Handover Architecture Ready** | Clean Next.js/React stack designed for seamless SpinFlow hosting on `rework.denverexpressco.com`                                                                                                              |\n| **Core Platform Monorepo**       | [[Yorkstead Monorepo]]                 | 🟢 **Active Deployed**             | [yorkstead.com](https://yorkstead.com) (Netlify)<br/>[ops.yorkstead.com](https://ops.yorkstead.com) (Vercel)                                                                                                  |\n| **Architectural Manufacturing**  | [[Elward Systems]]                     | ⚪ **Historical Reference**         | Foundation of operational credibility and Morelli relationship                                                                                                                                                |\n\n---\n\n## 🧭 Vault Navigation (Map of Content)\n\n### 🏢 01. Clients & Commercial Pipeline\n* [[Denver Express & No Limit Trucking]] — 6030 Washington St, 60,000 sq ft, 6 dock doors. Primary target for ReworkFlow.\n* [[Elward Systems]] — Architectural panel manufacturing background; warm relationship bridge with the Morelli brothers.\n\n### 🛠️ 02. Systems, Products & Hardware\n* [[ReworkFlow Terminal Platform]] — 4-stage freight intake and highway reservation system (`/maps`, `/reserve`, `/dock`, `/office`).\n* [[Industrial Hardware Specification]] — Rugged tablet blueprints: HOTWAV R9 Pro 11\" + RAM Mounts Tough-Claw & X-Grip.\n* [[Yorkstead Monorepo]] — Unified multi-app monorepo structure (`apps/website`, `apps/operations`, shared domain packages).\n\n### 📅 03. Daily Operations & Activity Logs\n* [[2026-09-04 - Denver Express Deal Kit & ReworkFlow Launch]] — Comprehensive record of ReworkFlow deployment, deal kit packaging, and hardware standardization.\n\n### 🔍 04. Market Intelligence & Regional Research\n* [[I-70 & I-25 Freight Corridor Intelligence]] — Floyd Hill grade, ELD 45-minute limits, Comchek workflows, and competitor landscape (FreightBox, FMG).\n* [[Partner Dossier - SpinFlow.ai]] — Technical and business dossier on Denver Express's web agency.\n\n### 🎯 05. Sales Playbooks & Offer Architecture\n* [[The $9,500 Asset Purchase Strategy]] — Single-tier non-SaaS capital asset sale philosophy, payment milestones, and 58-day ROI economics.\n* [[Warm Referral Pitch - Morelli Playbook]] — Phone and dock walkthrough scripts leveraging manufacturing supervisor background.\n\n### 📋 06. Operational Templates\n* [[Client Dossier Template]] — Standard format for vetting and structuring new industrial clients.\n* [[Daily Log Template]] — Standard template for logging engineering builds, client calls, and deployments.\n\n---\n\n## 📊 Commercial Snapshot\n\n> [!tip] The Yorkstead Rule\n> Never lock an industrial operator into SaaS dependency. Sell clean, robust, capital assets with 100% code ownership, optional SLAs, and hardware pre-mounted on their forklifts.\n\n```\nTotal Deal Value (Denver Express):\n├── Software Buyout:    $9,500.00 (100% Ownership + 15-Mile Non-Compete)\n├── Hardware Add-On:    $980.00 (2-Bay) OR $2,850.00 (6-Bay Full Facility)\n└── Optional SLA:       $450.00/month (Or $0.00 with SpinFlow handover)\n```\n",
+    "frontmatter": {
+      "title": "Yorkstead Systems OS",
+      "date": "2026-09-04",
+      "type": "dashboard",
+      "status": "active",
+      "tags": [
+        "yorkstead",
+        "master-index",
+        "operations",
+        "Package"
+      ]
+    }
+  },
+  {
+    "title": "Denver Express Warehousing & No Limit Trucking",
+    "slug": "01-clients-deals/denver-express-no-limit-trucking",
+    "relativePath": "01 - Clients & Deals/Denver Express & No Limit Trucking.md",
+    "category": "01 - Clients & Deals",
+    "tags": [
+      "client",
+      "cross-dock",
+      "active-opportunity",
+      "denver-express",
+      "Direct"
+    ],
+    "date": "2026-09-04",
+    "type": "client-dossier",
+    "stage": "proposal-ready",
+    "dealSize": "$9,500 + Hardware ($980 / $2,850)",
+    "lastModified": "2026-09-04T07:46:16.480Z",
+    "excerpt": "> Primary Physical Location: 6030 Washington St, Ste 130, Denver, CO 80216  ",
+    "content": "# 🏢 Denver Express Warehousing & Cross-Docking / No Limit Trucking LLC\n\n> **Primary Physical Location:** 6030 Washington St, Ste 130, Denver, CO 80216  \n> **Facility Profile:** 60,000+ sq ft warehouse, 6 dock-high receiving doors, FDA food-grade ambient storage.  \n> **Corporate Synergy:** Asset terminal + regional fleet (No Limit Trucking) + freight brokerage (No Limit Logistics).\n\n---\n\n## 👥 Key Stakeholders & Org Chart\n\n| Name | Role | Location | Strategic Angle |\n| :--- | :--- | :--- | :--- |\n| **Craig Bedore** | Dock Operating Principal & Co-Owner | 6030 Washington St (On-site) | Manages daily dock crews, forklift operations, and walk-in reworks. Will be the live tester of the `/dock` tablet interface. |\n| **Steve Chapman** | Principal & Executive Co-Owner | Corporate / Denver | Registered owner since 1998. Focuses on asset value, liability reduction, and business profitability. Signs contracts. |\n| **Dale Burget** | Principal & Executive Co-Owner | Corporate / Denver | Senior partner. Values reliable infrastructure and low administrative overhead. Signs contracts. |\n| **Michael Morelli** | Freight Logistics Coordinator | Denver / Transport | Warm contact via **Elward Systems** manufacturing connection. High trust bridge. |\n| **Rick Morelli** | Logistics / Operations | Denver / Transport | Peer connection from Elward Systems panel shipping days. |\n\n---\n\n## 💼 Commercial Opportunity: ReworkFlow™ Buyout\n\n* **Product:** [[ReworkFlow Terminal Platform]]\n* **Structure:** **$9,500.00 Asset Purchase** (100% Codebase Ownership, deposited to their GitHub).\n* **Payment Terms:** 50% upon signing ($4,750), 50% upon on-site terminal handover and staff training ($4,750).\n* **Hardware Options:**\n  * **Package A (2-Forklift Starter):** $980.00 (Covers Bay 1 & Bay 2).\n  * **Package B (6-Bay Full Facility):** $2,850.00 (Dedicated unit for all 6 bays).\n  * **Client Hardware:** $0.00.\n* **Support Options:**\n  * Yorkstead SLA: $450.00 / month (optional, 30-day cancel).\n  * [[Partner Dossier - SpinFlow.ai|SpinFlow Handover]]: Free handover to their web agency to host on `rework.denverexpressco.com`.\n* **Territorial Protection:** 15-mile non-compete covenant protecting Denver Express along I-70/I-25 against competitors like [[I-70 & I-25 Freight Corridor Intelligence#Direct Regional Competitors|FreightBox and FMG]].\n\n---\n\n## ⚙️ Operational Pain Points Being Solved\n\n1. **Highway Search Vacuum:** Drivers search Google Maps on I-70 after shifting cargo on Floyd Hill. Denver Express currently has no instant booking, causing drivers to bounce to competitors.\n2. **ELD Clock Pressure:** Drivers have <45 minutes before hours-of-service violations. ReworkFlow's 45-minute bay hold solves this immediately.\n3. **Broker Comchek Delays:** Upfront transparent estimates let drivers get Comchek / EFS advances authorized before pulling off the highway.\n4. **Dock-to-Desk Disconnect:** The front office currently uses paper and foot traffic. `/office` provides real-time Web Audio chimes and live bay status.\n5. **Post-Dispatch Chargebacks:** Forklift operators take watermarked GPS/timestamped before/after photos and capture digital driver signatures on the [[Industrial Hardware Specification|HOTWAV R9 Pro]] tablet, creating an immutable PDF evidence certificate and QuickBooks export.\n\n---\n\n## 📁 Associated Artifacts & Links\n\n* **Live Demo:** [https://rework.yorkstead.com](https://rework.yorkstead.com)\n* **Contract & Proposal Template:** `exports/denver-express-deal-kit/04_PROPOSAL_AND_CONTRACT_TEMPLATES.md`\n* **Complete Deal Kit Zip:** `C:\\Users\\4twen\\Downloads\\Denver_Express_ReworkFlow_Deal_Kit.zip`\n* **Master Brief PDF:** `C:\\Users\\4twen\\Downloads\\Denver_Express_ReworkFlow_Master_Brief_Latest.pdf`\n* **Related Notes:**\n  * [[ReworkFlow Terminal Platform]]\n  * [[Industrial Hardware Specification]]\n  * [[The $9,500 Asset Purchase Strategy]]\n  * [[Warm Referral Pitch - Morelli Playbook]]\n  * [[Partner Dossier - SpinFlow.ai]]\n  * [[I-70 & I-25 Freight Corridor Intelligence]]\n",
+    "rawContent": "---\ntitle: Denver Express Warehousing & No Limit Trucking\ndate: 2026-09-04\ntype: client-dossier\nstage: proposal-ready\ndeal_size: $9,500 + Hardware ($980 / $2,850)\ntags:\n  - client\n  - cross-dock\n  - active-opportunity\n  - denver-express\n---\n\n# 🏢 Denver Express Warehousing & Cross-Docking / No Limit Trucking LLC\n\n> **Primary Physical Location:** 6030 Washington St, Ste 130, Denver, CO 80216  \n> **Facility Profile:** 60,000+ sq ft warehouse, 6 dock-high receiving doors, FDA food-grade ambient storage.  \n> **Corporate Synergy:** Asset terminal + regional fleet (No Limit Trucking) + freight brokerage (No Limit Logistics).\n\n---\n\n## 👥 Key Stakeholders & Org Chart\n\n| Name | Role | Location | Strategic Angle |\n| :--- | :--- | :--- | :--- |\n| **Craig Bedore** | Dock Operating Principal & Co-Owner | 6030 Washington St (On-site) | Manages daily dock crews, forklift operations, and walk-in reworks. Will be the live tester of the `/dock` tablet interface. |\n| **Steve Chapman** | Principal & Executive Co-Owner | Corporate / Denver | Registered owner since 1998. Focuses on asset value, liability reduction, and business profitability. Signs contracts. |\n| **Dale Burget** | Principal & Executive Co-Owner | Corporate / Denver | Senior partner. Values reliable infrastructure and low administrative overhead. Signs contracts. |\n| **Michael Morelli** | Freight Logistics Coordinator | Denver / Transport | Warm contact via **Elward Systems** manufacturing connection. High trust bridge. |\n| **Rick Morelli** | Logistics / Operations | Denver / Transport | Peer connection from Elward Systems panel shipping days. |\n\n---\n\n## 💼 Commercial Opportunity: ReworkFlow™ Buyout\n\n* **Product:** [[ReworkFlow Terminal Platform]]\n* **Structure:** **$9,500.00 Asset Purchase** (100% Codebase Ownership, deposited to their GitHub).\n* **Payment Terms:** 50% upon signing ($4,750), 50% upon on-site terminal handover and staff training ($4,750).\n* **Hardware Options:**\n  * **Package A (2-Forklift Starter):** $980.00 (Covers Bay 1 & Bay 2).\n  * **Package B (6-Bay Full Facility):** $2,850.00 (Dedicated unit for all 6 bays).\n  * **Client Hardware:** $0.00.\n* **Support Options:**\n  * Yorkstead SLA: $450.00 / month (optional, 30-day cancel).\n  * [[Partner Dossier - SpinFlow.ai|SpinFlow Handover]]: Free handover to their web agency to host on `rework.denverexpressco.com`.\n* **Territorial Protection:** 15-mile non-compete covenant protecting Denver Express along I-70/I-25 against competitors like [[I-70 & I-25 Freight Corridor Intelligence#Direct Regional Competitors|FreightBox and FMG]].\n\n---\n\n## ⚙️ Operational Pain Points Being Solved\n\n1. **Highway Search Vacuum:** Drivers search Google Maps on I-70 after shifting cargo on Floyd Hill. Denver Express currently has no instant booking, causing drivers to bounce to competitors.\n2. **ELD Clock Pressure:** Drivers have <45 minutes before hours-of-service violations. ReworkFlow's 45-minute bay hold solves this immediately.\n3. **Broker Comchek Delays:** Upfront transparent estimates let drivers get Comchek / EFS advances authorized before pulling off the highway.\n4. **Dock-to-Desk Disconnect:** The front office currently uses paper and foot traffic. `/office` provides real-time Web Audio chimes and live bay status.\n5. **Post-Dispatch Chargebacks:** Forklift operators take watermarked GPS/timestamped before/after photos and capture digital driver signatures on the [[Industrial Hardware Specification|HOTWAV R9 Pro]] tablet, creating an immutable PDF evidence certificate and QuickBooks export.\n\n---\n\n## 📁 Associated Artifacts & Links\n\n* **Live Demo:** [https://rework.yorkstead.com](https://rework.yorkstead.com)\n* **Contract & Proposal Template:** `exports/denver-express-deal-kit/04_PROPOSAL_AND_CONTRACT_TEMPLATES.md`\n* **Complete Deal Kit Zip:** `C:\\Users\\4twen\\Downloads\\Denver_Express_ReworkFlow_Deal_Kit.zip`\n* **Master Brief PDF:** `C:\\Users\\4twen\\Downloads\\Denver_Express_ReworkFlow_Master_Brief_Latest.pdf`\n* **Related Notes:**\n  * [[ReworkFlow Terminal Platform]]\n  * [[Industrial Hardware Specification]]\n  * [[The $9,500 Asset Purchase Strategy]]\n  * [[Warm Referral Pitch - Morelli Playbook]]\n  * [[Partner Dossier - SpinFlow.ai]]\n  * [[I-70 & I-25 Freight Corridor Intelligence]]\n",
+    "frontmatter": {
+      "title": "Denver Express Warehousing & No Limit Trucking",
+      "date": "2026-09-04",
+      "type": "client-dossier",
+      "stage": "proposal-ready",
+      "deal_size": "$9,500 + Hardware ($980 / $2,850)",
+      "tags": [
+        "client",
+        "cross-dock",
+        "active-opportunity",
+        "denver-express",
+        "Direct"
+      ]
+    }
+  },
+  {
+    "title": "Elward Systems Relationship Bridge",
+    "slug": "01-clients-deals/elward-systems",
+    "relativePath": "01 - Clients & Deals/Elward Systems.md",
+    "category": "01 - Clients & Deals",
+    "tags": [
+      "background",
+      "referral",
+      "elward"
+    ],
+    "date": "2026-09-04",
+    "type": "context-reference",
+    "lastModified": "2026-09-04T07:46:22.620Z",
+    "excerpt": "> Industry: Architectural panel manufacturing, metal fabrication, and job-site logistics  ",
+    "content": "# 🏭 Elward Systems — Operational Heritage & Credibility\n\n> **Industry:** Architectural panel manufacturing, metal fabrication, and job-site logistics  \n> **Location:** Lakewood / Denver metro area  \n> **Yorkstead Connection:** Founder previously served as **Manufacturing Supervisor at Elward Systems**.\n\n---\n\n## 🤝 Strategic Role in Deal Pipeline\n\nThe manufacturing background at Elward Systems serves as Yorkstead's primary competitive advantage when selling to industrial and logistics companies:\n\n1. **Floor-Level Credibility:** Industrial decision-makers (cross-dock owners, dispatchers, superintendents) routinely dismiss generic tech salespeople. Having managed fabrication shifts, loading cranes, rigging, and freight logistics provides immediate peer respect.\n2. **The Morelli Connection:** Michael Morelli and Rick Morelli worked alongside Yorkstead's founder on architectural panel transport, trailer balancing, and driver dispatch.\n3. **Warm Referral Mechanism:** The initial reach-out is not a cold sales pitch; it is a warm catch-up with Michael and Rick to preview an application built specifically for cross-dock operations along I-70/I-25.\n\n---\n\n## 🔗 Related Notes\n* [[Warm Referral Pitch - Morelli Playbook]]\n* [[Denver Express & No Limit Trucking]]\n* [[ReworkFlow Terminal Platform]]\n",
+    "rawContent": "---\ntitle: Elward Systems Relationship Bridge\ndate: 2026-09-04\ntype: context-reference\ntags:\n  - background\n  - referral\n  - elward\n---\n\n# 🏭 Elward Systems — Operational Heritage & Credibility\n\n> **Industry:** Architectural panel manufacturing, metal fabrication, and job-site logistics  \n> **Location:** Lakewood / Denver metro area  \n> **Yorkstead Connection:** Founder previously served as **Manufacturing Supervisor at Elward Systems**.\n\n---\n\n## 🤝 Strategic Role in Deal Pipeline\n\nThe manufacturing background at Elward Systems serves as Yorkstead's primary competitive advantage when selling to industrial and logistics companies:\n\n1. **Floor-Level Credibility:** Industrial decision-makers (cross-dock owners, dispatchers, superintendents) routinely dismiss generic tech salespeople. Having managed fabrication shifts, loading cranes, rigging, and freight logistics provides immediate peer respect.\n2. **The Morelli Connection:** Michael Morelli and Rick Morelli worked alongside Yorkstead's founder on architectural panel transport, trailer balancing, and driver dispatch.\n3. **Warm Referral Mechanism:** The initial reach-out is not a cold sales pitch; it is a warm catch-up with Michael and Rick to preview an application built specifically for cross-dock operations along I-70/I-25.\n\n---\n\n## 🔗 Related Notes\n* [[Warm Referral Pitch - Morelli Playbook]]\n* [[Denver Express & No Limit Trucking]]\n* [[ReworkFlow Terminal Platform]]\n",
+    "frontmatter": {
+      "title": "Elward Systems Relationship Bridge",
+      "date": "2026-09-04",
+      "type": "context-reference",
+      "tags": [
+        "background",
+        "referral",
+        "elward"
+      ]
+    }
+  },
+  {
+    "title": "Industrial Hardware Specification",
+    "slug": "02-systems-products/industrial-hardware-specification",
+    "relativePath": "02 - Systems & Products/Industrial Hardware Specification.md",
+    "category": "02 - Systems & Products",
+    "tags": [
+      "hardware",
+      "rugged-tablet",
+      "forklift",
+      "ram-mounts"
+    ],
+    "date": "2026-09-04",
+    "status": "validated",
+    "type": "hardware-blueprint",
+    "lastModified": "2026-09-04T07:46:34.294Z",
+    "excerpt": "> Sourced and validated for heavy industrial cross-dock operations at 6030 Washington St.  ",
+    "content": "# 🚜 Industrial Hardware Specification: HOTWAV R9 Pro & RAM Mounts\n\n> Sourced and validated for heavy industrial cross-dock operations at 6030 Washington St.  \n> Eliminates fragile consumer iPads and avoids \\$3,000 Honeywell/Zebra scanner markups.\n\n---\n\n## 📱 Primary Tablet: HOTWAV R9 Pro 11\" Rugged Android 14\n\n* **Price:** \\$259.99 – \\$289.99 (Amazon Prime)\n* **Battery:** **20,080 mAh** monster capacity. Operates 3 to 5 continuous 8-hour shifts without recharging. Eliminates costly forklift DC-to-DC electrical converter wiring.\n* **Environmental Rating:** **IP68 / IP69K Waterproof & Dustproof**. Resistant to high-pressure hot-water washdown, reefer melt, diesel exhaust, and freezing warehouse temperatures.\n* **Display:** 11-inch 2K FHD+ screen with high-nit sunlight readability and capacitive **glove-touch mode**.\n* **Connectivity:** **4G Dual SIM LTE + Dual-Band Wi-Fi**. Guarantees uninterrupted connectivity when forklift operators enter deep inside 53-foot metal dry vans where warehouse Wi-Fi drops.\n* **Camera:** 64MP rear inspection camera with LED flash for documenting freight damage.\n\n---\n\n## 🔩 Mounting System: RAM MOUNTS Heavy Duty\n\n* **Roll-Cage Clamp:** **RAM MOUNTS Tough-Claw™ Medium** (`RAP-B-404U`) (\\$48.99)\n  * Clamps securely onto 1\" to 1.6\" round, square, or odd-shaped roll-cage overhead guard bars.\n  * Installed in 60 seconds with zero drilling or permanent forklift modification.\n* **Tablet Cradle:** **RAM MOUNTS X-Grip® Spring-Loaded 12\" Cradle** (`RAM-HOL-UN11U`) (\\$121.99)\n  * Spring-loaded rubber-tipped posts expand and lock around the 11\" HOTWAV chassis.\n  * Patented rubber ball-and-socket design dampens severe shock vibrations from driving over steel dock levelers and cracked concrete.\n\n---\n\n## 📦 Turnkey Commercial Packages\n\n### Package A: 2-Forklift Starter Bundle — \\$980.00 Total\n*Recommended for initial rollout; covers Bay 1 & Bay 2 designated rework lanes.*\n* 2x HOTWAV R9 Pro 11\" Rugged Industrial Work Tablets.\n* 2x RAM Tough-Claw Roll-Cage Mounts.\n* 2x RAM X-Grip 12\" Heavy-Duty Tablet Cradles.\n* Delivered, branded with Denver Express kiosk lock, and mounted on-site during staff training.\n\n### Package B: 6-Bay Full Facility Bundle — \\$2,850.00 Total\n*Complete wall-to-wall coverage for all 6 dock doors or the entire forklift fleet.*\n* 6x HOTWAV R9 Pro 11\" Rugged Industrial Work Tablets.\n* 6x RAM Tough-Claw Roll-Cage Mounts.\n* 6x RAM X-Grip 12\" Heavy-Duty Tablet Cradles.\n* Dedicated tablet per dock door across all 60,000 sq ft. Pre-configured and mounted on-site.\n\n### Client-Provided Hardware Option — \\$0.00\n* Denver Express procures their own Android tablets; Yorkstead configures the web application URL during on-site training.\n* Zero software licensing penalties regardless of device count.\n\n---\n\n## 🔗 Related Notes\n* [[Denver Express & No Limit Trucking]]\n* [[ReworkFlow Terminal Platform]]\n* [[The $9,500 Asset Purchase Strategy]]\n",
+    "rawContent": "---\ntitle: Industrial Hardware Specification\ndate: 2026-09-04\ntype: hardware-blueprint\nstatus: validated\ntags:\n  - hardware\n  - rugged-tablet\n  - forklift\n  - ram-mounts\n---\n\n# 🚜 Industrial Hardware Specification: HOTWAV R9 Pro & RAM Mounts\n\n> Sourced and validated for heavy industrial cross-dock operations at 6030 Washington St.  \n> Eliminates fragile consumer iPads and avoids \\$3,000 Honeywell/Zebra scanner markups.\n\n---\n\n## 📱 Primary Tablet: HOTWAV R9 Pro 11\" Rugged Android 14\n\n* **Price:** \\$259.99 – \\$289.99 (Amazon Prime)\n* **Battery:** **20,080 mAh** monster capacity. Operates 3 to 5 continuous 8-hour shifts without recharging. Eliminates costly forklift DC-to-DC electrical converter wiring.\n* **Environmental Rating:** **IP68 / IP69K Waterproof & Dustproof**. Resistant to high-pressure hot-water washdown, reefer melt, diesel exhaust, and freezing warehouse temperatures.\n* **Display:** 11-inch 2K FHD+ screen with high-nit sunlight readability and capacitive **glove-touch mode**.\n* **Connectivity:** **4G Dual SIM LTE + Dual-Band Wi-Fi**. Guarantees uninterrupted connectivity when forklift operators enter deep inside 53-foot metal dry vans where warehouse Wi-Fi drops.\n* **Camera:** 64MP rear inspection camera with LED flash for documenting freight damage.\n\n---\n\n## 🔩 Mounting System: RAM MOUNTS Heavy Duty\n\n* **Roll-Cage Clamp:** **RAM MOUNTS Tough-Claw™ Medium** (`RAP-B-404U`) (\\$48.99)\n  * Clamps securely onto 1\" to 1.6\" round, square, or odd-shaped roll-cage overhead guard bars.\n  * Installed in 60 seconds with zero drilling or permanent forklift modification.\n* **Tablet Cradle:** **RAM MOUNTS X-Grip® Spring-Loaded 12\" Cradle** (`RAM-HOL-UN11U`) (\\$121.99)\n  * Spring-loaded rubber-tipped posts expand and lock around the 11\" HOTWAV chassis.\n  * Patented rubber ball-and-socket design dampens severe shock vibrations from driving over steel dock levelers and cracked concrete.\n\n---\n\n## 📦 Turnkey Commercial Packages\n\n### Package A: 2-Forklift Starter Bundle — \\$980.00 Total\n*Recommended for initial rollout; covers Bay 1 & Bay 2 designated rework lanes.*\n* 2x HOTWAV R9 Pro 11\" Rugged Industrial Work Tablets.\n* 2x RAM Tough-Claw Roll-Cage Mounts.\n* 2x RAM X-Grip 12\" Heavy-Duty Tablet Cradles.\n* Delivered, branded with Denver Express kiosk lock, and mounted on-site during staff training.\n\n### Package B: 6-Bay Full Facility Bundle — \\$2,850.00 Total\n*Complete wall-to-wall coverage for all 6 dock doors or the entire forklift fleet.*\n* 6x HOTWAV R9 Pro 11\" Rugged Industrial Work Tablets.\n* 6x RAM Tough-Claw Roll-Cage Mounts.\n* 6x RAM X-Grip 12\" Heavy-Duty Tablet Cradles.\n* Dedicated tablet per dock door across all 60,000 sq ft. Pre-configured and mounted on-site.\n\n### Client-Provided Hardware Option — \\$0.00\n* Denver Express procures their own Android tablets; Yorkstead configures the web application URL during on-site training.\n* Zero software licensing penalties regardless of device count.\n\n---\n\n## 🔗 Related Notes\n* [[Denver Express & No Limit Trucking]]\n* [[ReworkFlow Terminal Platform]]\n* [[The $9,500 Asset Purchase Strategy]]\n",
+    "frontmatter": {
+      "title": "Industrial Hardware Specification",
+      "date": "2026-09-04",
+      "type": "hardware-blueprint",
+      "status": "validated",
+      "tags": [
+        "hardware",
+        "rugged-tablet",
+        "forklift",
+        "ram-mounts"
+      ]
+    }
+  },
+  {
+    "title": "ReworkFlow Terminal Platform",
+    "slug": "02-systems-products/reworkflow-terminal-platform",
+    "relativePath": "02 - Systems & Products/ReworkFlow Terminal Platform.md",
+    "category": "02 - Systems & Products",
+    "tags": [
+      "product",
+      "cross-dock",
+      "nextjs",
+      "reworkflow"
+    ],
+    "date": "2026-09-04",
+    "status": "deployed",
+    "type": "product-spec",
+    "lastModified": "2026-09-04T07:46:28.623Z",
+    "excerpt": "> Live Production System: rework.yorkstead.com(https://rework.yorkstead.com)  ",
+    "content": "# ⚡ ReworkFlow™ Terminal Platform\n\n> **Live Production System:** [rework.yorkstead.com](https://rework.yorkstead.com)  \n> **Source Code:** [github.com/yorkstead/rework-flow](https://github.com/yorkstead/rework-flow)  \n> **Deployment Infrastructure:** Vercel Edge Network, custom domain SSL, React 19 / Next.js 15 App Router.\n\n---\n\n## 🏗️ 4-Stage Operational Architecture\n\n```\n[Highway Driver] ──> /maps (Google Maps Simulation)\n                         │\n                         ▼\n                     /reserve (Instant Quote & 45m Bay Hold)\n                         │\n        ┌────────────────┴────────────────┐\n        ▼                                 ▼\n   /office (Dispatch Board)          /dock (Forklift Terminal)\n   - Real-time Audio Alert           - Glove-friendly Touch UI\n   - Live Bay Status (Bays 1-6)      - Timestamped / GPS Camera\n   - QuickBooks Invoicing            - Touchscreen Signature Pad\n```\n\n### 1. Stage 0: Acquisition (`/maps`)\n* **Purpose:** Simulates an emergency Google Maps search for *\"pallet rework near me\"* on Interstate 70.\n* **Feature:** Denver Express listing includes an eye-catching gold **⚡ Reserve Dock Bay & Instant Quote** button, contrasting with competitors who only offer generic telephone numbers.\n\n### 2. Stage 1: Highway Lock (`/reserve`)\n* **Purpose:** Driver self-service calculator while pulled over on I-70 or at a truck stop.\n* **Functionality:** \n  * Selects damage type (Shifted Pallets, Banding Failure, Port of Entry Overweight Axle).\n  * Calculates real-time estimates ($450–$550).\n  * Enters Carrier MC/DOT, trailer number, and cell phone.\n  * Locks designated bay with an animated **45-minute countdown clock** (matching the legal ELD hours limit).\n\n### 3. Stage 2: Front Desk Alert (`/office`)\n* **Purpose:** Continuous operational cockpit for front desk and dispatchers (Steve, Dale, Craig).\n* **Audio Alerts:** Uses native browser **Web Audio synthesis** (880Hz / 440Hz harmonic chime) to sound through desktop speakers when a truck reserves. Zero paid audio hardware required.\n* **Dispatch Actions:** 1-click status advancement (Reserved ➔ Docked ➔ In Progress ➔ Completed), QuickBooks CSV export.\n\n### 4. Stage 3: Glove-Friendly Forklift Terminal (`/dock`)\n* **Purpose:** Mounts on Toyota/Crown forklifts via [[Industrial Hardware Specification|HOTWAV R9 Pro + RAM Mounts]].\n* **Touch Optimization:** 48px+ high-contrast buttons designed for thick leather work gloves in cold weather.\n* **Evidence Capture:** Dual-camera damage photo capture with automated Denver Express branding, GPS coordinates, and Mountain Time stamp.\n* **Driver Sign-Off:** Digital signature canvas directly on the tablet glass.\n\n---\n\n## 💻 Tech Stack & Zero-Lock-In Guarantee\n\n* **Framework:** Next.js 15 (App Router), React 19, TypeScript\n* **Styling:** Tailwind CSS (industrial high-contrast slate & amber color scheme)\n* **Audio:** Web Audio API (cross-platform, zero dependencies)\n* **Icons:** Lucide React\n* **Client Handover:** Standard open-source stack that can be hosted on Vercel, Netlify, Cloudflare, AWS, or handed directly to [[Partner Dossier - SpinFlow.ai|SpinFlow]].\n\n---\n\n## 🔗 Related Notes\n* [[Denver Express & No Limit Trucking]]\n* [[Industrial Hardware Specification]]\n* [[The $9,500 Asset Purchase Strategy]]\n* [[Partner Dossier - SpinFlow.ai]]\n",
+    "rawContent": "---\ntitle: ReworkFlow Terminal Platform\ndate: 2026-09-04\ntype: product-spec\nstatus: deployed\nproduction_url: https://rework.yorkstead.com\nrepo: https://github.com/yorkstead/rework-flow.git\ntags:\n  - product\n  - cross-dock\n  - nextjs\n  - reworkflow\n---\n\n# ⚡ ReworkFlow™ Terminal Platform\n\n> **Live Production System:** [rework.yorkstead.com](https://rework.yorkstead.com)  \n> **Source Code:** [github.com/yorkstead/rework-flow](https://github.com/yorkstead/rework-flow)  \n> **Deployment Infrastructure:** Vercel Edge Network, custom domain SSL, React 19 / Next.js 15 App Router.\n\n---\n\n## 🏗️ 4-Stage Operational Architecture\n\n```\n[Highway Driver] ──> /maps (Google Maps Simulation)\n                         │\n                         ▼\n                     /reserve (Instant Quote & 45m Bay Hold)\n                         │\n        ┌────────────────┴────────────────┐\n        ▼                                 ▼\n   /office (Dispatch Board)          /dock (Forklift Terminal)\n   - Real-time Audio Alert           - Glove-friendly Touch UI\n   - Live Bay Status (Bays 1-6)      - Timestamped / GPS Camera\n   - QuickBooks Invoicing            - Touchscreen Signature Pad\n```\n\n### 1. Stage 0: Acquisition (`/maps`)\n* **Purpose:** Simulates an emergency Google Maps search for *\"pallet rework near me\"* on Interstate 70.\n* **Feature:** Denver Express listing includes an eye-catching gold **⚡ Reserve Dock Bay & Instant Quote** button, contrasting with competitors who only offer generic telephone numbers.\n\n### 2. Stage 1: Highway Lock (`/reserve`)\n* **Purpose:** Driver self-service calculator while pulled over on I-70 or at a truck stop.\n* **Functionality:** \n  * Selects damage type (Shifted Pallets, Banding Failure, Port of Entry Overweight Axle).\n  * Calculates real-time estimates ($450–$550).\n  * Enters Carrier MC/DOT, trailer number, and cell phone.\n  * Locks designated bay with an animated **45-minute countdown clock** (matching the legal ELD hours limit).\n\n### 3. Stage 2: Front Desk Alert (`/office`)\n* **Purpose:** Continuous operational cockpit for front desk and dispatchers (Steve, Dale, Craig).\n* **Audio Alerts:** Uses native browser **Web Audio synthesis** (880Hz / 440Hz harmonic chime) to sound through desktop speakers when a truck reserves. Zero paid audio hardware required.\n* **Dispatch Actions:** 1-click status advancement (Reserved ➔ Docked ➔ In Progress ➔ Completed), QuickBooks CSV export.\n\n### 4. Stage 3: Glove-Friendly Forklift Terminal (`/dock`)\n* **Purpose:** Mounts on Toyota/Crown forklifts via [[Industrial Hardware Specification|HOTWAV R9 Pro + RAM Mounts]].\n* **Touch Optimization:** 48px+ high-contrast buttons designed for thick leather work gloves in cold weather.\n* **Evidence Capture:** Dual-camera damage photo capture with automated Denver Express branding, GPS coordinates, and Mountain Time stamp.\n* **Driver Sign-Off:** Digital signature canvas directly on the tablet glass.\n\n---\n\n## 💻 Tech Stack & Zero-Lock-In Guarantee\n\n* **Framework:** Next.js 15 (App Router), React 19, TypeScript\n* **Styling:** Tailwind CSS (industrial high-contrast slate & amber color scheme)\n* **Audio:** Web Audio API (cross-platform, zero dependencies)\n* **Icons:** Lucide React\n* **Client Handover:** Standard open-source stack that can be hosted on Vercel, Netlify, Cloudflare, AWS, or handed directly to [[Partner Dossier - SpinFlow.ai|SpinFlow]].\n\n---\n\n## 🔗 Related Notes\n* [[Denver Express & No Limit Trucking]]\n* [[Industrial Hardware Specification]]\n* [[The $9,500 Asset Purchase Strategy]]\n* [[Partner Dossier - SpinFlow.ai]]\n",
+    "frontmatter": {
+      "title": "ReworkFlow Terminal Platform",
+      "date": "2026-09-04",
+      "type": "product-spec",
+      "status": "deployed",
+      "production_url": "https://rework.yorkstead.com",
+      "repo": "https://github.com/yorkstead/rework-flow.git",
+      "tags": [
+        "product",
+        "cross-dock",
+        "nextjs",
+        "reworkflow"
+      ]
+    }
+  },
+  {
+    "title": "Yorkstead Platform Monorepo",
+    "slug": "02-systems-products/yorkstead-monorepo",
+    "relativePath": "02 - Systems & Products/Yorkstead Monorepo.md",
+    "category": "02 - Systems & Products",
+    "tags": [
+      "codebase",
+      "monorepo",
+      "bun",
+      "nextjs"
+    ],
+    "date": "2026-09-04",
+    "type": "architecture-spec",
+    "lastModified": "2026-09-04T07:46:37.383Z",
+    "excerpt": "> Location: core/yorkstead/  ",
+    "content": "# 🏢 Yorkstead Platform Monorepo\n\n> **Location:** `core/yorkstead/`  \n> **Toolchain:** Bun, Turborepo, Next.js 15, TypeScript, Tailwind CSS\n\n---\n\n## 📂 Monorepo Architecture\n\n```\ncore/yorkstead/\n├── apps/\n│   ├── website/          # https://yorkstead.com (Deployed on Netlify)\n│   └── operations/       # https://ops.yorkstead.com (Deployed on Vercel)\n└── packages/             # Shared TypeScript packages, schemas, UI components\n```\n\n## 🚀 Key Commands\n* `bun run dev:website` — Start public marketing site on `localhost:3000`\n* `bun run dev:operations` — Start operations cockpit on `localhost:3001`\n* `bun run check` — Monorepo-wide typechecking and linting\n* `bun run build` — Production build for all workspaces\n\n## 🔗 Related Notes\n* [[00 - Yorkstead Dashboard]]\n* [[ReworkFlow Terminal Platform]]\n",
+    "rawContent": "---\ntitle: Yorkstead Platform Monorepo\ndate: 2026-09-04\ntype: architecture-spec\ntags:\n  - codebase\n  - monorepo\n  - bun\n  - nextjs\n---\n\n# 🏢 Yorkstead Platform Monorepo\n\n> **Location:** `core/yorkstead/`  \n> **Toolchain:** Bun, Turborepo, Next.js 15, TypeScript, Tailwind CSS\n\n---\n\n## 📂 Monorepo Architecture\n\n```\ncore/yorkstead/\n├── apps/\n│   ├── website/          # https://yorkstead.com (Deployed on Netlify)\n│   └── operations/       # https://ops.yorkstead.com (Deployed on Vercel)\n└── packages/             # Shared TypeScript packages, schemas, UI components\n```\n\n## 🚀 Key Commands\n* `bun run dev:website` — Start public marketing site on `localhost:3000`\n* `bun run dev:operations` — Start operations cockpit on `localhost:3001`\n* `bun run check` — Monorepo-wide typechecking and linting\n* `bun run build` — Production build for all workspaces\n\n## 🔗 Related Notes\n* [[00 - Yorkstead Dashboard]]\n* [[ReworkFlow Terminal Platform]]\n",
+    "frontmatter": {
+      "title": "Yorkstead Platform Monorepo",
+      "date": "2026-09-04",
+      "type": "architecture-spec",
+      "tags": [
+        "codebase",
+        "monorepo",
+        "bun",
+        "nextjs"
+      ]
+    }
+  },
+  {
+    "title": "2026-09-04 - Denver Express Deal Kit & ReworkFlow Launch",
+    "slug": "03-daily-logs/2026-09-04-denver-express-deal-kit-reworkflow-launch",
+    "relativePath": "03 - Daily Logs/2026-09-04 - Denver Express Deal Kit & ReworkFlow Launch.md",
+    "category": "03 - Daily Logs",
+    "tags": [
+      "daily-log",
+      "denver-express",
+      "reworkflow",
+      "milestone"
+    ],
+    "date": "2026-09-04",
+    "status": "completed",
+    "type": "daily-log",
+    "lastModified": "2026-09-04T08:32:47.740Z",
+    "excerpt": "1. ReworkFlow™ Production Deployment:",
+    "content": "# 📅 Daily Log: 2026-09-04 — Denver Express Deal Kit & ReworkFlow Launch\n\n## 🎯 Primary Accomplishments\n\n1. **ReworkFlow™ Production Deployment:**\n   - Deployed live cross-dock web application to Vercel at [rework.yorkstead.com](https://rework.yorkstead.com).\n   - Routes completed:\n     - `/maps`: Google Maps I-70 corridor search simulation with instant quote CTA.\n     - `/reserve`: Stranded trucker self-service rate calculator & 45-min bay countdown hold.\n     - `/dock`: Forklift touchscreen intake terminal with camera & driver signature pad.\n     - `/office`: Dispatcher operations board with Web Audio synthesized alert chimes & QuickBooks export.\n   - Pushed full codebase to GitHub: `https://github.com/yorkstead/rework-flow.git`.\n\n2. **Industrial Hardware Blueprint Formulated:**\n   - Standardized on **HOTWAV R9 Pro 11\" Rugged Android 14 Tablet** (20,080mAh battery, IP68/IP69K, 4G LTE, 64MP camera).\n   - Paired with **RAM MOUNTS Tough-Claw** roll-cage mount and **RAM MOUNTS X-Grip** 12\" cradle.\n   - Structured two turnkey hardware bundles:\n     - **Package A (2-Bay Starter):** \\$980.00 Total\n     - **Package B (6-Bay Full Facility):** \\$2,850.00 Total\n\n3. **Commercial Strategy Refined to Single Buyout:**\n   - Standardized exclusively on the **\\$9,500 Complete Asset Purchase** (all multi-tier subscription models removed).\n   - Codified **15-Mile Territorial Exclusivity Covenant** along I-70/I-25 protecting Denver Express against FreightBox and FMG.\n   - Codified **SpinFlow Agency Handover Guarantee** allowing Denver Express's web team (`spinflow.ai`) to host on `rework.denverexpressco.com`.\n\n4. **Deal Kit Compilation & Export:**\n   - Generated professional multi-page ReportLab PDF: `Denver_Express_ReworkFlow_Master_Brief.pdf`.\n   - Packaged full 8-module deal kit into `Denver_Express_ReworkFlow_Deal_Kit.zip` (exported to `exports/` and user's `Downloads/`).\n\n5. **Obsidian Vault Knowledge Base Initialized:**\n   - Connected and structured the local Obsidian vault at `~/dev/yorkstead-systems/obsidian/yorkstead`.\n   - Created master Map of Content (`[[00 - Yorkstead Dashboard]]`), client dossier, product specs, hardware blueprint, market intel, and sales playbooks.\n\n6. **Integrated Obsidian Vault into `ops.yorkstead.com` & Pushed to `main`:**\n   - Engineered zero-dependency vault parser and live API route (`/api/knowledge/vault`).\n   - Implemented interactive Vault Browser with real-time markdown reader, callouts, and clickable wikilinks.\n   - Added pre-build sync script (`bun scripts/sync-vault.ts`) ensuring cloud container builds include all notes.\n   - Merged, committed, and pushed to `main` (`commit a2addb5`), triggering automated CI/CD deployment on GitHub Actions.\n\n---\n\n## 🔍 Key Decisions & Insights\n* **Decision:** Strip out recurring SaaS pricing when pitching blue-collar asset terminals. Steve Chapman and Dale Burget think in capital asset terms. The \\$9,500 buyout with a 58-day payback period is much more compelling.\n* **Decision:** Sourcing the HOTWAV R9 Pro eliminates the need for expensive forklift DC-to-DC electrical converters due to its 20,080mAh battery.\n\n---\n\n## 🔗 Referenced Notes\n* [[00 - Yorkstead Dashboard]]\n* [[Denver Express & No Limit Trucking]]\n* [[ReworkFlow Terminal Platform]]\n* [[Industrial Hardware Specification]]\n* [[The $9,500 Asset Purchase Strategy]]\n* [[Warm Referral Pitch - Morelli Playbook]]\n",
+    "rawContent": "---\ntitle: 2026-09-04 - Denver Express Deal Kit & ReworkFlow Launch\ndate: 2026-09-04\ntype: daily-log\nstatus: completed\ntags:\n  - daily-log\n  - denver-express\n  - reworkflow\n  - milestone\n---\n\n# 📅 Daily Log: 2026-09-04 — Denver Express Deal Kit & ReworkFlow Launch\n\n## 🎯 Primary Accomplishments\n\n1. **ReworkFlow™ Production Deployment:**\n   - Deployed live cross-dock web application to Vercel at [rework.yorkstead.com](https://rework.yorkstead.com).\n   - Routes completed:\n     - `/maps`: Google Maps I-70 corridor search simulation with instant quote CTA.\n     - `/reserve`: Stranded trucker self-service rate calculator & 45-min bay countdown hold.\n     - `/dock`: Forklift touchscreen intake terminal with camera & driver signature pad.\n     - `/office`: Dispatcher operations board with Web Audio synthesized alert chimes & QuickBooks export.\n   - Pushed full codebase to GitHub: `https://github.com/yorkstead/rework-flow.git`.\n\n2. **Industrial Hardware Blueprint Formulated:**\n   - Standardized on **HOTWAV R9 Pro 11\" Rugged Android 14 Tablet** (20,080mAh battery, IP68/IP69K, 4G LTE, 64MP camera).\n   - Paired with **RAM MOUNTS Tough-Claw** roll-cage mount and **RAM MOUNTS X-Grip** 12\" cradle.\n   - Structured two turnkey hardware bundles:\n     - **Package A (2-Bay Starter):** \\$980.00 Total\n     - **Package B (6-Bay Full Facility):** \\$2,850.00 Total\n\n3. **Commercial Strategy Refined to Single Buyout:**\n   - Standardized exclusively on the **\\$9,500 Complete Asset Purchase** (all multi-tier subscription models removed).\n   - Codified **15-Mile Territorial Exclusivity Covenant** along I-70/I-25 protecting Denver Express against FreightBox and FMG.\n   - Codified **SpinFlow Agency Handover Guarantee** allowing Denver Express's web team (`spinflow.ai`) to host on `rework.denverexpressco.com`.\n\n4. **Deal Kit Compilation & Export:**\n   - Generated professional multi-page ReportLab PDF: `Denver_Express_ReworkFlow_Master_Brief.pdf`.\n   - Packaged full 8-module deal kit into `Denver_Express_ReworkFlow_Deal_Kit.zip` (exported to `exports/` and user's `Downloads/`).\n\n5. **Obsidian Vault Knowledge Base Initialized:**\n   - Connected and structured the local Obsidian vault at `~/dev/yorkstead-systems/obsidian/yorkstead`.\n   - Created master Map of Content (`[[00 - Yorkstead Dashboard]]`), client dossier, product specs, hardware blueprint, market intel, and sales playbooks.\n\n6. **Integrated Obsidian Vault into `ops.yorkstead.com` & Pushed to `main`:**\n   - Engineered zero-dependency vault parser and live API route (`/api/knowledge/vault`).\n   - Implemented interactive Vault Browser with real-time markdown reader, callouts, and clickable wikilinks.\n   - Added pre-build sync script (`bun scripts/sync-vault.ts`) ensuring cloud container builds include all notes.\n   - Merged, committed, and pushed to `main` (`commit a2addb5`), triggering automated CI/CD deployment on GitHub Actions.\n\n---\n\n## 🔍 Key Decisions & Insights\n* **Decision:** Strip out recurring SaaS pricing when pitching blue-collar asset terminals. Steve Chapman and Dale Burget think in capital asset terms. The \\$9,500 buyout with a 58-day payback period is much more compelling.\n* **Decision:** Sourcing the HOTWAV R9 Pro eliminates the need for expensive forklift DC-to-DC electrical converters due to its 20,080mAh battery.\n\n---\n\n## 🔗 Referenced Notes\n* [[00 - Yorkstead Dashboard]]\n* [[Denver Express & No Limit Trucking]]\n* [[ReworkFlow Terminal Platform]]\n* [[Industrial Hardware Specification]]\n* [[The $9,500 Asset Purchase Strategy]]\n* [[Warm Referral Pitch - Morelli Playbook]]\n",
+    "frontmatter": {
+      "title": "2026-09-04 - Denver Express Deal Kit & ReworkFlow Launch",
+      "date": "2026-09-04",
+      "type": "daily-log",
+      "status": "completed",
+      "tags": [
+        "daily-log",
+        "denver-express",
+        "reworkflow",
+        "milestone"
+      ]
+    }
+  },
+  {
+    "title": "I-70 & I-25 Freight Corridor Intelligence",
+    "slug": "04-market-research-intel/i-70-i-25-freight-corridor-intelligence",
+    "relativePath": "04 - Market Research & Intel/I-70 & I-25 Freight Corridor Intelligence.md",
+    "category": "04 - Market Research & Intel",
+    "tags": [
+      "logistics",
+      "i70-corridor",
+      "cross-dock",
+      "competitor-intel"
+    ],
+    "date": "2026-09-04",
+    "type": "market-intelligence",
+    "lastModified": "2026-09-04T07:46:49.761Z",
+    "excerpt": "Every week, hundreds of over-the-road (OTR) semi-trucks haul 40,000 to 45,000 lbs of consumer freight eastbound across the Rocky Mountains on Interstate 70:",
+    "content": "# 🚚 Market Intelligence: The I-70 / I-25 Freight Rework Corridor\n\n## 🏔️ The Physical Geography of Load Shifts\n\nEvery week, hundreds of over-the-road (OTR) semi-trucks haul 40,000 to 45,000 lbs of consumer freight eastbound across the Rocky Mountains on Interstate 70:\n1. **The Downgrade:** Trucks descend through Eisenhower Tunnel, Vail Pass, and the 6% downgrade of **Floyd Hill into Golden**.\n2. **The Damage:** Extreme braking, switchbacks, and sudden deceleration cause pallets of bottled beverages, canned goods, and packaging materials to lean, tip, or burst shrink wrap.\n3. **The Rejection:** Receiving distribution centers in Commerce City, Aurora, and Henderson (King Soopers/Kroger, Walmart, Sysco, UNFI) immediately reject trailers with tipped pallets.\n4. **The Port of Entry:** Shifting weight puts tractor tandem or trailer axles over legal Colorado DOT bridge limits.\n\n---\n\n## ⏳ The Three Pressures on Stranded Truckers\n\n1. **The ELD Clock:** Drivers have strict Federal Hours of Service limits. Often they have under 45 minutes of legal drive time remaining before forced shutdown.\n2. **Broker Authorization Deadlock:** Drivers cannot pay out-of-pocket cash ($400–$700). Brokers require a firm price upfront before issuing an electronic **Comchek** or **EFS** code.\n3. **The Phone Tag Void:** Drivers search *\"cross dock near me\"* on Google Maps, call facilities, and get voicemail or non-committal answers.\n\n---\n\n## 🎯 Direct Regional Competitors (15-Mile Radius)\n\n| Competitor | Location | Distance from 6030 Washington | Threat Profile |\n| :--- | :--- | :--- | :--- |\n| **FreightBox (Cross Dock Denver)** | 5205 Monroe St, Denver | **1.8 miles** | **Direct Primary Threat:** Aggressive SEO for *\"Denver Cross Dock\"*, 24/7 on-call claims, short distance from I-70/I-25. |\n| **FMG Denver** | 40th & Franklin St corridor | ~3.5 miles | Specializes in refrigerated/frozen transload and reefer reworks. |\n| **Ambry Inc.** | Commerce City | ~5 miles | Regional warehousing and local distribution. |\n| **Adams Logistics** | Commerce City / 56th Ave | ~6 miles | Dry freight transload and contract storage. |\n\n### The 15-Mile Exclusivity Shield\nBy guaranteeing Denver Express a **15-mile non-compete covenant**, Yorkstead legally promises never to sell or license ReworkFlow to FreightBox, FMG, Ambry, or any competitor at the I-70/I-25 interchange.\n\n---\n\n## 🔗 Related Notes\n* [[Denver Express & No Limit Trucking]]\n* [[The $9,500 Asset Purchase Strategy]]\n* [[ReworkFlow Terminal Platform]]\n",
+    "rawContent": "---\ntitle: I-70 & I-25 Freight Corridor Intelligence\ndate: 2026-09-04\ntype: market-intelligence\nregion: Denver, Colorado\ntags:\n  - logistics\n  - i70-corridor\n  - cross-dock\n  - competitor-intel\n---\n\n# 🚚 Market Intelligence: The I-70 / I-25 Freight Rework Corridor\n\n## 🏔️ The Physical Geography of Load Shifts\n\nEvery week, hundreds of over-the-road (OTR) semi-trucks haul 40,000 to 45,000 lbs of consumer freight eastbound across the Rocky Mountains on Interstate 70:\n1. **The Downgrade:** Trucks descend through Eisenhower Tunnel, Vail Pass, and the 6% downgrade of **Floyd Hill into Golden**.\n2. **The Damage:** Extreme braking, switchbacks, and sudden deceleration cause pallets of bottled beverages, canned goods, and packaging materials to lean, tip, or burst shrink wrap.\n3. **The Rejection:** Receiving distribution centers in Commerce City, Aurora, and Henderson (King Soopers/Kroger, Walmart, Sysco, UNFI) immediately reject trailers with tipped pallets.\n4. **The Port of Entry:** Shifting weight puts tractor tandem or trailer axles over legal Colorado DOT bridge limits.\n\n---\n\n## ⏳ The Three Pressures on Stranded Truckers\n\n1. **The ELD Clock:** Drivers have strict Federal Hours of Service limits. Often they have under 45 minutes of legal drive time remaining before forced shutdown.\n2. **Broker Authorization Deadlock:** Drivers cannot pay out-of-pocket cash ($400–$700). Brokers require a firm price upfront before issuing an electronic **Comchek** or **EFS** code.\n3. **The Phone Tag Void:** Drivers search *\"cross dock near me\"* on Google Maps, call facilities, and get voicemail or non-committal answers.\n\n---\n\n## 🎯 Direct Regional Competitors (15-Mile Radius)\n\n| Competitor | Location | Distance from 6030 Washington | Threat Profile |\n| :--- | :--- | :--- | :--- |\n| **FreightBox (Cross Dock Denver)** | 5205 Monroe St, Denver | **1.8 miles** | **Direct Primary Threat:** Aggressive SEO for *\"Denver Cross Dock\"*, 24/7 on-call claims, short distance from I-70/I-25. |\n| **FMG Denver** | 40th & Franklin St corridor | ~3.5 miles | Specializes in refrigerated/frozen transload and reefer reworks. |\n| **Ambry Inc.** | Commerce City | ~5 miles | Regional warehousing and local distribution. |\n| **Adams Logistics** | Commerce City / 56th Ave | ~6 miles | Dry freight transload and contract storage. |\n\n### The 15-Mile Exclusivity Shield\nBy guaranteeing Denver Express a **15-mile non-compete covenant**, Yorkstead legally promises never to sell or license ReworkFlow to FreightBox, FMG, Ambry, or any competitor at the I-70/I-25 interchange.\n\n---\n\n## 🔗 Related Notes\n* [[Denver Express & No Limit Trucking]]\n* [[The $9,500 Asset Purchase Strategy]]\n* [[ReworkFlow Terminal Platform]]\n",
+    "frontmatter": {
+      "title": "I-70 & I-25 Freight Corridor Intelligence",
+      "date": "2026-09-04",
+      "type": "market-intelligence",
+      "region": "Denver, Colorado",
+      "tags": [
+        "logistics",
+        "i70-corridor",
+        "cross-dock",
+        "competitor-intel"
+      ]
+    }
+  },
+  {
+    "title": "Partner Dossier - SpinFlow.ai",
+    "slug": "04-market-research-intel/partner-dossier-spinflow-ai",
+    "relativePath": "04 - Market Research & Intel/Partner Dossier - SpinFlow.ai.md",
+    "category": "04 - Market Research & Intel",
+    "tags": [
+      "web-agency",
+      "partner",
+      "spinflow",
+      "handover"
+    ],
+    "date": "2026-09-04",
+    "type": "partner-dossier",
+    "lastModified": "2026-09-04T07:46:58.528Z",
+    "excerpt": "> Role for Client: Web design, hosting, and marketing agency for Denver Express (denverexpressco.com).  ",
+    "content": "# 🤝 Partner Dossier: SpinFlow.ai (Lingows)\n\n> **Role for Client:** Web design, hosting, and marketing agency for Denver Express (`denverexpressco.com`).  \n> **Corporate Identity:** SpinFlow / Lingows Media LLC.  \n> **Tech Stack:** Modern React, TanStack, Tailwind CSS, high-performance static/SSR frontend hosting.\n\n---\n\n## 🎯 Strategic Relationship with Yorkstead\n\nRather than viewing SpinFlow as a competitor or pitching Denver Express on replacing them, Yorkstead positions SpinFlow as a vital strategic partner:\n\n1. **Stack Compatibility:** ReworkFlow is built on **Next.js / React / Tailwind CSS**—the identical technology philosophy used by SpinFlow.\n2. **Subdomain Integration:** ReworkFlow is designed to be mapped seamlessly to a subdomain of Denver Express's existing domain: `rework.denverexpressco.com`.\n3. **The \"Vendor Independence\" Pitch:** During the sales conversation with Steve Chapman and Dale Burget, Yorkstead explains:\n   > *\"You don't have to stay married to Yorkstead for monthly maintenance. If you want SpinFlow to host and maintain ReworkFlow alongside your main website, we will conduct a 1-hour engineering handover session with their tech team and deliver all source code directly to your GitHub repository.\"*\n4. **Win-Win Dynamic:** SpinFlow gains a happy client with expanded web functionality, Denver Express avoids software lock-in, and Yorkstead closes the \\$9,500 buyout with zero pushback.\n\n---\n\n## 🔗 Related Notes\n* [[Denver Express & No Limit Trucking]]\n* [[The $9,500 Asset Purchase Strategy]]\n* [[ReworkFlow Terminal Platform]]\n",
+    "rawContent": "---\ntitle: Partner Dossier - SpinFlow.ai\ndate: 2026-09-04\ntype: partner-dossier\nwebsite: https://spinflow.ai\ntags:\n  - web-agency\n  - partner\n  - spinflow\n  - handover\n---\n\n# 🤝 Partner Dossier: SpinFlow.ai (Lingows)\n\n> **Role for Client:** Web design, hosting, and marketing agency for Denver Express (`denverexpressco.com`).  \n> **Corporate Identity:** SpinFlow / Lingows Media LLC.  \n> **Tech Stack:** Modern React, TanStack, Tailwind CSS, high-performance static/SSR frontend hosting.\n\n---\n\n## 🎯 Strategic Relationship with Yorkstead\n\nRather than viewing SpinFlow as a competitor or pitching Denver Express on replacing them, Yorkstead positions SpinFlow as a vital strategic partner:\n\n1. **Stack Compatibility:** ReworkFlow is built on **Next.js / React / Tailwind CSS**—the identical technology philosophy used by SpinFlow.\n2. **Subdomain Integration:** ReworkFlow is designed to be mapped seamlessly to a subdomain of Denver Express's existing domain: `rework.denverexpressco.com`.\n3. **The \"Vendor Independence\" Pitch:** During the sales conversation with Steve Chapman and Dale Burget, Yorkstead explains:\n   > *\"You don't have to stay married to Yorkstead for monthly maintenance. If you want SpinFlow to host and maintain ReworkFlow alongside your main website, we will conduct a 1-hour engineering handover session with their tech team and deliver all source code directly to your GitHub repository.\"*\n4. **Win-Win Dynamic:** SpinFlow gains a happy client with expanded web functionality, Denver Express avoids software lock-in, and Yorkstead closes the \\$9,500 buyout with zero pushback.\n\n---\n\n## 🔗 Related Notes\n* [[Denver Express & No Limit Trucking]]\n* [[The $9,500 Asset Purchase Strategy]]\n* [[ReworkFlow Terminal Platform]]\n",
+    "frontmatter": {
+      "title": "Partner Dossier - SpinFlow.ai",
+      "date": "2026-09-04",
+      "type": "partner-dossier",
+      "website": "https://spinflow.ai",
+      "tags": [
+        "web-agency",
+        "partner",
+        "spinflow",
+        "handover"
+      ]
+    }
+  },
+  {
+    "title": "The $9,500 Asset Purchase Strategy",
+    "slug": "05-sales-playbooks/the-9-500-asset-purchase-strategy",
+    "relativePath": "05 - Sales & Playbooks/The $9,500 Asset Purchase Strategy.md",
+    "category": "05 - Sales & Playbooks",
+    "tags": [
+      "pricing",
+      "deal-structure",
+      "anti-saas",
+      "sales-playbook"
+    ],
+    "date": "2026-09-04",
+    "type": "commercial-strategy",
+    "lastModified": "2026-09-04T07:47:02.401Z",
+    "excerpt": "> The Yorkstead Philosophy: Blue-collar industrial businesses hate monthly software subscriptions (\"SaaS rent\"). They invest in forklifts, real estate, and rack",
+    "content": "# 💰 Commercial Strategy: The \\$9,500 Capital Asset Buyout\n\n> **The Yorkstead Philosophy:** Blue-collar industrial businesses hate monthly software subscriptions (\"SaaS rent\"). They invest in forklifts, real estate, and racking as balance-sheet capital assets. Software should be treated the same way.\n\n---\n\n## 🎯 The Commercial Offer\n\n* **Total Software Purchase:** **\\$9,500.00 (One-Time)**\n  * **Payment Terms:** 50% upon signing (\\$4,750.00), 50% upon on-site delivery and staff training (\\$4,750.00).\n* **What is Included:**\n  * 100% full source code ownership (deposited to Client's GitHub).\n  * **15-Mile Territorial Exclusivity Covenant** along the I-70/I-25 freight interchange.\n  * **SpinFlow Handover Architecture** with 1-hour engineering transition session.\n  * On-site terminal setup, bay calibration, and staff training at 6030 Washington St.\n  * Zero per-user, per-forklift, or per-rework software licensing fees forever.\n\n---\n\n## 🛠️ Add-On Offerings\n\n1. **Hardware Add-On (Optional):**\n   * **Package A (2-Bay Starter):** \\$980.00 (2x HOTWAV R9 Pro 11\" 20,080mAh + 2x RAM Mounts).\n   * **Package B (6-Bay Full Facility):** \\$2,850.00 (6x HOTWAV R9 Pro 11\" + 6x RAM Mounts).\n   * **Client Hardware:** \\$0.00.\n2. **Support & Maintenance SLA (Optional):**\n   * **\\$450.00 / month** (30-day cancellation notice).\n   * Includes uptime monitoring, security patching, priority break-fix, and 4 free dev hours/month.\n   * Completely optional if Denver Express chooses to have SpinFlow maintain the app.\n\n---\n\n## 📈 Economic ROI & Payback Math\n\n* **Average Emergency Rework Fee:** \\$480 – \\$650 per truck.\n* **Volume Reality:** Several stranded OTR trucks bounce off Denver Express every week due to phone tag and lack of instant bay reservations.\n* **The ROI Equation:** Capturing just **2 additional trucks per week** generates **\\$4,160/month in net new revenue (\\$49,920 annually)**.\n* **Payback Period:** The entire \\$9,500 investment pays for itself in less than **58 days**.\n\n---\n\n## 🔗 Related Notes\n* [[Denver Express & No Limit Trucking]]\n* [[ReworkFlow Terminal Platform]]\n* [[Industrial Hardware Specification]]\n* [[Partner Dossier - SpinFlow.ai]]\n",
+    "rawContent": "---\ntitle: The $9,500 Asset Purchase Strategy\ndate: 2026-09-04\ntype: commercial-strategy\npricing_model: capital-asset-buyout\ntags:\n  - pricing\n  - deal-structure\n  - anti-saas\n  - sales-playbook\n---\n\n# 💰 Commercial Strategy: The \\$9,500 Capital Asset Buyout\n\n> **The Yorkstead Philosophy:** Blue-collar industrial businesses hate monthly software subscriptions (\"SaaS rent\"). They invest in forklifts, real estate, and racking as balance-sheet capital assets. Software should be treated the same way.\n\n---\n\n## 🎯 The Commercial Offer\n\n* **Total Software Purchase:** **\\$9,500.00 (One-Time)**\n  * **Payment Terms:** 50% upon signing (\\$4,750.00), 50% upon on-site delivery and staff training (\\$4,750.00).\n* **What is Included:**\n  * 100% full source code ownership (deposited to Client's GitHub).\n  * **15-Mile Territorial Exclusivity Covenant** along the I-70/I-25 freight interchange.\n  * **SpinFlow Handover Architecture** with 1-hour engineering transition session.\n  * On-site terminal setup, bay calibration, and staff training at 6030 Washington St.\n  * Zero per-user, per-forklift, or per-rework software licensing fees forever.\n\n---\n\n## 🛠️ Add-On Offerings\n\n1. **Hardware Add-On (Optional):**\n   * **Package A (2-Bay Starter):** \\$980.00 (2x HOTWAV R9 Pro 11\" 20,080mAh + 2x RAM Mounts).\n   * **Package B (6-Bay Full Facility):** \\$2,850.00 (6x HOTWAV R9 Pro 11\" + 6x RAM Mounts).\n   * **Client Hardware:** \\$0.00.\n2. **Support & Maintenance SLA (Optional):**\n   * **\\$450.00 / month** (30-day cancellation notice).\n   * Includes uptime monitoring, security patching, priority break-fix, and 4 free dev hours/month.\n   * Completely optional if Denver Express chooses to have SpinFlow maintain the app.\n\n---\n\n## 📈 Economic ROI & Payback Math\n\n* **Average Emergency Rework Fee:** \\$480 – \\$650 per truck.\n* **Volume Reality:** Several stranded OTR trucks bounce off Denver Express every week due to phone tag and lack of instant bay reservations.\n* **The ROI Equation:** Capturing just **2 additional trucks per week** generates **\\$4,160/month in net new revenue (\\$49,920 annually)**.\n* **Payback Period:** The entire \\$9,500 investment pays for itself in less than **58 days**.\n\n---\n\n## 🔗 Related Notes\n* [[Denver Express & No Limit Trucking]]\n* [[ReworkFlow Terminal Platform]]\n* [[Industrial Hardware Specification]]\n* [[Partner Dossier - SpinFlow.ai]]\n",
+    "frontmatter": {
+      "title": "The $9,500 Asset Purchase Strategy",
+      "date": "2026-09-04",
+      "type": "commercial-strategy",
+      "pricing_model": "capital-asset-buyout",
+      "tags": [
+        "pricing",
+        "deal-structure",
+        "anti-saas",
+        "sales-playbook"
+      ]
+    }
+  },
+  {
+    "title": "Warm Referral Pitch - Morelli Playbook",
+    "slug": "05-sales-playbooks/warm-referral-pitch-morelli-playbook",
+    "relativePath": "05 - Sales & Playbooks/Warm Referral Pitch - Morelli Playbook.md",
+    "category": "05 - Sales & Playbooks",
+    "tags": [
+      "referral",
+      "scripts",
+      "sales-playbook"
+    ],
+    "date": "2026-09-04",
+    "type": "sales-playbook",
+    "lastModified": "2026-09-04T07:47:06.489Z",
+    "excerpt": "> Target: Michael Morelli & Rick Morelli  ",
+    "content": "# 📞 Warm Referral Pitch: The Morelli Bridge Playbook\n\n> **Target:** Michael Morelli & Rick Morelli  \n> **Relationship Foundation:** Peer-to-peer connection from Yorkstead founder's former role as **Manufacturing Supervisor at Elward Systems**.\n\n---\n\n## 🎯 Strategic Objective\nWe do NOT ask the Morellis to buy software. We ask them for an operational sanity-check and an introduction to **Craig Bedore** (on-site dock operating principal) and **Steve Chapman / Dale Burget** (owners).\n\n---\n\n## 📱 Phone & Text Scripts\n\n### 1. Opening Phone Conversation\n> *\"Hey Michael / Rick, this is [Your Name]. It's been a bit since our days coordinating panel loads and freight at Elward Systems! I wanted to reach out because I've been building custom operational systems tailored specifically for heavy transport and cross-docking along the I-70 corridor.*  \n>  \n> *I know how crazy things get when trucks come down Floyd Hill with shifted loads and blown-out pallets. I built a working terminal platform specifically around Denver Express's setup at 6030 Washington St—handles instant emergency driver holds, forklift damage photo capture on rugged tablets, and shuts down broker chargebacks.*  \n>  \n> *Before I sit down with Steve, Dale, or Craig, I wanted to buy you a cup of coffee or jump on a quick 5-minute call to get your take on it as a real freight operator. You guys know the day-to-day headaches better than anyone.\"*\n\n### 2. Transitioning to Craig Bedore (On-Site Dock Principal)\n> *\"Craig, Michael and Rick mentioned I should talk directly to you because you're the one actually running the dock doors and dealing with the forklift crews when a trailer pulls in with tipped pallets.*  \n>  \n> *I came out of industrial manufacturing supervision over at Elward, so I know you don't need another tech kid trying to sell you monthly software rent. I built this so your guys on the Toyota lifts have rugged, glove-friendly tablets that take watermarked before/after photos and capture driver signatures on the glass, while the office gets an automatic chime when a truck reserves.*  \n>  \n> *Can I swing by 6030 Washington on Tuesday morning with the tablet mounted on a clamp to show you and the crew in person?\"*\n\n---\n\n## 🔗 Related Notes\n* [[Denver Express & No Limit Trucking]]\n* [[Elward Systems]]\n* [[The $9,500 Asset Purchase Strategy]]\n* [[ReworkFlow Terminal Platform]]\n",
+    "rawContent": "---\ntitle: Warm Referral Pitch - Morelli Playbook\ndate: 2026-09-04\ntype: sales-playbook\ntarget_stakeholders:\n  - Michael Morelli\n  - Rick Morelli\ntags:\n  - referral\n  - scripts\n  - sales-playbook\n---\n\n# 📞 Warm Referral Pitch: The Morelli Bridge Playbook\n\n> **Target:** Michael Morelli & Rick Morelli  \n> **Relationship Foundation:** Peer-to-peer connection from Yorkstead founder's former role as **Manufacturing Supervisor at Elward Systems**.\n\n---\n\n## 🎯 Strategic Objective\nWe do NOT ask the Morellis to buy software. We ask them for an operational sanity-check and an introduction to **Craig Bedore** (on-site dock operating principal) and **Steve Chapman / Dale Burget** (owners).\n\n---\n\n## 📱 Phone & Text Scripts\n\n### 1. Opening Phone Conversation\n> *\"Hey Michael / Rick, this is [Your Name]. It's been a bit since our days coordinating panel loads and freight at Elward Systems! I wanted to reach out because I've been building custom operational systems tailored specifically for heavy transport and cross-docking along the I-70 corridor.*  \n>  \n> *I know how crazy things get when trucks come down Floyd Hill with shifted loads and blown-out pallets. I built a working terminal platform specifically around Denver Express's setup at 6030 Washington St—handles instant emergency driver holds, forklift damage photo capture on rugged tablets, and shuts down broker chargebacks.*  \n>  \n> *Before I sit down with Steve, Dale, or Craig, I wanted to buy you a cup of coffee or jump on a quick 5-minute call to get your take on it as a real freight operator. You guys know the day-to-day headaches better than anyone.\"*\n\n### 2. Transitioning to Craig Bedore (On-Site Dock Principal)\n> *\"Craig, Michael and Rick mentioned I should talk directly to you because you're the one actually running the dock doors and dealing with the forklift crews when a trailer pulls in with tipped pallets.*  \n>  \n> *I came out of industrial manufacturing supervision over at Elward, so I know you don't need another tech kid trying to sell you monthly software rent. I built this so your guys on the Toyota lifts have rugged, glove-friendly tablets that take watermarked before/after photos and capture driver signatures on the glass, while the office gets an automatic chime when a truck reserves.*  \n>  \n> *Can I swing by 6030 Washington on Tuesday morning with the tablet mounted on a clamp to show you and the crew in person?\"*\n\n---\n\n## 🔗 Related Notes\n* [[Denver Express & No Limit Trucking]]\n* [[Elward Systems]]\n* [[The $9,500 Asset Purchase Strategy]]\n* [[ReworkFlow Terminal Platform]]\n",
+    "frontmatter": {
+      "title": "Warm Referral Pitch - Morelli Playbook",
+      "date": "2026-09-04",
+      "type": "sales-playbook",
+      "target_stakeholders": [
+        "Michael Morelli",
+        "Rick Morelli"
+      ],
+      "tags": [
+        "referral",
+        "scripts",
+        "sales-playbook"
+      ]
+    }
+  },
+  {
+    "title": "{{title}}",
+    "slug": "06-templates/client-dossier-template",
+    "relativePath": "06 - Templates/Client Dossier Template.md",
+    "category": "06 - Templates",
+    "tags": [
+      "client",
+      "template"
+    ],
+    "date": "{{date}}",
+    "type": "client-dossier",
+    "stage": "lead / discovery / proposal-ready / active / delivered",
+    "dealSize": "$0",
+    "lastModified": "2026-09-04T07:47:11.735Z",
+    "excerpt": "> Facility Address:  ",
+    "content": "# 🏢 {{title}}\n\n> **Facility Address:**  \n> **Operational Footprint:**  \n> **Core Activity:**  \n\n---\n\n## 👥 Key Decision Makers & Stakeholders\n\n| Name | Title / Role | Contact | Operational Focus |\n| :--- | :--- | :--- | :--- |\n| | | | |\n\n---\n\n## 🎯 The Operational Problem & Leakage\n* **Problem 1:**\n* **Problem 2:**\n* **Problem 3:**\n\n---\n\n## 🛠️ Yorkstead Solution & Architecture\n* **System Concept:**\n* **Hardware Requirements:**\n* **Commercial Offer:**\n\n---\n\n## 📅 Timeline & Next Steps\n* [ ] Initial discovery call\n* [ ] Prototype walkthrough\n* [ ] Formal proposal delivery\n* [ ] On-site calibration & training\n",
+    "rawContent": "---\ntitle: \"{{title}}\"\ndate: \"{{date}}\"\ntype: client-dossier\nstage: lead / discovery / proposal-ready / active / delivered\ndeal_size: \"$0\"\ntags:\n  - client\n  - template\n---\n\n# 🏢 {{title}}\n\n> **Facility Address:**  \n> **Operational Footprint:**  \n> **Core Activity:**  \n\n---\n\n## 👥 Key Decision Makers & Stakeholders\n\n| Name | Title / Role | Contact | Operational Focus |\n| :--- | :--- | :--- | :--- |\n| | | | |\n\n---\n\n## 🎯 The Operational Problem & Leakage\n* **Problem 1:**\n* **Problem 2:**\n* **Problem 3:**\n\n---\n\n## 🛠️ Yorkstead Solution & Architecture\n* **System Concept:**\n* **Hardware Requirements:**\n* **Commercial Offer:**\n\n---\n\n## 📅 Timeline & Next Steps\n* [ ] Initial discovery call\n* [ ] Prototype walkthrough\n* [ ] Formal proposal delivery\n* [ ] On-site calibration & training\n",
+    "frontmatter": {
+      "title": "{{title}}",
+      "date": "{{date}}",
+      "type": "client-dossier",
+      "stage": "lead / discovery / proposal-ready / active / delivered",
+      "deal_size": "$0",
+      "tags": [
+        "client",
+        "template"
+      ]
+    }
+  },
+  {
+    "title": "{{date}} - Operational Log",
+    "slug": "06-templates/daily-log-template",
+    "relativePath": "06 - Templates/Daily Log Template.md",
+    "category": "06 - Templates",
+    "tags": [
+      "daily-log"
+    ],
+    "date": "{{date}}",
+    "status": "in-progress",
+    "type": "daily-log",
+    "lastModified": "2026-09-04T07:47:14.980Z",
+    "excerpt": "   ",
+    "content": "# 📅 Daily Log: {{date}}\n\n## 🎯 Focus & Primary Objectives\n* [ ] \n* [ ] \n\n---\n\n## 🚀 Accomplishments & Work Delivered\n* \n\n---\n\n## 💡 Strategic Decisions & Insights\n* \n\n---\n\n## 📌 Blockers & Next Actions\n* [ ] \n",
+    "rawContent": "---\ntitle: \"{{date}} - Operational Log\"\ndate: \"{{date}}\"\ntype: daily-log\nstatus: in-progress\ntags:\n  - daily-log\n---\n\n# 📅 Daily Log: {{date}}\n\n## 🎯 Focus & Primary Objectives\n* [ ] \n* [ ] \n\n---\n\n## 🚀 Accomplishments & Work Delivered\n* \n\n---\n\n## 💡 Strategic Decisions & Insights\n* \n\n---\n\n## 📌 Blockers & Next Actions\n* [ ] \n",
+    "frontmatter": {
+      "title": "{{date}} - Operational Log",
+      "date": "{{date}}",
+      "type": "daily-log",
+      "status": "in-progress",
+      "tags": [
+        "daily-log"
+      ]
+    }
+  },
+  {
+    "title": "Welcome to Yorkstead Vault",
+    "slug": "welcome",
+    "relativePath": "Welcome.md",
+    "category": "Root Index",
+    "tags": [],
+    "date": "2026-09-04",
+    "type": "index",
+    "lastModified": "2026-09-04T07:47:18.386Z",
+    "excerpt": "Your central knowledge base and operations tracker is fully connected and initialized!",
+    "content": "# 🚀 Welcome to the Yorkstead Systems Vault\n\nYour central knowledge base and operations tracker is fully connected and initialized!\n\n👉 **Open the Master Control Center:** **[[00 - Yorkstead Dashboard]]**\n\n---\n\n### ⚡ Quick Links:\n* 🏢 **Active Client Deal:** [[Denver Express & No Limit Trucking]]\n* 📱 **Hardware Blueprint:** [[Industrial Hardware Specification]]\n* ⚡ **Live Platform:** [[ReworkFlow Terminal Platform]]\n* 💰 **Pricing & Deal Structure:** [[The $9,500 Asset Purchase Strategy]]\n* 📅 **Latest Daily Log:** [[2026-09-04 - Denver Express Deal Kit & ReworkFlow Launch]]\n* 🤝 **Web Agency Dossier:** [[Partner Dossier - SpinFlow.ai]]\n* 🚚 **Regional Intelligence:** [[I-70 & I-25 Freight Corridor Intelligence]]\n* 📞 **Warm Outreach Playbook:** [[Warm Referral Pitch - Morelli Playbook]]",
+    "rawContent": "---\ntitle: Welcome to Yorkstead Vault\ndate: 2026-09-04\ntype: index\n---\n\n# 🚀 Welcome to the Yorkstead Systems Vault\n\nYour central knowledge base and operations tracker is fully connected and initialized!\n\n👉 **Open the Master Control Center:** **[[00 - Yorkstead Dashboard]]**\n\n---\n\n### ⚡ Quick Links:\n* 🏢 **Active Client Deal:** [[Denver Express & No Limit Trucking]]\n* 📱 **Hardware Blueprint:** [[Industrial Hardware Specification]]\n* ⚡ **Live Platform:** [[ReworkFlow Terminal Platform]]\n* 💰 **Pricing & Deal Structure:** [[The $9,500 Asset Purchase Strategy]]\n* 📅 **Latest Daily Log:** [[2026-09-04 - Denver Express Deal Kit & ReworkFlow Launch]]\n* 🤝 **Web Agency Dossier:** [[Partner Dossier - SpinFlow.ai]]\n* 🚚 **Regional Intelligence:** [[I-70 & I-25 Freight Corridor Intelligence]]\n* 📞 **Warm Outreach Playbook:** [[Warm Referral Pitch - Morelli Playbook]]",
+    "frontmatter": {
+      "title": "Welcome to Yorkstead Vault",
+      "date": "2026-09-04",
+      "type": "index"
+    }
+  }
+]
