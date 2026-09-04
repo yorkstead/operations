@@ -30,6 +30,7 @@ export function ObsidianVaultBrowser() {
   const [loading, setLoading] = React.useState<boolean>(true);
   const [noteLoading, setNoteLoading] = React.useState<boolean>(false);
   const [viewMode, setViewMode] = React.useState<"rendered" | "raw">("rendered");
+  const hasSelectedInitial = React.useRef(false);
 
   const loadNoteDetail = React.useCallback(async (slugOrPath: string) => {
     setNoteLoading(true);
@@ -59,8 +60,9 @@ export function ObsidianVaultBrowser() {
         const data: VaultSummary = await res.json();
         setSummary(data);
 
-        // Auto-select dashboard or first note if nothing selected
-        if (!selectedNote && data.notes.length > 0) {
+        // Auto-select dashboard or first note on initial load if nothing selected
+        if (!hasSelectedInitial.current && data.notes.length > 0) {
+          hasSelectedInitial.current = true;
           const defaultNote = data.notes.find((n) => n.relativePath.includes("Dashboard")) || data.notes[0];
           void loadNoteDetail(defaultNote.slug);
         }
@@ -70,7 +72,7 @@ export function ObsidianVaultBrowser() {
     } finally {
       setLoading(false);
     }
-  }, [loadNoteDetail, selectedNote]);
+  }, [loadNoteDetail]);
 
   React.useEffect(() => {
     const timer = window.setTimeout(() => {
@@ -402,7 +404,7 @@ function MarkdownViewer({
 }
 
 interface MarkdownBlock {
-  type: "heading" | "paragraph" | "callout" | "table" | "code" | "list" | "divider";
+  type: "heading" | "paragraph" | "callout" | "blockquote" | "table" | "code" | "list" | "divider";
   level?: number;
   calloutType?: string;
   title?: string;
@@ -444,29 +446,44 @@ function parseMarkdownBlocks(rawText: string): MarkdownBlock[] {
         codeLines.push(lines[i]);
         i++;
       }
-      i++; // Skip closing ```
+      if (i < lines.length) {
+        i++; // Skip closing ```
+      }
       blocks.push({ type: "code", language, text: codeLines.join("\n") });
       continue;
     }
 
-    // Obsidian Callouts: > [!tip], > [!info], > [!warning], etc.
-    if (trimmed.startsWith("> [!")) {
-      const match = trimmed.match(/^>\s*\[!([a-zA-Z_-]+)\]\s*(.*)$/);
-      const calloutType = match ? match[1].toLowerCase() : "info";
-      const calloutTitle = match && match[2] ? match[2].trim() : calloutType.toUpperCase();
-      const calloutLines: string[] = [];
-      i++;
-      while (i < lines.length && lines[i].trim().startsWith(">")) {
-        calloutLines.push(lines[i].replace(/^>\s?/, ""));
+    // Obsidian Callouts or Standard Blockquotes
+    if (trimmed.startsWith(">")) {
+      if (trimmed.startsWith("> [!")) {
+        const match = trimmed.match(/^>\s*\[!([a-zA-Z_-]+)\]\s*(.*)$/);
+        const calloutType = match ? match[1].toLowerCase() : "info";
+        const calloutTitle = match && match[2] ? match[2].trim() : calloutType.toUpperCase();
+        const calloutLines: string[] = [];
         i++;
+        while (i < lines.length && lines[i].trim().startsWith(">")) {
+          calloutLines.push(lines[i].replace(/^>\s?/, ""));
+          i++;
+        }
+        blocks.push({
+          type: "callout",
+          calloutType,
+          title: calloutTitle,
+          text: calloutLines.join("\n"),
+        });
+        continue;
+      } else {
+        const quoteLines: string[] = [];
+        while (i < lines.length && lines[i].trim().startsWith(">")) {
+          quoteLines.push(lines[i].replace(/^>\s?/, ""));
+          i++;
+        }
+        blocks.push({
+          type: "blockquote",
+          text: quoteLines.join("\n"),
+        });
+        continue;
       }
-      blocks.push({
-        type: "callout",
-        calloutType,
-        title: calloutTitle,
-        text: calloutLines.join("\n"),
-      });
-      continue;
     }
 
     // Headings
@@ -505,6 +522,9 @@ function parseMarkdownBlocks(rawText: string): MarkdownBlock[] {
         }
         blocks.push({ type: "table", headers, rows });
         continue;
+      } else {
+        blocks.push({ type: "paragraph", text: tableLines.join(" ") });
+        continue;
       }
     }
 
@@ -540,12 +560,21 @@ function parseMarkdownBlocks(rawText: string): MarkdownBlock[] {
       !lines[i].trim().startsWith(">") &&
       !lines[i].trim().startsWith("|") &&
       !lines[i].trim().startsWith("* ") &&
-      !lines[i].trim().startsWith("- ")
+      !lines[i].trim().startsWith("- ") &&
+      lines[i].trim() !== "---" &&
+      lines[i].trim() !== "***"
     ) {
       paraLines.push(lines[i]);
       i++;
     }
-    blocks.push({ type: "paragraph", text: paraLines.join(" ") });
+
+    if (paraLines.length > 0) {
+      blocks.push({ type: "paragraph", text: paraLines.join(" ") });
+    } else {
+      // Safety guarantee: always advance i so loop never hangs
+      blocks.push({ type: "paragraph", text: lines[i] });
+      i++;
+    }
   }
 
   return blocks;
@@ -591,6 +620,13 @@ function BlockRenderer({
 
     case "divider":
       return <hr className="border-border my-4" />;
+
+    case "blockquote":
+      return (
+        <blockquote className="border-l-4 border-primary/50 bg-muted/20 pl-4 py-2 my-3 rounded-r italic text-foreground/90 font-serif">
+          {renderInlineText(block.text || "", onWikilinkClick)}
+        </blockquote>
+      );
 
     case "paragraph":
       return <p className="leading-relaxed text-foreground/80">{renderInlineText(block.text || "", onWikilinkClick)}</p>;
