@@ -1,8 +1,8 @@
 // components/demo/operational-scenario-display.tsx
 "use client";
 
-import React, { useState } from "react";
-import { ProblemDemoModule, DemoStep } from "@/modules/demo/domain/demo-module-types";
+import React from "react";
+import { ProblemDemoModule } from "@/modules/demo/domain/demo-module-types";
 import { useDemoController } from "@/modules/demo/use-demo-controller";
 
 interface OperationalScenarioDisplayProps {
@@ -21,8 +21,6 @@ export function OperationalScenarioDisplay({ demoModule }: OperationalScenarioDi
     resetDemo,
     triggers,
   } = useDemoController(demoModule);
-
-  const [simulationMode, setSimulationMode] = useState<"protected" | "unprotected">("protected");
 
   const isLocked = Boolean(
     liveState.interlockActive ||
