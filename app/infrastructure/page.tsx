@@ -1,14 +1,19 @@
 import * as React from "react";
+import { redirect } from "next/navigation";
 import { CloudInfrastructureHub } from "@/components/cockpit/cloud-infrastructure-hub";
 import { OperatorEmailHub } from "@/components/cockpit/operator-email-hub";
 import { Badge } from "@/components/ui/badge";
+import { ownerLoginPath } from "@/lib/owner-routes";
+import { resolveOwnerSession } from "@/modules/core/application/server-session";
 
 export const metadata = {
   title: "Cloud Infrastructure & DevOps | Yorkstead Operations",
   description: "Direct control center for Cloudflare, Cloud Run, Neon Postgres, GitHub Actions, and Spaceship email.",
 };
 
-export default function InfrastructurePage() {
+export default async function InfrastructurePage() {
+  const { sessionContext } = await resolveOwnerSession();
+  if (!sessionContext) redirect(ownerLoginPath("/infrastructure"));
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 space-y-6">
       {/* Header */}

@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { isOwnerRoute } from "@/lib/owner-routes";
 
 const SAFE_METHODS = new Set(["GET", "HEAD", "OPTIONS"]);
 const PUBLIC_PAGES = new Set(["/login", "/demo"]);
@@ -57,7 +58,13 @@ export function hasAllowlistedDemoSession(request: NextRequest): boolean {
 }
 
 async function protectPage(request: NextRequest) {
-  if (isPublicOperationsPage(request.nextUrl.pathname) || hasAllowlistedDemoSession(request)) {
+  const pathname = request.nextUrl.pathname;
+  if (isPublicOperationsPage(pathname)) {
+    return NextResponse.next();
+  }
+
+  // Demo sessions can access customer operational modules, but never owner/passkey routes.
+  if (!isOwnerRoute(pathname) && hasAllowlistedDemoSession(request)) {
     return NextResponse.next();
   }
 

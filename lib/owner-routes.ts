@@ -1,4 +1,14 @@
-const OWNER_ROUTE_ROOTS = ["/", "/projects", "/engagements"] as const;
+const OWNER_ROUTE_ROOTS = [
+  "/",
+  "/projects",
+  "/engagements",
+  "/knowledge",
+  "/directory",
+  "/infrastructure",
+  "/audit",
+  "/files",
+  "/activity",
+] as const;
 
 export function isOwnerRoute(pathname: string): boolean {
   return OWNER_ROUTE_ROOTS.some((root) =>

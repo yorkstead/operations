@@ -3,7 +3,7 @@
 import * as React from "react";
 import { createPortal } from "react-dom";
 import Link from "next/link";
-import { Menu, X, ArrowRight, Settings } from "lucide-react";
+import { Menu, X, ArrowRight, Settings, KeyRound } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/shell/theme-toggle";
 import { brand } from "@/lib/brand";
@@ -108,7 +108,12 @@ export function MobileNav() {
                     onClick={() => setOpen(false)}
                     className="flex items-center justify-between rounded-lg border border-border bg-card p-3 font-mono text-xs text-foreground transition hover:border-primary/50"
                   >
-                    <span>Client Engagements</span>
+                    <span className="flex items-center gap-1.5">
+                      <span>Client Engagements</span>
+                      <span title="Passkey Protected" className="inline-flex items-center">
+                        <KeyRound className="size-3 text-primary/70" />
+                      </span>
+                    </span>
                     <ArrowRight className="size-3.5 text-muted-foreground" />
                   </Link>
                   <Link
@@ -116,7 +121,12 @@ export function MobileNav() {
                     onClick={() => setOpen(false)}
                     className="flex items-center justify-between rounded-lg border border-border bg-card p-3 font-mono text-xs text-foreground transition hover:border-primary/50"
                   >
-                    <span>Cloud Infrastructure</span>
+                    <span className="flex items-center gap-1.5">
+                      <span>Cloud Infrastructure</span>
+                      <span title="Passkey Protected" className="inline-flex items-center">
+                        <KeyRound className="size-3 text-primary/70" />
+                      </span>
+                    </span>
                     <ArrowRight className="size-3.5 text-muted-foreground" />
                   </Link>
                 </div>
@@ -190,7 +200,12 @@ export function MobileNav() {
                     onClick={() => setOpen(false)}
                     className="flex items-center justify-between rounded-lg border border-border bg-card p-3 font-mono text-xs text-foreground transition hover:border-primary/50"
                   >
-                    <span>Directory</span>
+                    <span className="flex items-center gap-1.5">
+                      <span>Directory</span>
+                      <span title="Passkey Protected" className="inline-flex items-center">
+                        <KeyRound className="size-3 text-primary/70" />
+                      </span>
+                    </span>
                     <ArrowRight className="size-3.5 text-muted-foreground" />
                   </Link>
                   <Link
@@ -198,7 +213,12 @@ export function MobileNav() {
                     onClick={() => setOpen(false)}
                     className="flex items-center justify-between rounded-lg border border-border bg-card p-3 font-mono text-xs text-foreground transition hover:border-primary/50"
                   >
-                    <span>Notion OS & SOPs</span>
+                    <span className="flex items-center gap-1.5">
+                      <span>Notion OS & SOPs</span>
+                      <span title="Passkey Protected" className="inline-flex items-center">
+                        <KeyRound className="size-3 text-primary/70" />
+                      </span>
+                    </span>
                     <ArrowRight className="size-3.5 text-muted-foreground" />
                   </Link>
                 </div>
@@ -256,7 +276,7 @@ export function MobileNav() {
                     onClick={() => setOpen(false)}
                     className="flex items-center justify-between rounded-lg border border-border bg-card p-3 font-mono text-xs text-foreground transition hover:border-primary/50"
                   >
-                    <span>Analytics</span>
+                    <span>Analytics Engine</span>
                     <ArrowRight className="size-3.5 text-muted-foreground" />
                   </Link>
                   <Link
@@ -264,7 +284,12 @@ export function MobileNav() {
                     onClick={() => setOpen(false)}
                     className="flex items-center justify-between rounded-lg border border-border bg-card p-3 font-mono text-xs text-foreground transition hover:border-primary/50"
                   >
-                    <span>Audit Engine</span>
+                    <span className="flex items-center gap-1.5">
+                      <span>Audit Engine</span>
+                      <span title="Passkey Protected" className="inline-flex items-center">
+                        <KeyRound className="size-3 text-primary/70" />
+                      </span>
+                    </span>
                     <ArrowRight className="size-3.5 text-muted-foreground" />
                   </Link>
                   <Link
@@ -272,7 +297,12 @@ export function MobileNav() {
                     onClick={() => setOpen(false)}
                     className="flex items-center justify-between rounded-lg border border-border bg-card p-3 font-mono text-xs text-foreground transition hover:border-primary/50"
                   >
-                    <span>File Vault</span>
+                    <span className="flex items-center gap-1.5">
+                      <span>File Vault</span>
+                      <span title="Passkey Protected" className="inline-flex items-center">
+                        <KeyRound className="size-3 text-primary/70" />
+                      </span>
+                    </span>
                     <ArrowRight className="size-3.5 text-muted-foreground" />
                   </Link>
                   <Link
@@ -280,7 +310,12 @@ export function MobileNav() {
                     onClick={() => setOpen(false)}
                     className="flex items-center justify-between rounded-lg border border-border bg-card p-3 font-mono text-xs text-foreground transition hover:border-primary/50"
                   >
-                    <span>Activity Log</span>
+                    <span className="flex items-center gap-1.5">
+                      <span>Activity Log</span>
+                      <span title="Passkey Protected" className="inline-flex items-center">
+                        <KeyRound className="size-3 text-primary/70" />
+                      </span>
+                    </span>
                     <ArrowRight className="size-3.5 text-muted-foreground" />
                   </Link>
                 </div>

@@ -3,9 +3,10 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
-import { Settings, ChevronDown } from "lucide-react";
+import { Settings, ChevronDown, KeyRound } from "lucide-react";
 import { brand } from "@/lib/brand";
 import { cn } from "@/lib/utils";
+import { isOwnerRoute } from "@/lib/owner-routes";
 import { YorksteadMark } from "@/components/brand/yorkstead-logo";
 import { MobileNav } from "@/components/shell/mobile-nav";
 import { OrgSwitcher } from "@/components/shell/org-switcher";
@@ -126,17 +127,25 @@ export function Header() {
                     <DropdownMenu.Label className="px-2 py-2 font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
                       {group.label}
                     </DropdownMenu.Label>
-                    {group.links.map((link) => (
-                      <DropdownMenu.Item key={link.href} asChild>
-                        <Link
-                          href={link.href}
-                          aria-current={isActive(link.href) ? "page" : undefined}
-                          className="flex min-h-9 items-center rounded-md px-2 font-mono text-xs text-foreground outline-none data-[highlighted]:bg-accent data-[highlighted]:ring-1 data-[highlighted]:ring-inset data-[highlighted]:ring-ring aria-[current=page]:bg-primary/10 aria-[current=page]:text-primary"
-                        >
-                          {link.label}
-                        </Link>
-                      </DropdownMenu.Item>
-                    ))}
+                    {group.links.map((link) => {
+                      const isOwner = isOwnerRoute(link.href);
+                      return (
+                        <DropdownMenu.Item key={link.href} asChild>
+                          <Link
+                            href={link.href}
+                            aria-current={isActive(link.href) ? "page" : undefined}
+                            className="flex min-h-9 items-center justify-between rounded-md px-2 font-mono text-xs text-foreground outline-none data-[highlighted]:bg-accent data-[highlighted]:ring-1 data-[highlighted]:ring-inset data-[highlighted]:ring-ring aria-[current=page]:bg-primary/10 aria-[current=page]:text-primary"
+                          >
+                            <span>{link.label}</span>
+                            {isOwner && (
+                              <span className="inline-flex items-center gap-1 font-mono text-[9px] text-muted-foreground/80" title="Passkey Protected">
+                                <KeyRound className="size-3 text-primary/70" />
+                              </span>
+                            )}
+                          </Link>
+                        </DropdownMenu.Item>
+                      );
+                    })}
                   </DropdownMenu.Group>
                 ))}
               </DropdownMenu.Content>
