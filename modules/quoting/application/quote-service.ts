@@ -87,6 +87,115 @@ export class QuoteService {
     };
 
     this.quotes.set(`${orgId}:${quote.quoteNumber}`, quote);
+
+    // Denver Express Warehousing & Cross-Docking / No Limit Trucking proposal
+    const deLaborCost = 58 * 9500; // 58 engineering hours @ $95/hr = $5,510.00
+    const deLineItem: QuoteLineItem = {
+      id: "qli_denver_express_1",
+      lineItemNumber: 1,
+      partDescription: "ReworkFlow™ Cross-Dock Intake & Terminal Platform - Complete Software Buyout",
+      drawingNumber: "PRP-2026-DENVER-EXPRESS",
+      revision: "1.0",
+      quantity: 1,
+      costBreakdown: {
+        materialCostCents: 0,
+        laborCostCents: deLaborCost,
+        machineCostCents: 0,
+        outsourcingCostCents: 0,
+        freightCostCents: 0,
+        overheadCostCents: 0,
+        totalCostCents: deLaborCost,
+      },
+      targetMarginPercent: 42,
+      unitPriceCents: 950000,
+      totalPriceCents: 950000,
+    };
+
+    const dePaymentMilestones: PaymentMilestoneSchedule[] = [
+      {
+        id: "pms_de_1",
+        milestoneName: "50% Buyout Deposit (Contract Execution & Setup)",
+        percentage: 50,
+        amountCents: 475000,
+        triggerCondition: "Contract Execution & Infrastructure Provisioning",
+      },
+      {
+        id: "pms_de_2",
+        milestoneName: "30% Staging Deployment & Dock Floor Walkthrough",
+        percentage: 30,
+        amountCents: 285000,
+        triggerCondition: "Staging Preview & 6030 Washington St Dock Walkthrough",
+      },
+      {
+        id: "pms_de_3",
+        milestoneName: "20% Live Dock Go-Live & Driver Sign-off Handover",
+        percentage: 20,
+        amountCents: 190000,
+        triggerCondition: "Live Dock Acceptance, Agency Codebase Handover & Sign-off",
+      },
+    ];
+
+    const deRev: QuoteRevision = {
+      revisionNumber: 1,
+      changeReason: "ReworkFlow™ Custom Software Buyout & Hardware Staging Agreement",
+      lineItems: [deLineItem],
+      subtotalCents: 950000,
+      discountPercent: 0,
+      discountAmountCents: 0,
+      taxPercent: 0,
+      taxAmountCents: 0,
+      totalAmountCents: 950000,
+      overallMarginPercent: 42.0,
+      createdAt: new Date(Date.now() - 1 * 86400000).toISOString(),
+      createdByUserId: "usr_estimator",
+      createdByName: "Lead Estimator",
+    };
+
+    const denverQuote: Quote = {
+      id: "qte_denver_express_090",
+      quoteNumber: "QTE-2026-090",
+      organizationId: orgId,
+      customerId: "cust_denver_express",
+      customerName: "Denver Express Warehousing & No Limit Trucking",
+      customerContactEmail: "schapman@denverexpressco.com",
+      title: "ReworkFlow™ Cross-Dock Intake & Terminal Platform - Buyout & Field Deployment",
+      status: "approved",
+      currentRevisionNumber: 1,
+      revisions: [deRev],
+      minMarginThresholdPercent: 30,
+      requiresExecutiveApproval: false,
+      approvedByUserId: "usr_owner",
+      approvedByName: "Operations Director",
+      approvedAt: new Date(Date.now() - 1 * 86400000).toISOString(),
+      expiresAt: "2026-11-30",
+      consultingScope: {
+        costModelType: "custom_software_milestone",
+        estimatedEngineeringHours: 58,
+        hourlyRateCents: 9500,
+        cloudComputePassThroughCents: 0,
+        includedIntegrations: [
+          "Stranded Driver Bay Reservation Portal (/reserve)",
+          "Forklift Roll-Cage Touchscreen Terminal (/dock)",
+          "Dispatcher Sound-Alert Ops Board (/office)",
+          "I-70 Corridor Google Maps Landing Simulator (/maps)",
+          "HOTWAV R9 Pro Rugged Hardware Integration & RAM Tough-Claw Staging",
+          "SpinFlow Agency Complete Codebase Buyout & Handover",
+        ],
+        deliverableSummary: [
+          "Driver instant rate calculator & 45-min bay countdown hold",
+          "Glove-friendly photo intake, pallet logging & driver signature pad",
+          "Real-time audio alert board & QuickBooks CSV export",
+          "I-70/I-25 15-mile protected non-compete covenant",
+          "Full code ownership, zero license rent, zero vendor lock-in",
+        ],
+        paymentMilestones: dePaymentMilestones,
+        proposalPdfR2Key: "vault/denver-express/Denver_Express_ReworkFlow_Master_Brief.pdf",
+      },
+      createdAt: new Date(Date.now() - 2 * 86400000).toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+
+    this.quotes.set(`${orgId}:${denverQuote.quoteNumber}`, denverQuote);
   }
 
   private ensureQuotesSeeded(orgId: string) {

@@ -23,6 +23,7 @@ const SAMPLE_LOCATIONS: InventoryLocation[] = [
   { id: "loc_3", organizationId: "org_yorkstead_systems", locationCode: "LOC-QUAR-01", name: "Quality Hold & Quarantine Bay", type: "quarantine", status: "active", createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() },
   { id: "loc_4", organizationId: "org_yorkstead_systems", locationCode: "LOC-FIN-01", name: "Finished Goods & Outbound Crate Staging", type: "warehouse", status: "active", createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() },
   { id: "loc_5", organizationId: "org_yorkstead_systems", locationCode: "LOC-BIN-A1", name: "Fasteners & PEM Hardware Bin Rack", type: "bin", status: "active", createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() },
+  { id: "loc_de_dock", organizationId: "org_yorkstead_systems", locationCode: "LOC-FIELD-DENVER", name: "Denver Express Dock Staging & Field Trial (6030 Washington St)", type: "staging", status: "active", createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() },
 ];
 
 const SAMPLE_STOCK: ItemStockSummary[] = [
@@ -82,6 +83,34 @@ const SAMPLE_STOCK: ItemStockSummary[] = [
     standardCostCents: 15400,
     totalValuationCents: 739200,
   },
+  {
+    itemId: "item_hw_r9pro",
+    itemCode: "HW-HOTWAV-R9PRO",
+    description: "HOTWAV R9 Pro 11\" Rugged Android 14 Tablet (20,080mAh, IP68/IP69K, 4G LTE)",
+    category: "hardware",
+    unitOfMeasure: "EA",
+    totalOnHand: "4.0000",
+    totalAllocated: "2.0000",
+    totalAvailable: "2.0000",
+    reorderPoint: "2.0000",
+    isLowStock: false,
+    standardCostCents: 38000,
+    totalValuationCents: 152000,
+  },
+  {
+    itemId: "item_hw_ram_claw",
+    itemCode: "HW-RAM-TOUGHCLAW",
+    description: "RAM Mounts Tough-Claw Heavy-Duty Forklift Roll-Cage Clamp Mount (RAP-B-400U)",
+    category: "hardware",
+    unitOfMeasure: "EA",
+    totalOnHand: "6.0000",
+    totalAllocated: "2.0000",
+    totalAvailable: "4.0000",
+    reorderPoint: "2.0000",
+    isLowStock: false,
+    standardCostCents: 11000,
+    totalValuationCents: 66000,
+  },
 ];
 
 const SAMPLE_MOVEMENTS: InventoryMovement[] = [
@@ -118,6 +147,22 @@ const SAMPLE_MOVEMENTS: InventoryMovement[] = [
     idempotencyKey: "idemp_mov_2",
     occurredAt: new Date(Date.now() - 2 * 86400000).toISOString(),
     createdAt: new Date(Date.now() - 2 * 86400000).toISOString(),
+  },
+  {
+    id: "mov_de_field_trial",
+    organizationId: "org_yorkstead_systems",
+    movementType: "transfer",
+    itemId: "item_hw_r9pro",
+    itemCode: "HW-HOTWAV-R9PRO",
+    fromLocationId: "loc_4",
+    toLocationId: "loc_de_dock",
+    quantity: "2.0000",
+    unitCostCents: 38000,
+    actorUserId: "usr_brandon_operator",
+    reason: "Staged 2x HOTWAV R9 Pro tablets for Denver Express Bay 1 & 2 Forklift Field Trial",
+    idempotencyKey: "idemp_mov_de_trial_01",
+    occurredAt: new Date(Date.now() - 1 * 86400000).toISOString(),
+    createdAt: new Date(Date.now() - 1 * 86400000).toISOString(),
   },
 ];
 
