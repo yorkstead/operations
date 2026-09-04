@@ -14,12 +14,18 @@ import { NotificationsDrawer } from "@/components/shell/notifications-drawer";
 import { ThemeToggle } from "@/components/shell/theme-toggle";
 
 const primaryLinks = [
-  { href: "/", label: "Cockpit" },
-  { href: "/projects", label: "Projects" },
-  { href: "/engagements", label: "Engagements" },
+  { href: "/analytics", label: "Analytics Engine" },
 ];
 
 const moduleGroups = [
+  {
+    label: "Executive & Projects",
+    links: [
+      { href: "/cockpit", label: "Cockpit" },
+      { href: "/projects", label: "Projects" },
+      { href: "/engagements", label: "Engagements" },
+    ],
+  },
   {
     label: "Production & Shopfloor",
     links: [
@@ -45,7 +51,6 @@ const moduleGroups = [
   {
     label: "Intelligence & Platform",
     links: [
-      { href: "/analytics", label: "Analytics Engine" },
       { href: "/infrastructure", label: "Cloud Ops" },
       { href: "/audit", label: "Audit Engine" },
       { href: "/files", label: "File Vault" },

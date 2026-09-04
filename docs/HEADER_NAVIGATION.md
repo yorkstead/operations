@@ -1,21 +1,27 @@
 # Operations header
 
-Updated 2026-08-31. Scope: the shared Operations header only; workspace switching,
-notifications, authorization, tenant data, and route destinations are unchanged.
+Updated 2026-09-04. Scope: the shared Operations header and routing alignment;
+Analytics Engine is designated as the primary landing page, and Cockpit, Projects,
+and Engagements are relocated to the Modules menu under Executive & Projects.
 
 ## Layout and behavior
 
 - At 1024px and wider, brand/workspace controls occupy a separate top row.
-  Cockpit, Engagements, Jobs, Shopfloor, Inventory, and Analytics occupy the
-  navigation row below. The version badge was removed from the header.
-- Modules retains every other previous desktop destination, grouped into
-  Factory Operations, Business & Knowledge, and Platform & Tools.
-- Active links match the current pathname or nested routes. Cockpit matches
-  only `/`. When a module is active, its name appears beside Modules.
+  The primary navigation row features Analytics Engine (`/analytics`) as the
+  default landing destination.
+- Modules retains desktop destinations grouped into Executive & Projects,
+  Production & Shopfloor, Sourcing & Quality, and Intelligence & Platform.
+- Cockpit (`/cockpit`), Projects (`/projects`), and Engagements (`/engagements`)
+  reside under Executive & Projects, marked with passkey authentication badges (`KeyRound`).
+- Root path `/` redirects to `/analytics` so public visitors and demo sessions
+  land directly on the Analytics Engine without hitting owner login boundaries.
+- Active links match the current pathname or nested routes. When a module is active,
+  its name appears beside Modules.
 - The existing Radix dependency provides keyboard navigation, focus restoration,
   Escape, and outside dismissal. Selecting a destination closes the menu.
-- Below 1024px, the existing mobile navigation remains available. Below 768px,
-  the brand mark appears without its wordmark so workspace controls fit.
+- Below 1024px, the mobile navigation panel reflects this structure, highlighting
+  Analytics Engine as the Landing Page and grouping Cockpit, Projects, and
+  Engagements with passkey badges.
 - No existing global visual identity was changed. Colors, fonts, logo assets,
   surface tokens, and global styles are unchanged.
 

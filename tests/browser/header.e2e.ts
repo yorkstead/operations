@@ -18,7 +18,7 @@ test("desktop header separates controls and navigation without collisions", asyn
       expect(boxes[index].right).toBeLessThanOrEqual(width);
       if (index > 0) expect(boxes[index].left).toBeGreaterThanOrEqual(boxes[index - 1].right);
     }
-    await expect(nav.getByRole("link", { name: "Cockpit", exact: true })).not.toHaveAttribute("aria-current", "page");
+    await expect(nav.getByRole("link", { name: "Analytics Engine", exact: true })).not.toHaveAttribute("aria-current", "page");
     await expect(nav.getByRole("button", { name: /Modules/i })).toBeVisible();
   }
 });
@@ -33,9 +33,9 @@ test("Modules supports keyboard focus, Escape, outside dismissal and navigation"
   await page.keyboard.press("Tab");
   await trigger.focus();
   await page.keyboard.press("Enter");
-  await expect(page.getByRole("menuitem", { name: "Jobs & Routing", exact: true })).toBeFocused();
+  await expect(page.getByRole("menuitem", { name: "Cockpit", exact: true })).toBeFocused();
   await page.keyboard.press("ArrowDown");
-  await expect(page.getByRole("menuitem", { name: "Shopfloor", exact: true })).toBeFocused();
+  await expect(page.getByRole("menuitem", { name: "Projects", exact: true })).toBeFocused();
   await page.keyboard.press("Escape");
   await expect(page.getByRole("menu")).toBeHidden();
   await expect(trigger).toBeFocused();
@@ -43,7 +43,7 @@ test("Modules supports keyboard focus, Escape, outside dismissal and navigation"
   await page.getByRole("heading", { name: "Yorkstead Operations", exact: true }).click();
   await expect(page.getByRole("menu")).toBeHidden();
   await trigger.click();
-  await expect(page.getByRole("menuitem")).toHaveCount(18);
+  await expect(page.getByRole("menuitem")).toHaveCount(20);
   await page.getByRole("menuitem", { name: "Demo Sandboxes" }).click();
   await expect(page).toHaveURL(/\/demo$/);
   await expect(page.getByRole("menu")).toBeHidden();

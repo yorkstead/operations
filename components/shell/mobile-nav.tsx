@@ -81,27 +81,54 @@ export function MobileNav() {
             </div>
 
             <div className="space-y-6 pb-20">
-              {/* Executive Cockpit */}
+              {/* Primary Landing Page */}
               <div className="space-y-2">
                 <p className="font-mono text-[10px] uppercase tracking-widest text-primary font-semibold">
+                  Landing Page
+                </p>
+                <div className="grid grid-cols-1 gap-2">
+                  <Link
+                    href="/analytics"
+                    onClick={() => setOpen(false)}
+                    className="flex items-center justify-between rounded-lg border border-primary/40 bg-primary/10 p-3 font-mono text-xs text-primary font-semibold transition hover:border-primary"
+                  >
+                    <span>Analytics Engine</span>
+                    <ArrowRight className="size-3.5 text-primary" />
+                  </Link>
+                </div>
+              </div>
+
+              {/* Executive Cockpit & Projects */}
+              <div className="space-y-2">
+                <p className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground font-semibold">
                   Executive Cockpit & Projects
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   <Link
-                    href="/"
+                    href="/cockpit"
                     onClick={() => setOpen(false)}
-                    className="flex items-center justify-between rounded-lg border border-primary/40 bg-primary/10 p-3 font-mono text-xs text-primary font-semibold transition hover:border-primary"
+                    className="flex items-center justify-between rounded-lg border border-border bg-card p-3 font-mono text-xs text-foreground transition hover:border-primary/50"
                   >
-                    <span>Operator Cockpit</span>
-                    <ArrowRight className="size-3.5 text-primary" />
+                    <span className="flex items-center gap-1.5">
+                      <span>Operator Cockpit</span>
+                      <span title="Passkey Protected" className="inline-flex items-center">
+                        <KeyRound className="size-3 text-primary/70" />
+                      </span>
+                    </span>
+                    <ArrowRight className="size-3.5 text-muted-foreground" />
                   </Link>
                   <Link
                     href="/projects"
                     onClick={() => setOpen(false)}
-                    className="flex items-center justify-between rounded-lg border border-primary/40 bg-primary/10 p-3 font-mono text-xs text-primary font-semibold transition hover:border-primary"
+                    className="flex items-center justify-between rounded-lg border border-border bg-card p-3 font-mono text-xs text-foreground transition hover:border-primary/50"
                   >
-                    <span>Projects Command Center</span>
-                    <ArrowRight className="size-3.5 text-primary" />
+                    <span className="flex items-center gap-1.5">
+                      <span>Projects Command Center</span>
+                      <span title="Passkey Protected" className="inline-flex items-center">
+                        <KeyRound className="size-3 text-primary/70" />
+                      </span>
+                    </span>
+                    <ArrowRight className="size-3.5 text-muted-foreground" />
                   </Link>
                   <Link
                     href="/engagements"
@@ -271,14 +298,6 @@ export function MobileNav() {
                   Intelligence & Administration
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                  <Link
-                    href="/analytics"
-                    onClick={() => setOpen(false)}
-                    className="flex items-center justify-between rounded-lg border border-border bg-card p-3 font-mono text-xs text-foreground transition hover:border-primary/50"
-                  >
-                    <span>Analytics Engine</span>
-                    <ArrowRight className="size-3.5 text-muted-foreground" />
-                  </Link>
                   <Link
                     href="/audit"
                     onClick={() => setOpen(false)}

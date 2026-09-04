@@ -1,5 +1,5 @@
 const OWNER_ROUTE_ROOTS = [
-  "/",
+  "/cockpit",
   "/projects",
   "/engagements",
   "/knowledge",
@@ -12,7 +12,7 @@ const OWNER_ROUTE_ROOTS = [
 
 export function isOwnerRoute(pathname: string): boolean {
   return OWNER_ROUTE_ROOTS.some((root) =>
-    root === "/" ? pathname === root : pathname === root || pathname.startsWith(`${root}/`)
+    pathname === root || pathname.startsWith(`${root}/`)
   );
 }
 
