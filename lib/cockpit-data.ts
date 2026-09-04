@@ -63,13 +63,13 @@ export const QUICK_LINKS: QuickLinkItem[] = [
   },
   {
     id: "knowhow-sops",
-    title: "Engineering SOPs & Docs",
+    title: "Notion Knowledge OS & SOPs",
     category: "Dev & Sprints",
     description:
-      "Software architecture guidelines, module contracts, API standards, and runbooks.",
+      "Notion workspace sync, CRM client dossiers, system specifications, commercial playbooks, and shopfloor SOPs.",
     href: "/knowledge",
     iconName: "BookOpen",
-    tag: "Engineering",
+    tag: "Notion OS",
   },
   {
     id: "master-directory",

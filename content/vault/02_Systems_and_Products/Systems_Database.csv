@@ -1,0 +1,7 @@
+System Name,Type,Status,Tech Stack,Deployment Target,Repository,Commercial Value
+"ReworkFlow Terminal Platform","Cross-Dock Terminal OS","Production Ready","Next.js 15, Tailwind, Web Audio, HTML5 Canvas","rework.yorkstead.com","github.com/yorkstead/rework-flow","$9,500 Buyout"
+"Industrial Forklift Hardware Bundle","Hardware Blueprint","Validated & Sourced","HOTWAV R9 Pro (20,080mAh), RAM Tough-Claw, X-Grip","Forklift Roll Cage","Internal Specification","$980 - $2,850"
+"Yorkstead Operations Cockpit","Operations Suite & ERP","Production Deployed","Next.js 15, Bun, TypeScript, Lucide React","ops.yorkstead.com","github.com/yorkstead/yorkstead-systems","Core Business Asset"
+"Yorkstead Public Website","Brand & Commercial Site","Production Deployed","Next.js, Bun, Tailwind CSS, Netlify","yorkstead.com","github.com/yorkstead/yorkstead-systems","Brand Asset"
+"Barcodes & QR Tracking Utility","Industrial Utility","Active Prototype","TypeScript, Canvas, Zebra/Honeywell emulation","Local PWA / Web","yorkstead-systems/demos/barcodes","Modular Add-on"
+"Mobile Detailing Fleet Suite","Field Service Platform","Prototype","React, Tailwind CSS, Geolocation","Field Mobile PWA","yorkstead-systems/demos/mobile-detailing","Modular Add-on"

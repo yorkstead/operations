@@ -198,7 +198,7 @@ export function MobileNav() {
                     onClick={() => setOpen(false)}
                     className="flex items-center justify-between rounded-lg border border-border bg-card p-3 font-mono text-xs text-foreground transition hover:border-primary/50"
                   >
-                    <span>KnowHow SOPs</span>
+                    <span>Notion OS & SOPs</span>
                     <ArrowRight className="size-3.5 text-muted-foreground" />
                   </Link>
                 </div>

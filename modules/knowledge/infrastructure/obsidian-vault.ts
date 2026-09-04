@@ -39,14 +39,17 @@ function isProductionOrVercel(): boolean {
 
 function resolveVaultDirectory(): string {
   // 1. Explicit environment variable
+  if (process.env.NOTION_VAULT_PATH && fs.existsSync(process.env.NOTION_VAULT_PATH)) {
+    return process.env.NOTION_VAULT_PATH;
+  }
   if (process.env.OBSIDIAN_VAULT_PATH && fs.existsSync(process.env.OBSIDIAN_VAULT_PATH)) {
     return process.env.OBSIDIAN_VAULT_PATH;
   }
 
-  // 2. Relative from core/yorkstead/apps/operations to workspace root obsidian/yorkstead
-  const relativeFromApp = path.resolve(process.cwd(), "../../../../obsidian/yorkstead");
-  if (fs.existsSync(relativeFromApp)) {
-    return relativeFromApp;
+  // 2. Relative from core/operations to workspace root notion
+  const relativeNotionFromApp = path.resolve(process.cwd(), "../../notion");
+  if (fs.existsSync(relativeNotionFromApp)) {
+    return relativeNotionFromApp;
   }
 
   // 3. Fallback to bundled content/vault inside operations app (for Vercel standalone runners)
@@ -56,12 +59,12 @@ function resolveVaultDirectory(): string {
   }
 
   // 4. Fallback relative from repository root if running elsewhere
-  const fromRepoRoot = path.resolve(process.cwd(), "obsidian/yorkstead");
+  const fromRepoRoot = path.resolve(process.cwd(), "notion");
   if (fs.existsSync(fromRepoRoot)) {
     return fromRepoRoot;
   }
 
-  return relativeFromApp;
+  return relativeNotionFromApp;
 }
 
 function parseFrontmatter(rawContent: string): { frontmatter: Record<string, unknown>; content: string } {
@@ -96,7 +99,7 @@ function parseFrontmatter(rawContent: string): { frontmatter: Record<string, unk
 
     const colonIndex = trimmedLine.indexOf(":");
     if (colonIndex !== -1) {
-      const key = trimmedLine.slice(0, colonIndex).trim();
+      const key = trimmedLine.slice(0, colonIndex).trim().toLowerCase();
       const val = trimmedLine.slice(colonIndex + 1).trim();
 
       if (val === "" || val === "[]") {
@@ -125,7 +128,7 @@ function parseFrontmatter(rawContent: string): { frontmatter: Record<string, unk
 
 function createSlug(filePath: string): string {
   return filePath
-    .replace(/\.md$/i, "")
+    .replace(/\.(md|csv)$/i, "")
     .replace(/\\/g, "/")
     .toLowerCase()
     .replace(/[^a-z0-9/_-]/g, "-")
@@ -133,8 +136,8 @@ function createSlug(filePath: string): string {
 }
 
 export function listVaultNotes(searchQuery?: string, selectedCategory?: string, selectedTag?: string): VaultSummary {
-  // In production or on Vercel, serve pre-bundled static notes directly without filesystem tracing
-  if (isProductionOrVercel() && bundledNotes.length > 0) {
+  // Use pre-bundled static notes whenever available for fast, zero-tracing lookups
+  if (bundledNotes.length > 0) {
     const notes: VaultNoteMetadata[] = [];
     const categoryCounts = new Map<string, number>();
     const tagCounts = new Map<string, number>();
@@ -181,10 +184,13 @@ export function listVaultNotes(searchQuery?: string, selectedCategory?: string, 
     }
 
     notes.sort((a, b) => {
-      if (a.relativePath.includes("Dashboard")) return -1;
-      if (b.relativePath.includes("Dashboard")) return 1;
-      if (a.date && b.date) return b.date.localeCompare(a.date);
-      return a.title.localeCompare(b.title);
+      const aLower = a.relativePath.toLowerCase();
+      const bLower = b.relativePath.toLowerCase();
+      if (aLower.includes("command_center") || a.title.toLowerCase().includes("command center")) return -1;
+      if (bLower.includes("command_center") || b.title.toLowerCase().includes("command center")) return 1;
+      if (aLower.includes("notion_setup")) return -1;
+      if (bLower.includes("notion_setup")) return 1;
+      return a.relativePath.localeCompare(b.relativePath);
     });
 
     const categories = Array.from(categoryCounts.entries()).map(([name, count]) => ({ name, count }));
@@ -308,12 +314,15 @@ export function listVaultNotes(searchQuery?: string, selectedCategory?: string, 
 
   scanDir(vaultDir);
 
-  // Sort notes: Dashboard/Root first, then descending by date or title
+  // Sort notes: Command Center first, then Setup Guide, then alphabetical
   notes.sort((a, b) => {
-    if (a.relativePath.includes("Dashboard")) return -1;
-    if (b.relativePath.includes("Dashboard")) return 1;
-    if (a.date && b.date) return b.date.localeCompare(a.date);
-    return a.title.localeCompare(b.title);
+    const aLower = a.relativePath.toLowerCase();
+    const bLower = b.relativePath.toLowerCase();
+    if (aLower.includes("command_center") || a.title.toLowerCase().includes("command center")) return -1;
+    if (bLower.includes("command_center") || b.title.toLowerCase().includes("command center")) return 1;
+    if (aLower.includes("notion_setup")) return -1;
+    if (bLower.includes("notion_setup")) return 1;
+    return a.relativePath.localeCompare(b.relativePath);
   });
 
   const categories = Array.from(categoryCounts.entries()).map(([name, count]) => ({ name, count }));
@@ -331,16 +340,33 @@ export function listVaultNotes(searchQuery?: string, selectedCategory?: string, 
 }
 
 export function getVaultNoteDetail(slugOrPath: string): VaultNoteDetail | null {
-  // In production or on Vercel, serve pre-bundled note detail directly
-  if (isProductionOrVercel() && bundledNotes.length > 0) {
-    const target = slugOrPath.toLowerCase();
-    const found = bundledNotes.find(
-      (n) =>
-        n.slug.toLowerCase() === target ||
-        n.relativePath.toLowerCase() === target ||
-        n.title.toLowerCase() === target ||
-        n.relativePath.toLowerCase().replace(/\.md$/i, "") === target
-    );
+  // Use pre-bundled note detail whenever available for zero cloud latency
+  if (bundledNotes.length > 0) {
+    const target = slugOrPath.toLowerCase().replace(/\\/g, "/");
+    const cleanTarget = target.replace(/^\.\//, "").replace(/\.(md|csv)$/i, "");
+    const targetFilename = cleanTarget.split("/").pop() || cleanTarget;
+
+    const found = bundledNotes.find((n) => {
+      const slug = n.slug.toLowerCase();
+      const rel = n.relativePath.toLowerCase();
+      const relNoExt = rel.replace(/\.(md|csv)$/i, "");
+      const title = n.title.toLowerCase();
+      const filename = rel.split("/").pop() || "";
+      const filenameNoExt = filename.replace(/\.(md|csv)$/i, "");
+
+      return (
+        slug === target ||
+        rel === target ||
+        relNoExt === target ||
+        title === target ||
+        slug === cleanTarget ||
+        relNoExt === cleanTarget ||
+        filename === target ||
+        filenameNoExt === cleanTarget ||
+        filenameNoExt === targetFilename ||
+        title === targetFilename.replace(/_/g, " ")
+      );
+    });
     return found || null;
   }
 

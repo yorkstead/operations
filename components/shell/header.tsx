@@ -37,7 +37,7 @@ const moduleGroups = [
       { href: "/quotes", label: "Quotes" },
       { href: "/purchasing", label: "Purchasing" },
       { href: "/quality", label: "Quality" },
-      { href: "/knowledge", label: "KnowHow SOPs" },
+      { href: "/knowledge", label: "Notion OS & SOPs" },
       { href: "/directory", label: "Directory" },
     ],
   },

@@ -1,8 +1,8 @@
 import { KnowledgeHub } from "@/components/knowledge/knowledge-hub";
 
 export const metadata = {
-  title: "Knowledge Vault & KnowHow | Yorkstead Operations",
-  description: "Live Obsidian knowledge vault, client dossiers, daily activity logs, and shopfloor procedures.",
+  title: "Notion Knowledge OS & Shopfloor KnowHow | Yorkstead Operations",
+  description: "Live Yorkstead Knowledge OS, Notion workspace sync, CRM client dossiers, product specs, and shopfloor procedures.",
 };
 
 export default function KnowledgePage() {

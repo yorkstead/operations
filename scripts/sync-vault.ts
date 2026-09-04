@@ -22,7 +22,14 @@ export interface VaultNoteDetail extends VaultNoteMetadata {
   frontmatter: Record<string, unknown>;
 }
 
-const sourceDir = path.resolve(process.cwd(), "../../../../obsidian/yorkstead");
+const notionDir = path.resolve(process.cwd(), "../../notion");
+const fallbackNotionDir = path.resolve(process.cwd(), "notion");
+const sourceDir = fs.existsSync(notionDir)
+  ? notionDir
+  : fs.existsSync(fallbackNotionDir)
+  ? fallbackNotionDir
+  : "";
+
 const destDir = path.resolve(process.cwd(), "content/vault");
 const bundleFile = path.resolve(process.cwd(), "content/vault-bundle.json");
 
@@ -58,7 +65,7 @@ function parseFrontmatter(rawContent: string): { frontmatter: Record<string, unk
 
     const colonIndex = trimmedLine.indexOf(":");
     if (colonIndex !== -1) {
-      const key = trimmedLine.slice(0, colonIndex).trim();
+      const key = trimmedLine.slice(0, colonIndex).trim().toLowerCase();
       const val = trimmedLine.slice(colonIndex + 1).trim();
 
       if (val === "" || val === "[]") {
@@ -87,11 +94,86 @@ function parseFrontmatter(rawContent: string): { frontmatter: Record<string, unk
 
 function createSlug(filePath: string): string {
   return filePath
-    .replace(/\.md$/i, "")
+    .replace(/\.(md|csv)$/i, "")
     .replace(/\\/g, "/")
     .toLowerCase()
     .replace(/[^a-z0-9/_-]/g, "-")
     .replace(/-+/g, "-");
+}
+
+function parseCsvToMarkdown(csvContent: string, fileName: string, category: string): {
+  title: string;
+  content: string;
+  excerpt: string;
+  frontmatter: Record<string, unknown>;
+} {
+  const lines = csvContent.trim().split(/\r?\n/).filter((l) => l.trim().length > 0);
+  const title = fileName.replace(/\.csv$/i, "").replace(/_/g, " ");
+
+  if (lines.length === 0) {
+    return {
+      title,
+      content: `# 📊 ${title}\n\n*Empty database.*`,
+      excerpt: "Empty database",
+      frontmatter: { title, type: "database", category, tags: ["database", "notion-database"] },
+    };
+  }
+
+  const parseRow = (line: string): string[] => {
+    const row: string[] = [];
+    let cur = "";
+    let inQuotes = false;
+    for (let i = 0; i < line.length; i++) {
+      const ch = line[i];
+      if (ch === '"') {
+        inQuotes = !inQuotes;
+      } else if (ch === "," && !inQuotes) {
+        row.push(cur.trim());
+        cur = "";
+      } else {
+        cur += ch;
+      }
+    }
+    row.push(cur.trim());
+    return row;
+  };
+
+  const headers = parseRow(lines[0]);
+  const rows = lines.slice(1).map(parseRow);
+
+  const headerLine = `| ${headers.join(" | ")} |`;
+  const separatorLine = `| ${headers.map(() => ":---").join(" | ")} |`;
+  const bodyLines = rows.map((r) => `| ${r.join(" | ")} |`).join("\n");
+
+  const mdTable = `${headerLine}\n${separatorLine}\n${bodyLines}`;
+  const content = `# 📊 ${title} (Notion Relational Database)\n\n> **Live Relational Database** — ${rows.length} records synchronizing with Notion OS.\n\n${mdTable}\n`;
+  const excerpt = `Notion relational database containing ${rows.length} records.`;
+
+  return {
+    title,
+    content,
+    excerpt,
+    frontmatter: {
+      title,
+      type: "database",
+      category,
+      tags: ["database", "notion", "crm"],
+    },
+  };
+}
+
+function cleanDir(dir: string) {
+  if (!fs.existsSync(dir)) return;
+  const entries = fs.readdirSync(dir, { withFileTypes: true });
+  for (const entry of entries) {
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      cleanDir(full);
+      fs.rmdirSync(full);
+    } else {
+      fs.unlinkSync(full);
+    }
+  }
 }
 
 function copyDirRecursive(src: string, dest: string) {
@@ -111,23 +193,25 @@ function copyDirRecursive(src: string, dest: string) {
 
     if (entry.isDirectory()) {
       copyDirRecursive(srcPath, destPath);
-    } else if (entry.isFile() && entry.name.endsWith(".md")) {
+    } else if (entry.isFile() && (entry.name.endsWith(".md") || entry.name.endsWith(".csv"))) {
       fs.copyFileSync(srcPath, destPath);
-      console.log(`[VAULT SYNC] Copied: ${entry.name}`);
+      console.log(`[NOTION SYNC] Copied: ${entry.name}`);
     }
   }
 }
 
-if (fs.existsSync(sourceDir)) {
-  console.log(`[VAULT SYNC] Syncing from ${sourceDir} -> ${destDir}...`);
+if (sourceDir && fs.existsSync(sourceDir)) {
+  console.log(`[NOTION SYNC] Cleaning target ${destDir}...`);
+  cleanDir(destDir);
+  console.log(`[NOTION SYNC] Syncing from ${sourceDir} -> ${destDir}...`);
   copyDirRecursive(sourceDir, destDir);
-  console.log(`[VAULT SYNC] Vault successfully synced!`);
+  console.log(`[NOTION SYNC] Workspace successfully synced!`);
 } else {
-  console.log(`[VAULT SYNC] Source vault not found at ${sourceDir}, keeping existing content/vault.`);
+  console.log(`[NOTION SYNC] Source notion workspace not found at ${sourceDir}, scanning ${destDir}.`);
 }
 
 // Generate static JSON bundle for zero-tracing production builds
-const readVaultDir = fs.existsSync(destDir) ? destDir : (fs.existsSync(sourceDir) ? sourceDir : "");
+const readVaultDir = fs.existsSync(destDir) ? destDir : (sourceDir && fs.existsSync(sourceDir) ? sourceDir : "");
 const noteDetails: VaultNoteDetail[] = [];
 
 if (readVaultDir) {
@@ -138,16 +222,35 @@ if (readVaultDir) {
       const full = path.join(dir, entry.name);
       if (entry.isDirectory()) {
         scanForBundle(full);
-      } else if (entry.isFile() && entry.name.endsWith(".md")) {
+      } else if (entry.isFile() && (entry.name.endsWith(".md") || entry.name.endsWith(".csv"))) {
         const rawContent = fs.readFileSync(full, "utf-8");
         const stats = fs.statSync(full);
-        const { frontmatter, content } = parseFrontmatter(rawContent);
         const relative = path.relative(readVaultDir, full).replace(/\\/g, "/");
         const pathParts = relative.split("/");
         const category = pathParts.length > 1 ? pathParts[0] : "Root Index";
-        const title =
-          (typeof frontmatter.title === "string" && frontmatter.title.trim()) ||
-          entry.name.replace(/\.md$/i, "");
+
+        let title = "";
+        let content = "";
+        let excerpt = "";
+        let frontmatter: Record<string, unknown> = {};
+
+        if (entry.name.endsWith(".csv")) {
+          const csvResult = parseCsvToMarkdown(rawContent, entry.name, category);
+          title = csvResult.title;
+          content = csvResult.content;
+          excerpt = csvResult.excerpt;
+          frontmatter = csvResult.frontmatter;
+        } else {
+          const parsed = parseFrontmatter(rawContent);
+          frontmatter = parsed.frontmatter;
+          content = parsed.content;
+          title =
+            (typeof frontmatter.title === "string" && frontmatter.title.trim()) ||
+            entry.name.replace(/\.md$/i, "").replace(/_/g, " ");
+
+          const lines = content.split("\n").filter((l) => l.trim() && !l.trim().startsWith("#"));
+          excerpt = lines.length > 0 ? lines[0].replace(/[*_#`[\]]/g, "").slice(0, 160) : "";
+        }
 
         const tags: string[] = Array.isArray(frontmatter.tags)
           ? (frontmatter.tags as string[])
@@ -165,9 +268,6 @@ if (readVaultDir) {
           }
         }
 
-        const lines = content.split("\n").filter((l) => l.trim() && !l.trim().startsWith("#"));
-        const excerpt = lines.length > 0 ? lines[0].replace(/[*_#`[\]]/g, "").slice(0, 160) : "";
-
         noteDetails.push({
           title,
           slug: createSlug(relative),
@@ -178,7 +278,11 @@ if (readVaultDir) {
           status: typeof frontmatter.status === "string" ? frontmatter.status : undefined,
           type: typeof frontmatter.type === "string" ? frontmatter.type : undefined,
           stage: typeof frontmatter.stage === "string" ? frontmatter.stage : undefined,
-          dealSize: typeof frontmatter.deal_size === "string" ? frontmatter.deal_size : undefined,
+          dealSize: typeof frontmatter.dealsize === "string"
+            ? (frontmatter.dealsize as string)
+            : typeof frontmatter.deal_size === "string"
+            ? (frontmatter.deal_size as string)
+            : undefined,
           lastModified: stats.mtime.toISOString(),
           excerpt,
           content,
@@ -191,6 +295,18 @@ if (readVaultDir) {
   scanForBundle(readVaultDir);
 }
 
+// Sort: Command Center first, then Setup Guide, then alphabetical
+noteDetails.sort((a, b) => {
+  const aLower = a.relativePath.toLowerCase();
+  const bLower = b.relativePath.toLowerCase();
+  if (aLower.includes("command_center")) return -1;
+  if (bLower.includes("command_center")) return 1;
+  if (aLower.includes("notion_setup")) return -1;
+  if (bLower.includes("notion_setup")) return 1;
+  return a.relativePath.localeCompare(b.relativePath);
+});
+
 fs.writeFileSync(bundleFile, JSON.stringify(noteDetails, null, 2), "utf-8");
-console.log(`[VAULT SYNC] Bundled ${noteDetails.length} notes into ${bundleFile}`);
+console.log(`[NOTION SYNC] Bundled ${noteDetails.length} Notion documents & databases into ${bundleFile}`);
+
 

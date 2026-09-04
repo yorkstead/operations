@@ -18,10 +18,11 @@ import {
   Info,
   Lightbulb,
   CheckCircle2,
+  Database,
 } from "lucide-react";
 import type { VaultNoteDetail, VaultSummary } from "@/modules/knowledge/infrastructure/obsidian-vault";
 
-export function ObsidianVaultBrowser() {
+export function NotionKnowledgeBrowser() {
   const [summary, setSummary] = React.useState<VaultSummary | null>(null);
   const [selectedNote, setSelectedNote] = React.useState<VaultNoteDetail | null>(null);
   const [selectedCategory, setSelectedCategory] = React.useState<string>("All");
@@ -60,10 +61,13 @@ export function ObsidianVaultBrowser() {
         const data: VaultSummary = await res.json();
         setSummary(data);
 
-        // Auto-select dashboard or first note on initial load if nothing selected
+        // Auto-select Command Center or first note on initial load if nothing selected
         if (!hasSelectedInitial.current && data.notes.length > 0) {
           hasSelectedInitial.current = true;
-          const defaultNote = data.notes.find((n) => n.relativePath.includes("Dashboard")) || data.notes[0];
+          const defaultNote =
+            data.notes.find((n) => n.relativePath.toLowerCase().includes("command_center")) ||
+            data.notes.find((n) => n.title.toLowerCase().includes("command center")) ||
+            data.notes[0];
           void loadNoteDetail(defaultNote.slug);
         }
       }
@@ -102,14 +106,14 @@ export function ObsidianVaultBrowser() {
           <div className="flex items-center gap-2">
             <BookOpen className="size-5 text-primary" />
             <h1 className="text-xl font-bold font-mono tracking-tight text-foreground sm:text-2xl">
-              Yorkstead Knowledge Vault
+              Yorkstead Knowledge OS
             </h1>
             <Badge variant="outline" className="font-mono text-[10px] uppercase border-primary/40 text-primary">
-              Obsidian Local Storage
+              Notion Synced
             </Badge>
           </div>
           <p className="mt-1 text-xs text-muted-foreground font-mono">
-            Synced directly from <code className="text-foreground bg-muted px-1.5 py-0.5 rounded">obsidian/yorkstead/</code>. Real-time client dossiers, product specs, and daily logs.
+            Synced directly from <code className="text-foreground bg-muted px-1.5 py-0.5 rounded">notion/</code>. Real-time client dossiers, product specs, playbooks, and daily logs.
           </p>
         </div>
 
@@ -132,9 +136,9 @@ export function ObsidianVaultBrowser() {
               asChild
               className="font-mono text-xs gap-1.5 bg-primary hover:bg-primary/90"
             >
-              <a href={`obsidian://open?vault=yorkstead&file=${encodeURIComponent(selectedNote.relativePath.replace(/\.md$/, ""))}`}>
+              <a href="notion://" title="Open Notion Desktop">
                 <ExternalLink className="size-3.5" />
-                Open in Obsidian
+                Open Notion
               </a>
             </Button>
           )}
@@ -159,8 +163,8 @@ export function ObsidianVaultBrowser() {
           {/* Folder Categories */}
           <div className="space-y-1.5">
             <div className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground px-1 flex items-center justify-between">
-              <span>Vault Folders</span>
-              <span>{summary?.notes.length || 0} notes</span>
+              <span>Notion Modules</span>
+              <span>{summary?.notes.length || 0} pages</span>
             </div>
             <div className="flex flex-wrap gap-1">
               <button
@@ -184,7 +188,9 @@ export function ObsidianVaultBrowser() {
                   }`}
                 >
                   <Folder className="size-3 shrink-0" />
-                  <span className="truncate max-w-[130px]">{cat.name.replace(/^\d+\s*-\s*/, "")}</span>
+                  <span className="truncate max-w-[130px]">
+                    {cat.name.replace(/^\d+[_-\s]*/, "").replace(/_/g, " ")}
+                  </span>
                   <span className="text-[10px] opacity-70">({cat.count})</span>
                 </button>
               ))}
@@ -222,7 +228,7 @@ export function ObsidianVaultBrowser() {
             {loading && !summary ? (
               <div className="p-8 text-center text-xs font-mono text-muted-foreground">
                 <RefreshCw className="size-4 animate-spin mx-auto mb-2 text-primary" />
-                Scanning vault markdown files...
+                Loading Notion workspace pages...
               </div>
             ) : summary?.notes.length === 0 ? (
               <div className="p-6 text-center text-xs font-mono text-muted-foreground">
@@ -231,6 +237,7 @@ export function ObsidianVaultBrowser() {
             ) : (
               summary?.notes.map((note) => {
                 const isSelected = selectedNote?.slug === note.slug;
+                const isDb = note.type === "database" || note.relativePath.endsWith(".csv");
                 return (
                   <button
                     key={note.relativePath}
@@ -241,16 +248,24 @@ export function ObsidianVaultBrowser() {
                   >
                     <div className="flex items-start justify-between gap-2">
                       <div className="flex items-center gap-1.5">
-                        <FileText className={`size-3.5 shrink-0 ${isSelected ? "text-primary" : "text-muted-foreground"}`} />
+                        {isDb ? (
+                          <Database className={`size-3.5 shrink-0 ${isSelected ? "text-amber-400" : "text-amber-500/80"}`} />
+                        ) : (
+                          <FileText className={`size-3.5 shrink-0 ${isSelected ? "text-primary" : "text-muted-foreground"}`} />
+                        )}
                         <span className={`text-xs font-medium line-clamp-1 ${isSelected ? "text-foreground font-semibold" : "text-foreground/90"}`}>
                           {note.title}
                         </span>
                       </div>
-                      {note.dealSize && (
+                      {isDb ? (
+                        <Badge variant="outline" className="text-[9px] px-1 py-0 border-amber-500/40 text-amber-400 shrink-0 font-mono">
+                          Database
+                        </Badge>
+                      ) : note.dealSize ? (
                         <Badge variant="outline" className="text-[9px] px-1 py-0 border-emerald-500/40 text-emerald-400 shrink-0 font-mono">
                           {note.dealSize}
                         </Badge>
-                      )}
+                      ) : null}
                     </div>
 
                     {note.excerpt && (
@@ -261,7 +276,7 @@ export function ObsidianVaultBrowser() {
 
                     <div className="flex items-center justify-between text-[10px] font-mono text-muted-foreground/80 pt-0.5">
                       <span className="truncate max-w-[140px] text-muted-foreground">
-                        {note.category.replace(/^\d+\s*-\s*/, "")}
+                        {note.category.replace(/^\d+[_-\s]*/, "").replace(/_/g, " ")}
                       </span>
                       {note.date && <span>{note.date}</span>}
                     </div>
@@ -760,6 +775,22 @@ function renderInlineText(text: string, onWikilinkClick: (target: string) => voi
       const closeBracket = part.indexOf("](");
       const label = part.slice(1, closeBracket);
       const url = part.slice(closeBracket + 2, -1);
+
+      // If relative markdown link or CSV database, navigate internally
+      if (url.endsWith(".md") || url.endsWith(".csv") || url.startsWith("./") || url.startsWith("../")) {
+        const cleanTarget = url.split("/").pop()?.replace(/\.(md|csv)$/i, "") || url;
+        return (
+          <button
+            key={i}
+            type="button"
+            onClick={() => onWikilinkClick(cleanTarget)}
+            className="text-primary hover:underline font-medium inline-flex items-center gap-0.5 bg-primary/10 px-1.5 py-0.2 rounded transition"
+          >
+            <span>{label}</span>
+          </button>
+        );
+      }
+
       return (
         <a
           key={i}
@@ -777,3 +808,6 @@ function renderInlineText(text: string, onWikilinkClick: (target: string) => voi
     return part;
   });
 }
+
+export const ObsidianVaultBrowser = NotionKnowledgeBrowser;
+
